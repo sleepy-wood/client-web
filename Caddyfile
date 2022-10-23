@@ -1,0 +1,4 @@
+{$SITE_ADDRESS}
+
+file_server
+reverse_proxy /api/* api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}
