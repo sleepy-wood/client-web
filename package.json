@@ -5,7 +5,7 @@
   "homepage": "https://team-buildup.shop",
   "main": "index.tsx",
   "author": "PIYoung(https://github.com/PIYoung)",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "dependencies": {
     "@craco/craco": "^6.4.5",
     "@reduxjs/toolkit": "^1.8.6",
