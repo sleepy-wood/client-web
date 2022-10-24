@@ -1,4 +1,9 @@
-{$SITE_ADDRESS}
+{
+	admin off
+	auto_https off
+}
+
+http://
 
 file_server
 reverse_proxy /api/* api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}
