@@ -1,6 +1,6 @@
 import React from 'react';
-import Slider, { Settings } from 'react-slick';
 import { useMediaQuery } from 'react-responsive';
+import Slider, { Settings } from 'react-slick';
 
 import * as S from './styled';
 import beauty from '../../../assets/images/beauty.png';

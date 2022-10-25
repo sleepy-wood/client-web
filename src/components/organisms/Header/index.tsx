@@ -33,8 +33,8 @@ function Desktop() {
       )}
       <S.SubContainer>
         <S.MenuContainer>
-          <div>Market</div>
-          <div>Info</div>
+          <div>MARKET</div>
+          <div>INFO</div>
         </S.MenuContainer>
         <S.IconContainer>
           <div>
