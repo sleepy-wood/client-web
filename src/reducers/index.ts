@@ -6,6 +6,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import storage from 'redux-persist/lib/storage';
 import menu from './menu.reducer';
+import user from './user.reducer';
 
 const middleware = [];
 const transformCircular = createTransform(
@@ -14,6 +15,7 @@ const transformCircular = createTransform(
 );
 const rootReducer = combineReducers({
   menu,
+  user,
 });
 const persistedReducer = persistReducer(
   {

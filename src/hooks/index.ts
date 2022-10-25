@@ -1,3 +1,2 @@
 //@index('./*.ts', f => f.path !== `./index` ? `export * from '${f.path}'` : "")
-export * from './common.interface';
-export * from './user.interface';
+export * from './useInput';
