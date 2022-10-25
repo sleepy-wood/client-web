@@ -13,7 +13,7 @@ http:
   path: '/'
   # You can specify a custom health check path. The default is "/".
   # healthcheck: '/'
-  alias: www2.team-buildup.shop
+  alias: team-buildup.shop
 
 # Configuration for your containers and service.
 image:
