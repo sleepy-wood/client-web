@@ -22,3 +22,7 @@ export const SIZES = <const>{
   large: '24px',
   extraLarge: '32px',
 };
+
+export const MEDIA = {
+  minWidth: '420px',
+};

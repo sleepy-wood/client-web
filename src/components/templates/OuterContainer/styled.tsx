@@ -2,9 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-
-  /* Linear */
-
   background: linear-gradient(
     196.75deg,
     rgba(246, 114, 128, 0.3) 0.02%,
