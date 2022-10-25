@@ -1,4 +1,4 @@
-FROM node:16
+FROM public.ecr.aws/docker/library/node:16
 
 WORKDIR /app
 
@@ -7,7 +7,7 @@ RUN yarn install --frozen-lockfile
 COPY . ./
 RUN yarn build
 
-FROM caddy:2
+FROM public.ecr.aws/docker/library/caddy:2
 
 COPY Caddyfile /etc/caddy/Caddyfile
 COPY --from=0 /app/build /srv
