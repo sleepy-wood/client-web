@@ -21,6 +21,8 @@ export const SIZES = <const>{
   medium: '16px',
   large: '24px',
   extraLarge: '32px',
+  gutterDesktop: '24px',
+  gutterMobile: '16px',
 };
 
 export const MEDIA = {
