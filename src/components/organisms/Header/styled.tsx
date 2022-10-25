@@ -29,7 +29,7 @@ export const SearchContainer = styled.div`
   align-items: center;
 
   background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0px 2px 20px var(--color-palette1);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 10px;

@@ -3,6 +3,8 @@ import { useMediaQuery } from 'react-responsive';
 
 import * as S from './styled';
 import appStore from '../../../assets/images/app-logo.png';
+import beauty from '../../../assets/images/beauty.png';
+import beauty2 from '../../../assets/images/beauty2.png';
 import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
@@ -16,14 +18,15 @@ export default function DownloadApp() {
 export function Desktop() {
   return (
     <S.Container>
-      <div>
+      <S.Main>
         <div>Sleepy Wood</div>
         <div>Build Healthy Sleep Habits</div>
-        <img src={appStore} alt='apps-store' width={120} height={100} />
-      </div>
-      <div>
-        <img src={appStore} alt='apps-store' width={120} height={100} />
-      </div>
+        <img src={appStore} alt='download on the apps store' />
+      </S.Main>
+      <S.Img>
+        <img src={beauty} alt='beauty tree' />
+        <img src={beauty2} alt='beauty tree' />
+      </S.Img>
     </S.Container>
   );
 }
