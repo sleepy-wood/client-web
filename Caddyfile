@@ -6,4 +6,5 @@
 http://
 
 file_server
+push
 reverse_proxy /api/* api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000
