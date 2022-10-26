@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import ErrorFallback from './pages/ErrorFallback';
 import OuterContainer from './components/templates/OuterContainer';
 import InnerContainer from './components/templates/InnerContainer';
+import FooterContainer from './components/templates/FooterContainer';
+import Footer from './components/organisms/Footer';
 import { GlobalStyles } from './components/templates/GlobalStyles';
 import { PATH } from './constants/path';
 import { RootState } from './reducers';
@@ -29,6 +31,9 @@ export default function App() {
             </Routes>
           </BrowserRouter>
         </InnerContainer>
+        <FooterContainer>
+          <Footer />
+        </FooterContainer>
       </OuterContainer>
     </ErrorBoundary>
   );

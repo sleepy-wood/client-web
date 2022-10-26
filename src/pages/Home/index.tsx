@@ -6,7 +6,6 @@ import DownloadApp from '../../components/organisms/DownloadApp';
 import ShowMeYourNFT from '../../components/organisms/ShowMeYourNFT';
 import Trending from '../../components/organisms/Trending';
 import BrowseByCategory from '../../components/organisms/BrowseByCategory';
-import Footer from '../../components/organisms/Footer';
 
 export default function Home() {
   return (
@@ -16,7 +15,6 @@ export default function Home() {
       <ShowMeYourNFT />
       <Trending />
       <BrowseByCategory />
-      <Footer />
     </S.Container>
   );
 }
