@@ -30,6 +30,37 @@ export const CategoryContainer = styled.div`
 
   margin-top: 16px;
   display: flex;
+  justify-content: space-between;
 `;
 
-export const Category = styled.div``;
+export const Category = styled.div`
+  cursor: pointer;
+
+  & > div:nth-of-type(1) {
+    width: 440px;
+    height: 224px;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px 10px 0 0;
+    }
+  }
+
+  & > div:nth-of-type(2) {
+    width: 440px;
+    height: 68px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+
+    font-weight: bold;
+    font-size: 32px;
+
+    color: #04111d;
+  }
+`;

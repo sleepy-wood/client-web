@@ -2,6 +2,7 @@ import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import * as S from './styled';
+import category from '../../../assets/images/category.webp';
 import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
@@ -20,8 +21,42 @@ function Desktop() {
       </S.TitleContainer>
       <S.CategoryContainer>
         <S.Category>
-          <div>img</div>
-          <div>Category1</div>
+          <div>
+            <img src={category} alt='category' />
+          </div>
+          <div>Category</div>
+        </S.Category>
+        <S.Category>
+          <div>
+            <img src={category} alt='category' />
+          </div>
+          <div>Category</div>
+        </S.Category>
+        <S.Category>
+          <div>
+            <img src={category} alt='category' />
+          </div>
+          <div>Category</div>
+        </S.Category>
+      </S.CategoryContainer>
+      <S.CategoryContainer>
+        <S.Category>
+          <div>
+            <img src={category} alt='category' />
+          </div>
+          <div>Category</div>
+        </S.Category>
+        <S.Category>
+          <div>
+            <img src={category} alt='category' />
+          </div>
+          <div>Category</div>
+        </S.Category>
+        <S.Category>
+          <div>
+            <img src={category} alt='category' />
+          </div>
+          <div>Category</div>
         </S.Category>
       </S.CategoryContainer>
     </S.Container>
