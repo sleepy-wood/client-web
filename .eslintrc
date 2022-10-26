@@ -7,6 +7,11 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
   "rules": {
     "prettier/prettier": "error",
     "react-native/no-inline-styles": 0,
