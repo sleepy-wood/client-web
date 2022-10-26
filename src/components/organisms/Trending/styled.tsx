@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  height: 380px;
   padding: 40px 16px 0;
 `;
 
@@ -46,7 +45,6 @@ export const Title = styled.div<{ active?: boolean }>`
 
 export const TopTenContainer = styled.div`
   width: 100%;
-  height: 276px;
 
   margin-top: 16px;
   display: flex;
@@ -55,10 +53,99 @@ export const TopTenContainer = styled.div`
 export const FiveContainer = styled.div`
   width: 50%;
   height: 100%;
-  border: 1px solid black;
 `;
 
 export const SubTitleContainer = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
+
+  & > div:nth-of-type(1) {
+    width: 70%;
+  }
+
+  & > div:nth-of-type(2) {
+    width: 15%;
+    text-align: center;
+  }
+
+  & > div:nth-of-type(3) {
+    width: 15%;
+    text-align: center;
+  }
+`;
+
+export const SubTitle = styled.div`
+  font-weight: 700;
+  font-size: 12px;
+  color: #707a83;
+`;
+
+export const ProfileContainer = styled.div`
+  width: 100%;
+`;
+
+export const Profile = styled.div`
+  width: 100%;
+  height: 92px;
+  padding: 12px 8px;
+
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(108, 91, 123, 0.1);
+    border-radius: 4px;
+  }
+
+  & > div {
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    font-weight: 700;
+    font-size: 16px;
+    color: #04111d;
+  }
+
+  & > div:nth-of-type(1) {
+    width: 70%;
+
+    & > div:nth-of-type(1) {
+      width: 24px;
+      margin-right: 16px;
+      font-weight: 700;
+      font-size: 28px;
+      color: #707a83;
+    }
+
+    & > div:nth-of-type(2) {
+      margin-right: 24px;
+
+      & > img {
+        width: 68px;
+        height: 68px;
+        border: 1px solid transparent;
+        border-radius: 10px;
+      }
+    }
+  }
+
+  & > div:nth-of-type(2) {
+    width: 15%;
+    text-align: center;
+    & > p {
+      width: 100%;
+    }
+  }
+
+  & > div:nth-of-type(3) {
+    width: 15%;
+    text-align: center;
+    & > p {
+      width: 100%;
+    }
+  }
 `;
