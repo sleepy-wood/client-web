@@ -10,3 +10,4 @@ reverse_proxy /api/* api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000
 reverse_proxy /resources/* api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000
 reverse_proxy /temp/* api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000
 reverse_proxy /secure/* api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000
+reverse_proxy /assets/* {$ASSETS_URL}

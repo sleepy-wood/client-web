@@ -77,3 +77,8 @@ Outputs:
   assetsAccessPolicy:
     Description: "The IAM::ManagedPolicy to attach to the task role"
     Value: !Ref assetsAccessPolicy
+  assetsURL:
+    Description: "The URL of the bucket."
+    Value: !GetAtt
+      - assetsBucket
+      - WebsiteURL
