@@ -13,6 +13,9 @@ reverse_proxy /resources/* api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000
 reverse_proxy /temp/* api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000
 reverse_proxy /secure/* api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000
 
-s3proxy /assets/* {
-	bucket {$ASSETS_NAME}
+route /assets/* {
+	uri strip_prefix /assets
+	s3proxy {
+		bucket {$ASSETS_NAME}
+	}
 }
