@@ -6,25 +6,31 @@
 http://
 
 log
-file_server
 
 header -Server
 
 handle_errors {
-	rewrite * /{err.status_code}.html
-	file_server
-
 	header -Server
 }
 
 @api {
 	path_regexp ^/(api|resources|temp|secure)/
 }
-reverse_proxy @api api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000
+route @api {
+	reverse_proxy api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000
+}
+
 
 route /assets/* {
 	uri strip_prefix /assets
 	s3proxy {
 		bucket {$ASSETS_NAME}
 	}
+}
+
+route {
+	file_server {
+		pass_thru
+	}
+    rewrite * /index.html
 }
