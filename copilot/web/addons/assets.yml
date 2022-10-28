@@ -8,6 +8,7 @@ Parameters:
   Name:
     Type: String
     Description: The name of the service, job, or workflow being deployed.
+
 Resources:
   assetsBucket:
     Metadata:
@@ -59,16 +60,16 @@ Resources:
             Effect: Allow
             Action:
               - s3:GetObject
-              - s3:PutObject
-              - s3:PutObjectACL
-              - s3:PutObjectTagging
-              - s3:DeleteObject
-              - s3:RestoreObject
+              # - s3:PutObject
+              # - s3:PutObjectACL
+              # - s3:PutObjectTagging
+              # - s3:DeleteObject
+              # - s3:RestoreObject
             Resource: !Sub ${ assetsBucket.Arn}/*
-          - Sid: S3ListAction
-            Effect: Allow
-            Action: s3:ListBucket
-            Resource: !Sub ${ assetsBucket.Arn}
+          # - Sid: S3ListAction
+          #   Effect: Allow
+          #   Action: s3:ListBucket
+          #   Resource: !Sub ${ assetsBucket.Arn}
 
 Outputs:
   assetsName:
@@ -77,8 +78,3 @@ Outputs:
   assetsAccessPolicy:
     Description: "The IAM::ManagedPolicy to attach to the task role"
     Value: !Ref assetsAccessPolicy
-  assetsURL:
-    Description: "The URL of the bucket."
-    Value: !GetAtt
-      - assetsBucket
-      - WebsiteURL
