@@ -5,5 +5,32 @@
 
 http://
 
-file_server
-reverse_proxy /api/* api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000
+log
+
+header -Server
+
+handle_errors {
+	header -Server
+}
+
+@api {
+	path_regexp ^/(api|resources|temp|secure)/
+}
+route @api {
+	reverse_proxy api.{$COPILOT_SERVICE_DISCOVERY_ENDPOINT}:3000
+}
+
+
+route /assets/* {
+	uri strip_prefix /assets
+	s3proxy {
+		bucket {$ASSETS_NAME}
+	}
+}
+
+route {
+	file_server {
+		pass_thru
+	}
+	rewrite * /index.html
+}
