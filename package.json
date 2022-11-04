@@ -8,6 +8,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@craco/craco": "^6.4.5",
+    "@ethersproject/providers": "^5.7.2",
     "@reduxjs/toolkit": "^1.8.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
