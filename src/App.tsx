@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import * as I from './interfaces';
 import Home from './pages/Home';
+import Market from './pages/Market';
 import ErrorFallback from './pages/ErrorFallback';
 import OuterContainer from './components/templates/OuterContainer';
 import InnerContainer from './components/templates/InnerContainer';
@@ -22,8 +23,15 @@ declare global {
 }
 
 export default function App() {
+  const [isIndex, setIsIndex] = useState<boolean>(false);
   const [web3, setWeb3] = useState<Web3>(null);
   const { configurations } = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    if (window.location.pathname === '/') {
+      setIsIndex(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (typeof window.ethereum !== 'undefined') {
@@ -44,6 +52,7 @@ export default function App() {
           <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Routes>
               <Route path={PATH.HOME} element={<Home />} />
+              <Route path={PATH.MARKET} element={<Market />} />
               <Route
                 path='*'
                 element={<ErrorFallback error={new Error('404')} resetErrorBoundary={() => {}} />}
@@ -51,9 +60,11 @@ export default function App() {
             </Routes>
           </BrowserRouter>
         </InnerContainer>
-        <FooterContainer>
-          <Footer />
-        </FooterContainer>
+        {isIndex && (
+          <FooterContainer>
+            <Footer />
+          </FooterContainer>
+        )}
       </OuterContainer>
     </ErrorBoundary>
   );
