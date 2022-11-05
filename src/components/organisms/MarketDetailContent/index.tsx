@@ -38,12 +38,44 @@ function Desktop() {
               <div>컬렉션 정보</div>
               <div>
                 <div>에셋</div>
-                <div>2</div>
+                <div>4</div>
               </div>
             </S.CollectionInfo>
           </S.Profile>
         </S.Info>
         <S.Items>
+          <S.Item>
+            <S.ItemImg>
+              <img src={tree1} alt='tree' />
+            </S.ItemImg>
+            <S.ItemName>나무 이름</S.ItemName>
+            <S.ItemCount>1 / 1</S.ItemCount>
+            <S.ItemPrice>
+              <div>
+                <img src={wood} alt='wood' />
+              </div>
+              <div>
+                <div>3150.00</div>
+                <div>2923.03 USD</div>
+              </div>
+            </S.ItemPrice>
+          </S.Item>
+          <S.Item>
+            <S.ItemImg>
+              <img src={tree2} alt='tree' />
+            </S.ItemImg>
+            <S.ItemName>나무 이름</S.ItemName>
+            <S.ItemCount>1 / 1</S.ItemCount>
+            <S.ItemPrice>
+              <div>
+                <img src={wood} alt='wood' />
+              </div>
+              <div>
+                <div>3150.00</div>
+                <div>2923.03 USD</div>
+              </div>
+            </S.ItemPrice>
+          </S.Item>
           <S.Item>
             <S.ItemImg>
               <img src={tree1} alt='tree' />
