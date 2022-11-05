@@ -76,10 +76,65 @@ export const IconContainer = styled.div`
   align-items: center;
 
   & > div {
-    cursor: pointer;
+    position: relative;
+    & > svg {
+      cursor: pointer;
+    }
   }
 
   & > div:not(:last-child) {
     margin-right: 24px;
   }
+`;
+
+export const InfoContainer = styled.div`
+  width: 160px;
+
+  position: absolute;
+  top: 52px;
+  left: 0;
+  z-index: 1;
+
+  background-color: white;
+
+  border-radius: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  & > div {
+    display: flex;
+    align-items: center;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    font-weight: 600;
+    font-size: 16px;
+    color: rgb(4, 17, 29);
+  }
+
+  & > div:nth-of-type(1) {
+    padding: 12px;
+    border-bottom: 1px solid rgb(229, 232, 235);
+  }
+
+  & > div:nth-of-type(2) {
+    padding: 12px;
+    cursor: pointer;
+  }
+`;
+
+export const InfoIconContainer = styled.div`
+  width: fit-content;
+  padding: 2px;
+  background-color: #f0f0f0;
+  border: 2px solid rgb(229, 232, 235);
+  border-radius: 50%;
+  margin-right: 8px;
+`;
+
+export const InfoWallet = styled.div`
+  width: fit-content;
+  padding: 2px;
+  margin-right: 8px;
 `;
