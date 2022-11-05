@@ -7,7 +7,9 @@ import {
   FaShoppingBasket,
 } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+import * as C from '../../../constants';
 import * as S from './styled';
 import metamask from '../../../assets/images/metamask-fox.svg';
 import { MEDIA } from '../../../constants';
@@ -17,23 +19,48 @@ type Props = {
   connectWallet: (e: React.MouseEvent) => Promise<void>;
 };
 
-export default function Header({ connectWallet }: Props) {
+export default function Header() {
   const isDesktop = useMediaQuery({ minWidth });
+  const [account, setAccount] = useState<string>('');
+
+  const connectWallet = useCallback(
+    async (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      setAccount(accounts[0]);
+      console.log(account);
+    },
+    [account],
+  );
 
   return isDesktop ? <Desktop connectWallet={connectWallet} /> : <Mobile />;
 }
 
 function Desktop({ connectWallet }: Props) {
+  const location = useLocation();
+  const navigate = useNavigate();
   const showSearch = useMediaQuery({ minWidth: 768 });
   const [showWallet, setShowWallet] = useState<boolean>(false);
 
-  const goHome = useCallback(e => {
-    console.log('go home');
-  }, []);
+  const moveToPath = useCallback(
+    (path: string, e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (location.pathname !== path) {
+        navigate(path);
+      }
+    },
+    [location.pathname, navigate],
+  );
 
   return (
     <S.Container>
-      <S.AppName onClick={goHome}>Sleepy Wood</S.AppName>
+      <S.AppName onClick={moveToPath.bind(null, C.PATH.HOME)}>Sleepy Wood</S.AppName>
       {showSearch && (
         <S.SearchContainer>
           <div>
@@ -44,7 +71,7 @@ function Desktop({ connectWallet }: Props) {
       )}
       <S.SubContainer>
         <S.MenuContainer>
-          <div>MARKET</div>
+          <div onClick={moveToPath.bind(null, C.PATH.MARKET)}>MARKET</div>
           <div>INFO</div>
         </S.MenuContainer>
         <S.IconContainer>
