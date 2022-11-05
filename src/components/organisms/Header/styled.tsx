@@ -5,8 +5,16 @@ import { SIZES } from '../../../constants';
 export const Container = styled.div`
   width: 100%;
   height: 72px;
+
+  z-index: 1002;
+  position: sticky;
+  top: 0;
+
   display: flex;
   align-items: center;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 `;
 
 export const AppName = styled.h1`
