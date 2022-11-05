@@ -1,9 +1,14 @@
 import React from 'react';
 
+import * as S from './styled';
+import Header from '../../components/organisms/Header';
+import MarketDetailContent from '../../components/organisms/MarketDetailContent';
+
 export default function MarketDetail() {
   return (
-    <div>
-      <h1>MarketDetail</h1>
-    </div>
+    <S.Container>
+      <Header />
+      <MarketDetailContent />
+    </S.Container>
   );
 }
