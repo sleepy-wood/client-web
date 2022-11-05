@@ -1,11 +1,38 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FaRegArrowAltCircleRight } from 'react-icons/fa';
+import { useMediaQuery } from 'react-responsive';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+import * as C from '../../../constants';
 import * as S from './styled';
 import beauty from '../../../assets/images/beauty.png';
 import profile1 from '../../../assets/images/profile1.png';
+import { MEDIA } from '../../../constants';
+
+const { minWidth } = MEDIA;
 
 export default function MarketContent() {
+  const isDesktop = useMediaQuery({ minWidth });
+
+  return isDesktop ? <Desktop /> : <Mobile />;
+}
+
+function Desktop() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const moveToPath = useCallback(
+    (path: string, e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (location.pathname !== path) {
+        navigate(path);
+      }
+    },
+    [location.pathname, navigate],
+  );
+
   return (
     <S.Container>
       <S.Header>
@@ -19,7 +46,7 @@ export default function MarketContent() {
         </S.ContentContainerHeader>
         <S.CardContainer>
           {[1, 2, 3, 4, 5].map((_, index) => (
-            <S.Card key={index}>
+            <S.Card key={index} onClick={moveToPath.bind(null, C.PATH.MARKET_DETAIL)}>
               <div>
                 <img src={beauty} alt='beauty' />
               </div>
@@ -98,4 +125,8 @@ export default function MarketContent() {
       </S.ContentContainer>
     </S.Container>
   );
+}
+
+function Mobile() {
+  return <div>Mobile</div>;
 }
