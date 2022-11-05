@@ -1,6 +1,9 @@
 import React from 'react';
+import { FaRegArrowAltCircleRight } from 'react-icons/fa';
 
 import * as S from './styled';
+import beauty from '../../../assets/images/beauty.png';
+import profile1 from '../../../assets/images/profile1.png';
 
 export default function MarketContent() {
   return (
@@ -15,12 +18,83 @@ export default function MarketContent() {
           <div>(100)</div>
         </S.ContentContainerHeader>
         <S.CardContainer>
-          <S.Card>
-            <div>이미지</div>
-            <div>이름</div>
-            <div>소유자</div>
-          </S.Card>
+          {[1, 2, 3, 4, 5].map((_, index) => (
+            <S.Card key={index}>
+              <div>
+                <img src={beauty} alt='beauty' />
+              </div>
+              <div>
+                <img src={profile1} alt='profile' />
+              </div>
+              <div>
+                <div>User Nickname</div>
+                <div>8 에셋</div>
+              </div>
+            </S.Card>
+          ))}
         </S.CardContainer>
+        <S.More>
+          <div>더보기</div>
+          <div>
+            <FaRegArrowAltCircleRight />
+          </div>
+        </S.More>
+      </S.ContentContainer>
+      <S.ContentContainer>
+        <S.ContentContainerHeader>
+          <div>컬렉션</div>
+          <div>(100)</div>
+        </S.ContentContainerHeader>
+        <S.CardContainer>
+          {[1, 2, 3, 4, 5].map((_, index) => (
+            <S.Card key={index}>
+              <div>
+                <img src={beauty} alt='beauty' />
+              </div>
+              <div>
+                <img src={profile1} alt='profile' />
+              </div>
+              <div>
+                <div>User Nickname</div>
+                <div>8 에셋</div>
+              </div>
+            </S.Card>
+          ))}
+        </S.CardContainer>
+        <S.More>
+          <div>더보기</div>
+          <div>
+            <FaRegArrowAltCircleRight />
+          </div>
+        </S.More>
+      </S.ContentContainer>
+      <S.ContentContainer>
+        <S.ContentContainerHeader>
+          <div>컬렉션</div>
+          <div>(100)</div>
+        </S.ContentContainerHeader>
+        <S.CardContainer>
+          {[1, 2, 3, 4, 5].map((_, index) => (
+            <S.Card key={index}>
+              <div>
+                <img src={beauty} alt='beauty' />
+              </div>
+              <div>
+                <img src={profile1} alt='profile' />
+              </div>
+              <div>
+                <div>User Nickname</div>
+                <div>8 에셋</div>
+              </div>
+            </S.Card>
+          ))}
+        </S.CardContainer>
+        <S.More>
+          <div>더보기</div>
+          <div>
+            <FaRegArrowAltCircleRight />
+          </div>
+        </S.More>
       </S.ContentContainer>
     </S.Container>
   );
