@@ -2,15 +2,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 230px;
-  height: 100vh;
-  max-width: 230px;
-  max-height: calc(100vh - 72px);
-
   padding: 20px;
 
-  z-index: 1001;
-  overflow: hidden;
-
+  position: fixed;
   & > div {
     color: var(--color-text);
 
