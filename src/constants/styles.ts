@@ -5,6 +5,7 @@ export const COLORS = <const>{
     palette2: '#C06C84',
     palette3: '#6C5B7B',
     palette4: '#35477D',
+    palette5: '#F8B195',
   },
   dark: {
     text: '#F5F5F5',
@@ -12,6 +13,7 @@ export const COLORS = <const>{
     palette2: '#4C3575',
     palette3: '#5B4B8A',
     palette4: '#7858A6',
+    palette5: '#A67CBA',
   },
 };
 
