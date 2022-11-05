@@ -19,7 +19,7 @@ export function Desktop() {
   return (
     <S.Container>
       <S.Main>
-        <div>Sleepy Wood</div>
+        <div>Sleepywood</div>
         <div>Build Healthy Sleep Habits</div>
         <img src={appStore} alt='download on the apps store' />
       </S.Main>
