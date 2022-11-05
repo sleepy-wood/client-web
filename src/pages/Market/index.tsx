@@ -3,6 +3,7 @@ import React from 'react';
 import * as S from './styled';
 import Header from '../../components/organisms/Header';
 import LeftNavigation from '../../components/organisms/LeftNavigation';
+import MarketContent from '../../components/organisms/MarketContent';
 
 export default function Market() {
   return (
@@ -10,7 +11,7 @@ export default function Market() {
       <Header />
       <div className='flex'>
         <LeftNavigation />
-        <div>Content</div>
+        <MarketContent />
       </div>
     </S.Container>
   );
