@@ -11,6 +11,7 @@ import ErrorFallback from './pages/ErrorFallback';
 import OuterContainer from './components/templates/OuterContainer';
 import InnerContainer from './components/templates/InnerContainer';
 import FooterContainer from './components/templates/FooterContainer';
+import LocationDetector from './components/templates/LocationDetector';
 import Footer from './components/organisms/Footer';
 import { GlobalStyles } from './components/templates/GlobalStyles';
 import { PATH } from './constants/path';
@@ -23,15 +24,9 @@ declare global {
 }
 
 export default function App() {
-  const [isIndex, setIsIndex] = useState<boolean>(false);
   const [web3, setWeb3] = useState<Web3>(null);
   const { configurations } = useSelector((state: RootState) => state.user);
-
-  useEffect(() => {
-    if (window.location.pathname === '/') {
-      setIsIndex(true);
-    }
-  }, []);
+  const { currentPathname } = useSelector((state: RootState) => state.path);
 
   useEffect(() => {
     if (typeof window.ethereum !== 'undefined') {
@@ -50,6 +45,7 @@ export default function App() {
       <OuterContainer>
         <InnerContainer>
           <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <LocationDetector />
             <Routes>
               <Route path={PATH.HOME} element={<Home />} />
               <Route path={PATH.MARKET} element={<Market />} />
@@ -60,7 +56,7 @@ export default function App() {
             </Routes>
           </BrowserRouter>
         </InnerContainer>
-        {isIndex && (
+        {currentPathname === PATH.HOME && (
           <FooterContainer>
             <Footer />
           </FooterContainer>

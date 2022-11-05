@@ -1,2 +1,3 @@
-//@index('./*.ts', f => f.path !== `./index` ? `export * from '${f.path}'` : "")
+//@index('./*.ts', f => f.path !== `./index` ? `export * from '${f.path}';` : "")
 export * from './useInput';
+export * from './usePathname';
