@@ -19,7 +19,7 @@ export default function MarketDetailContent() {
           <S.Profile>
             <S.ProfileContainer>
               <S.Name>User Nickname</S.Name>
-              <S.Description>Explore the colorful world of Gucci</S.Description>
+              <S.Description>안녕하세요. 메타버스 플랫폼 슬리피우드입니다.</S.Description>
             </S.ProfileContainer>
             <S.CollectionInfo>
               <div>컬렉션 정보</div>
