@@ -10,13 +10,19 @@ export const Container = styled.div`
   position: sticky;
   top: 0;
 
-  display: flex;
-  align-items: center;
-
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 
   text-shadow: -1px 0 #f5f5f5, 0 1px #f5f5f5, 1px 0 #f5f5f5, 0 -1px #f5f5f5;
+
+  & > div {
+    width: 1440px;
+    height: 100%;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const AppName = styled.h1`

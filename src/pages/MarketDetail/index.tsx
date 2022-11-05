@@ -7,7 +7,6 @@ import MarketDetailContent from '../../components/organisms/MarketDetailContent'
 export default function MarketDetail() {
   return (
     <S.Container>
-      <Header />
       <MarketDetailContent />
     </S.Container>
   );

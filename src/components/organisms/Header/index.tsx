@@ -61,51 +61,53 @@ function Desktop({ connectWallet }: Props) {
   return (
     <React.Fragment>
       <S.Container>
-        <S.AppName onClick={moveToPath.bind(null, C.PATH.HOME)}>Sleepywood</S.AppName>
-        {showSearch && (
-          <S.SearchContainer>
-            <div>
-              <FaSearch color='#a0a0a0' size={18} />
-            </div>
-            <input type='text' placeholder='Search Items' />
-          </S.SearchContainer>
-        )}
-        <S.SubContainer>
-          <S.MenuContainer>
-            <div onClick={moveToPath.bind(null, C.PATH.MARKET)}>MARKET</div>
-            <div>INFO</div>
-          </S.MenuContainer>
-          <S.IconContainer>
-            <div>
-              <FaRegUserCircle size={32} />
-            </div>
-            <div
-              onClick={() => {
-                setShowWallet(!showWallet);
-              }}>
-              <FaWallet size={32} />
-              {showWallet && (
-                <S.InfoContainer>
-                  <div>
-                    <S.InfoIconContainer>
-                      <FaUserCircle size={24} />
-                    </S.InfoIconContainer>
-                    <div>My wallet</div>
-                  </div>
-                  <div onClick={connectWallet}>
-                    <S.InfoWallet>
-                      <img width={24} src={metamask} alt='metamask' />
-                    </S.InfoWallet>
-                    <div>Metamask</div>
-                  </div>
-                </S.InfoContainer>
-              )}
-            </div>
-            <div>
-              <FaShoppingBasket size={32} />
-            </div>
-          </S.IconContainer>
-        </S.SubContainer>
+        <div>
+          <S.AppName onClick={moveToPath.bind(null, C.PATH.HOME)}>Sleepywood</S.AppName>
+          {showSearch && (
+            <S.SearchContainer>
+              <div>
+                <FaSearch color='#a0a0a0' size={18} />
+              </div>
+              <input type='text' placeholder='Search Items' />
+            </S.SearchContainer>
+          )}
+          <S.SubContainer>
+            <S.MenuContainer>
+              <div onClick={moveToPath.bind(null, C.PATH.MARKET)}>MARKET</div>
+              <div>INFO</div>
+            </S.MenuContainer>
+            <S.IconContainer>
+              <div>
+                <FaRegUserCircle size={32} />
+              </div>
+              <div
+                onClick={() => {
+                  setShowWallet(!showWallet);
+                }}>
+                <FaWallet size={32} />
+                {showWallet && (
+                  <S.InfoContainer>
+                    <div>
+                      <S.InfoIconContainer>
+                        <FaUserCircle size={24} />
+                      </S.InfoIconContainer>
+                      <div>My wallet</div>
+                    </div>
+                    <div onClick={connectWallet}>
+                      <S.InfoWallet>
+                        <img width={24} src={metamask} alt='metamask' />
+                      </S.InfoWallet>
+                      <div>Metamask</div>
+                    </div>
+                  </S.InfoContainer>
+                )}
+              </div>
+              <div>
+                <FaShoppingBasket size={32} />
+              </div>
+            </S.IconContainer>
+          </S.SubContainer>
+        </div>
       </S.Container>
     </React.Fragment>
   );

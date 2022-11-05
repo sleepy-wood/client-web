@@ -8,7 +8,6 @@ import MarketContent from '../../components/organisms/MarketContent';
 export default function Market() {
   return (
     <S.Container>
-      <Header />
       <div className='flex'>
         <LeftNavigation />
         <MarketContent />

@@ -43,9 +43,10 @@ export default function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <GlobalStyles colorTheme={configurations.theme} />
-      <OuterContainer>
-        <InnerContainer>
-          <BrowserRouter basename={process.env.PUBLIC_URL}>
+
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <OuterContainer>
+          <InnerContainer>
             <LocationDetector />
             <Routes>
               <Route path={PATH.HOME} element={<Home />} />
@@ -56,14 +57,14 @@ export default function App() {
                 element={<ErrorFallback error={new Error('404')} resetErrorBoundary={() => {}} />}
               />
             </Routes>
-          </BrowserRouter>
-        </InnerContainer>
-        {currentPathname === PATH.HOME && (
-          <FooterContainer>
-            <Footer />
-          </FooterContainer>
-        )}
-      </OuterContainer>
+          </InnerContainer>
+          {currentPathname === PATH.HOME && (
+            <FooterContainer>
+              <Footer />
+            </FooterContainer>
+          )}
+        </OuterContainer>
+      </BrowserRouter>
     </ErrorBoundary>
   );
 }

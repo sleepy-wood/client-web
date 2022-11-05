@@ -110,4 +110,6 @@ export const CollectionInfo = styled.div`
   }
 `;
 
-export const Items = styled.div``;
+export const Items = styled.div`
+  min-height: 800px;
+`;

@@ -10,7 +10,6 @@ import BrowseByCategory from '../../components/organisms/BrowseByCategory';
 export default function Home() {
   return (
     <S.Container>
-      <Header />
       <DownloadApp />
       <ShowMeYourNFT />
       <Trending />
