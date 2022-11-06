@@ -127,6 +127,8 @@ export const Item = styled.div`
   border: 4px solid transparent;
   border-radius: 10px;
 
+  cursor: pointer;
+
   background-image: linear-gradient(#f3f3f3, #f3f3f3),
     linear-gradient(
       196.75deg,

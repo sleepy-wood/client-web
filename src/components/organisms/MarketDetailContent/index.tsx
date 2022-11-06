@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+import * as C from '../../../constants';
 import * as S from './styled';
 import banner from '../../../assets/images/banner.avif';
 import profile from '../../../assets/images/profile1.png';
@@ -18,6 +20,21 @@ export default function MarketDetailContent() {
 }
 
 function Desktop() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const moveToPath = useCallback(
+    (path: string, e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (location.pathname !== path) {
+        navigate(path);
+      }
+    },
+    [location.pathname, navigate],
+  );
+
   return (
     <S.Container>
       <S.Banner>
@@ -44,70 +61,42 @@ function Desktop() {
           </S.Profile>
         </S.Info>
         <S.Items>
-          <S.Item>
-            <S.ItemImg>
-              <img src={tree1} alt='tree' />
-            </S.ItemImg>
-            <S.ItemName>나무 이름</S.ItemName>
-            <S.ItemCount>1 / 1</S.ItemCount>
-            <S.ItemPrice>
-              <div>
-                <img src={wood} alt='wood' />
-              </div>
-              <div>
-                <div>3150.00</div>
-                <div>2923.03 USD</div>
-              </div>
-            </S.ItemPrice>
-          </S.Item>
-          <S.Item>
-            <S.ItemImg>
-              <img src={tree2} alt='tree' />
-            </S.ItemImg>
-            <S.ItemName>나무 이름</S.ItemName>
-            <S.ItemCount>1 / 1</S.ItemCount>
-            <S.ItemPrice>
-              <div>
-                <img src={wood} alt='wood' />
-              </div>
-              <div>
-                <div>3150.00</div>
-                <div>2923.03 USD</div>
-              </div>
-            </S.ItemPrice>
-          </S.Item>
-          <S.Item>
-            <S.ItemImg>
-              <img src={tree1} alt='tree' />
-            </S.ItemImg>
-            <S.ItemName>나무 이름</S.ItemName>
-            <S.ItemCount>1 / 1</S.ItemCount>
-            <S.ItemPrice>
-              <div>
-                <img src={wood} alt='wood' />
-              </div>
-              <div>
-                <div>3150.00</div>
-                <div>2923.03 USD</div>
-              </div>
-            </S.ItemPrice>
-          </S.Item>
-          <S.Item>
-            <S.ItemImg>
-              <img src={tree2} alt='tree' />
-            </S.ItemImg>
-            <S.ItemName>나무 이름</S.ItemName>
-            <S.ItemCount>1 / 1</S.ItemCount>
-            <S.ItemPrice>
-              <div>
-                <img src={wood} alt='wood' />
-              </div>
-              <div>
-                <div>3150.00</div>
-                <div>2923.03 USD</div>
-              </div>
-            </S.ItemPrice>
-          </S.Item>
+          {[1, 2].map((_, index) => (
+            <React.Fragment>
+              <S.Item key={index + 1} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+                <S.ItemImg>
+                  <img src={tree1} alt='tree' />
+                </S.ItemImg>
+                <S.ItemName>나무 이름</S.ItemName>
+                <S.ItemCount>1 / 1</S.ItemCount>
+                <S.ItemPrice>
+                  <div>
+                    <img src={wood} alt='wood' />
+                  </div>
+                  <div>
+                    <div>3150.00</div>
+                    <div>2923.03 USD</div>
+                  </div>
+                </S.ItemPrice>
+              </S.Item>
+              <S.Item key={index + 2}>
+                <S.ItemImg>
+                  <img src={tree2} alt='tree' />
+                </S.ItemImg>
+                <S.ItemName>나무 이름</S.ItemName>
+                <S.ItemCount>1 / 1</S.ItemCount>
+                <S.ItemPrice>
+                  <div>
+                    <img src={wood} alt='wood' />
+                  </div>
+                  <div>
+                    <div>3150.00</div>
+                    <div>2923.03 USD</div>
+                  </div>
+                </S.ItemPrice>
+              </S.Item>
+            </React.Fragment>
+          ))}
         </S.Items>
       </S.Content>
     </S.Container>
