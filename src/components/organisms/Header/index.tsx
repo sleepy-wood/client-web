@@ -96,7 +96,7 @@ function Desktop({ connectWallet }: Props) {
                       <S.InfoIconContainer>
                         <AiFillShop size={24} />
                       </S.InfoIconContainer>
-                      <div>에셋 등록</div>
+                      <div>에셋 판매</div>
                     </div>
                     <div
                       style={{ cursor: 'pointer' }}
