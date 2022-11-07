@@ -10,6 +10,7 @@ import Market from './pages/Market';
 import MarketDetail from './pages/MarketDetail';
 import MarketRegister from './pages/MarketRegister';
 import ItemDetail from './pages/ItemDetail';
+import Dashboard from './pages/Dashboard';
 import ErrorFallback from './pages/ErrorFallback';
 import OuterContainer from './components/templates/OuterContainer';
 import InnerContainer from './components/templates/InnerContainer';
@@ -56,6 +57,7 @@ export default function App() {
               <Route path={PATH.MARKET_DETAIL} element={<MarketDetail />} />
               <Route path={PATH.MARKET_REGISTER} element={<MarketRegister />} />
               <Route path={PATH.ITEM_DETAIL} element={<ItemDetail />} />
+              <Route path={PATH.DASHBOARD} element={<Dashboard />} />
               <Route
                 path='*'
                 element={<ErrorFallback error={new Error('404')} resetErrorBoundary={() => {}} />}

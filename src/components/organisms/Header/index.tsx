@@ -72,7 +72,7 @@ function Desktop({ connectWallet }: Props) {
           <S.SubContainer>
             <S.MenuContainer>
               <div onClick={moveToPath.bind(null, C.PATH.MARKET)}>MARKET</div>
-              <div>INFO</div>
+              <div onClick={moveToPath.bind(null, C.PATH.DASHBOARD)}>INFO</div>
             </S.MenuContainer>
             <S.IconContainer>
               <div
