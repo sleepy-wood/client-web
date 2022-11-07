@@ -173,10 +173,10 @@ export const AssetButtonContainer = styled.div`
     justify-content: center;
 
     width: 100%;
-    height: 40px;
+    height: 52px;
 
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
 
     color: var(--color-text);
 
@@ -193,8 +193,8 @@ export const AssetButtonContainer = styled.div`
   }
 
   & > div:not(:first-child) {
-    width: 40px;
-    height: 40px;
+    width: 52px;
+    height: 52px;
 
     margin-left: 8px;
 
@@ -311,7 +311,7 @@ export const ExtraAssetPrice = styled.div`
     }
 
     & > div:nth-of-type(2) {
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 400;
       color: var(--color-text);
       opacity: 0.7;
