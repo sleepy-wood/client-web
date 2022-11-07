@@ -8,6 +8,7 @@ import * as I from './interfaces';
 import Home from './pages/Home';
 import Market from './pages/Market';
 import MarketDetail from './pages/MarketDetail';
+import MarketRegister from './pages/MarketRegister';
 import ItemDetail from './pages/ItemDetail';
 import ErrorFallback from './pages/ErrorFallback';
 import OuterContainer from './components/templates/OuterContainer';
@@ -53,6 +54,7 @@ export default function App() {
               <Route path={PATH.HOME} element={<Home />} />
               <Route path={PATH.MARKET} element={<Market />} />
               <Route path={PATH.MARKET_DETAIL} element={<MarketDetail />} />
+              <Route path={PATH.MARKET_REGISTER} element={<MarketRegister />} />
               <Route path={PATH.ITEM_DETAIL} element={<ItemDetail />} />
               <Route
                 path='*'

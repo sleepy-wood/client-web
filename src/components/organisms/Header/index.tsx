@@ -1,11 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import {
-  FaSearch,
-  FaRegUserCircle,
-  FaUserCircle,
-  FaWallet,
-  FaShoppingBasket,
-} from 'react-icons/fa';
+import { AiFillShop } from 'react-icons/ai';
+import { FaSearch, FaRegUserCircle, FaUserCircle, FaWallet, FaShoppingCart } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -44,6 +39,7 @@ function Desktop({ connectWallet }: Props) {
   const location = useLocation();
   const navigate = useNavigate();
   const showSearch = useMediaQuery({ minWidth: 768 });
+  const [showMyInfo, setShowMyInfo] = useState<boolean>(false);
   const [showWallet, setShowWallet] = useState<boolean>(false);
 
   const moveToPath = useCallback(
@@ -52,6 +48,8 @@ function Desktop({ connectWallet }: Props) {
       e.stopPropagation();
 
       if (location.pathname !== path) {
+        setShowMyInfo(false);
+        setShowWallet(false);
         navigate(path);
       }
     },
@@ -77,11 +75,28 @@ function Desktop({ connectWallet }: Props) {
               <div>INFO</div>
             </S.MenuContainer>
             <S.IconContainer>
-              <div>
+              <div
+                onClick={() => {
+                  setShowWallet(false);
+                  setShowMyInfo(!showMyInfo);
+                }}>
                 <FaRegUserCircle size={32} />
+                {showMyInfo && (
+                  <S.InfoContainer>
+                    <div
+                      style={{ cursor: 'pointer' }}
+                      onClick={moveToPath.bind(null, C.PATH.MARKET_REGISTER)}>
+                      <S.InfoIconContainer>
+                        <AiFillShop size={24} />
+                      </S.InfoIconContainer>
+                      <div>에셋 등록</div>
+                    </div>
+                  </S.InfoContainer>
+                )}
               </div>
               <div
                 onClick={() => {
+                  setShowMyInfo(false);
                   setShowWallet(!showWallet);
                 }}>
                 <FaWallet size={32} />
@@ -103,7 +118,7 @@ function Desktop({ connectWallet }: Props) {
                 )}
               </div>
               <div>
-                <FaShoppingBasket size={32} />
+                <FaShoppingCart size={32} />
               </div>
             </S.IconContainer>
           </S.SubContainer>

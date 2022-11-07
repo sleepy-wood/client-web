@@ -129,9 +129,12 @@ export const InfoContainer = styled.div`
     color: rgb(4, 17, 29);
   }
 
+  & > div:not(:last-child) {
+    border-bottom: 1px solid rgb(229, 232, 235);
+  }
+
   & > div:nth-of-type(1) {
     padding: 12px;
-    border-bottom: 1px solid rgb(229, 232, 235);
   }
 
   & > div:nth-of-type(2) {

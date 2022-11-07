@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaShoppingBasket, FaHeart } from 'react-icons/fa';
+import { FaShoppingCart, FaHeart } from 'react-icons/fa';
 
 import * as C from '../../../constants';
 import * as S from './styled';
@@ -70,7 +70,7 @@ function Desktop() {
             <S.AssetButtonContainer>
               <div>지금구매</div>
               <div>
-                <FaShoppingBasket size={24} />
+                <FaShoppingCart size={24} />
               </div>
               <div>
                 <FaHeart size={24} />
