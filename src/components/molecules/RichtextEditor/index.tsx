@@ -1,14 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import isHotkey from 'is-hotkey';
 import { Editable, withReact, useSlate, Slate, ReactEditor } from 'slate-react';
-import {
-  Editor,
-  Transforms,
-  createEditor,
-  Descendant,
-  Element as SlateElement,
-  BaseEditor,
-} from 'slate';
+import { Editor, Transforms, createEditor, Element as SlateElement, BaseEditor } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 
 import { Button, Icon, Toolbar } from '../../atoms/SlateAtoms';
@@ -50,11 +43,7 @@ const RichTextExample = () => {
         <MarkButton format='italic' icon='format_italic' />
         <MarkButton format='underline' icon='format_underlined' />
         <MarkButton format='code' icon='code' />
-        <BlockButton format='heading-one' icon='looks_one' />
-        <BlockButton format='heading-two' icon='looks_two' />
         <BlockButton format='block-quote' icon='format_quote' />
-        <BlockButton format='numbered-list' icon='format_list_numbered' />
-        <BlockButton format='bulleted-list' icon='format_list_bulleted' />
         <BlockButton format='left' icon='format_align_left' />
         <BlockButton format='center' icon='format_align_center' />
         <BlockButton format='right' icon='format_align_right' />
@@ -157,30 +146,6 @@ const Element = ({ attributes, children, element }) => {
         <ul style={style} {...attributes}>
           {children}
         </ul>
-      );
-    case 'heading-one':
-      return (
-        <h1 style={style} {...attributes}>
-          {children}
-        </h1>
-      );
-    case 'heading-two':
-      return (
-        <h2 style={style} {...attributes}>
-          {children}
-        </h2>
-      );
-    case 'list-item':
-      return (
-        <li style={style} {...attributes}>
-          {children}
-        </li>
-      );
-    case 'numbered-list':
-      return (
-        <ol style={style} {...attributes}>
-          {children}
-        </ol>
       );
     default:
       return (
