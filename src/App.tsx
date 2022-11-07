@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Market from './pages/Market';
 import MarketDetail from './pages/MarketDetail';
 import MarketRegister from './pages/MarketRegister';
+import Asset from './pages/Asset';
 import ItemDetail from './pages/ItemDetail';
 import Dashboard from './pages/Dashboard';
 import ErrorFallback from './pages/ErrorFallback';
@@ -56,6 +57,7 @@ export default function App() {
               <Route path={PATH.MARKET} element={<Market />} />
               <Route path={PATH.MARKET_DETAIL} element={<MarketDetail />} />
               <Route path={PATH.MARKET_REGISTER} element={<MarketRegister />} />
+              <Route path={PATH.ASSETS} element={<Asset />} />
               <Route path={PATH.ITEM_DETAIL} element={<ItemDetail />} />
               <Route path={PATH.DASHBOARD} element={<Dashboard />} />
               <Route

@@ -1,6 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import { AiFillShop } from 'react-icons/ai';
-import { FaSearch, FaRegUserCircle, FaUserCircle, FaWallet, FaShoppingCart } from 'react-icons/fa';
+import {
+  FaSearch,
+  FaRegUserCircle,
+  FaUserCircle,
+  FaWallet,
+  FaShoppingCart,
+  FaGem,
+} from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -90,6 +97,14 @@ function Desktop({ connectWallet }: Props) {
                         <AiFillShop size={24} />
                       </S.InfoIconContainer>
                       <div>에셋 등록</div>
+                    </div>
+                    <div
+                      style={{ cursor: 'pointer' }}
+                      onClick={moveToPath.bind(null, C.PATH.ASSETS)}>
+                      <S.InfoIconContainer>
+                        <FaGem size={24} />
+                      </S.InfoIconContainer>
+                      <div>에셋 조회</div>
                     </div>
                   </S.InfoContainer>
                 )}
