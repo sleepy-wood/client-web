@@ -6,12 +6,19 @@ import { HistoryEditor, withHistory } from 'slate-history';
 
 import { Button, Icon, Toolbar } from '../../atoms/SlateAtoms';
 
-type CustomElement = {
+export type CustomElement = {
   type: string;
+  url?: string;
   align?: string;
   children: CustomText[];
 };
-type CustomText = { text: string; bold?: true; italic?: true; underline?: true; code?: true };
+export type CustomText = {
+  text: string;
+  bold?: true;
+  italic?: true;
+  underline?: true;
+  code?: true;
+};
 
 declare module 'slate' {
   interface CustomTypes {
@@ -31,13 +38,23 @@ const HOTKEYS = {
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
 
-const RichTextExample = () => {
+interface Props {
+  value: CustomElement[];
+  setValue: any;
+}
+
+const RichText = ({ value, setValue }: Props) => {
   const renderElement = useCallback(props => <Element {...props} />, []);
   const renderLeaf = useCallback(props => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
   return (
-    <Slate editor={editor} value={initialValue}>
+    <Slate
+      editor={editor}
+      value={value}
+      onChange={value => {
+        setValue(value);
+      }}>
       <Toolbar>
         <MarkButton format='bold' icon='format_bold' />
         <MarkButton format='italic' icon='format_italic' />
@@ -55,7 +72,7 @@ const RichTextExample = () => {
         }}
         renderElement={renderElement}
         renderLeaf={renderLeaf}
-        placeholder='문자를 입력해주세요.'
+        placeholder='내용을 입력해주세요.'
         spellCheck
         autoFocus
         onKeyDown={event => {
@@ -207,6 +224,4 @@ const MarkButton = ({ format, icon }) => {
   );
 };
 
-const initialValue: CustomElement[] = [{ type: 'paragraph', children: [{ text: '' }] }];
-
-export default RichTextExample;
+export default RichText;

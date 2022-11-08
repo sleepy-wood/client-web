@@ -26,9 +26,29 @@ export const InputContainer = styled.div`
 export const Label = styled.label`
   display: block;
   margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 600;
 `;
 
-export const Input = styled.input``;
+export const Input = styled.input`
+  width: 100%;
+
+  padding: 8px 12px;
+
+  border-radius: 10px;
+`;
+
+export const Select = styled.select`
+  width: 100%;
+
+  padding: 8px 12px;
+
+  border-radius: 10px;
+`;
+
+export const Option = styled.option`
+  min-width: 100%;
+`;
 
 export const RichtextContainer = styled.div`
   background-color: white;
@@ -113,4 +133,7 @@ export const ButtonContainer = styled.div`
   border-radius: 10px;
 `;
 
-export const SubmitButton = styled.button``;
+export const SubmitButton = styled.button`
+  width: 100%;
+  height: 100%;
+`;

@@ -9,7 +9,7 @@ export const callRequest = async <T = any>({
   const token = sessionStorage.getItem('jwt');
 
   axios.defaults.withCredentials = true;
-  axios.defaults.headers.common['x-access-token'] = token ? token : '';
+  axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
   axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
   if (method.toLowerCase() === 'post') {
