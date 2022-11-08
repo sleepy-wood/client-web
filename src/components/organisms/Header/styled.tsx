@@ -16,7 +16,7 @@ export const Container = styled.div`
   text-shadow: -1px 0 #f5f5f5, 0 1px #f5f5f5, 1px 0 #f5f5f5, 0 -1px #f5f5f5;
 
   & > div {
-    width: 1440px;
+    max-width: 1440px;
     height: 100%;
     margin: 0 auto;
 
