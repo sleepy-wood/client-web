@@ -14,8 +14,6 @@ export const serialize = (node: CustomElement | CustomText) => {
 
   const children = node.children.map(n => serialize(n)).join('');
 
-  console.log(node.type);
-
   switch (node.type) {
     case 'block-quote':
       return `<blockquote><p>${children}</p></blockquote>`;

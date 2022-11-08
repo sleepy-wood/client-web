@@ -24,11 +24,12 @@ function Desktop() {
   const [formData] = useState<FormData>(new FormData());
   const [images, setImages] = useState<any[]>([]);
   const [showImages, setShowImages] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [title, onChangeTitle] = H.useInput('');
   const [price, onChangePrice] = H.useInput(1000);
 
-  const [type, setType] = useState<string>('emoticon');
+  const [type, setType] = useState<string>('Emoticon');
   const [description, setDescription] = useState<CustomElement[]>([
     { type: 'paragraph', children: [{ text: '' }] },
   ]);
@@ -68,8 +69,11 @@ function Desktop() {
         return false;
       }
 
+      setIsLoading(true);
+
       if (!images || images.length === 0) {
         alert('판매할 에셋을 등록해주세요.');
+        setIsLoading(false);
         return;
       }
 
@@ -82,6 +86,7 @@ function Desktop() {
 
       if (!r1) {
         alert('잠시 후 다시 시도해주세요.');
+        setIsLoading(false);
         return;
       }
 
@@ -102,6 +107,7 @@ function Desktop() {
 
       if (!r2) {
         alert('잠시 후 다시 시도해주세요.');
+        setIsLoading(false);
         return;
       }
 
@@ -121,18 +127,26 @@ function Desktop() {
             required
             value={title}
             onChange={onChangeTitle}
+            disabled={isLoading}
             type='text'
             placeholder='제목을 입력해주세요'
           />
         </S.InputContainer>
         <S.InputContainer>
           <S.Label>가격</S.Label>
-          <S.Input required value={price} onChange={onChangePrice} type='number' />
+          <S.Input
+            required
+            value={price}
+            onChange={onChangePrice}
+            type='number'
+            disabled={isLoading}
+          />
         </S.InputContainer>
         <S.InputContainer>
           <S.Label>판매 유형</S.Label>
           <S.Select
             defaultValue={type}
+            disabled={isLoading}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               setType(e.target.value);
             }}>
@@ -141,7 +155,7 @@ function Desktop() {
           </S.Select>
         </S.InputContainer>
         <S.RichtextContainer>
-          <Richtext value={description} setValue={setDescription} />
+          <Richtext value={description} setValue={setDescription} readonly={isLoading} />
         </S.RichtextContainer>
         <S.FileUploadContainer>
           <S.FileLabel htmlFor='register-file'>이미지 업로드</S.FileLabel>
@@ -161,7 +175,9 @@ function Desktop() {
           )}
         </S.FileUploadContainer>
         <S.ButtonContainer>
-          <S.SubmitButton type='submit'>등록</S.SubmitButton>
+          <S.SubmitButton disabled={isLoading} type='submit'>
+            등록
+          </S.SubmitButton>
         </S.ButtonContainer>
       </S.FileUploadForm>
     </S.Container>

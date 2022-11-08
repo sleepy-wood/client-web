@@ -41,9 +41,10 @@ const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
 interface Props {
   value: CustomElement[];
   setValue: any;
+  readonly: boolean;
 }
 
-const RichText = ({ value, setValue }: Props) => {
+const RichText = ({ value, setValue, readonly }: Props) => {
   const renderElement = useCallback(props => <Element {...props} />, []);
   const renderLeaf = useCallback(props => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
@@ -67,6 +68,7 @@ const RichText = ({ value, setValue }: Props) => {
         <BlockButton format='justify' icon='format_align_justify' />
       </Toolbar>
       <Editable
+        readOnly={readonly}
         style={{
           height: 'calc(100% - 70px)',
         }}
