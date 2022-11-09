@@ -45,7 +45,7 @@ export default function App() {
 
     sessionStorage.setItem(
       'jwt',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2OTQ5MDQ4LCJleHAiOjMzMjI0NTQ5MDQ4fQ.GcgD5H8JhQIUBe3qLro1hWy6mE4AQQ3RCZAwB_Xw8OY',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY3OTEwMTM4LCJleHAiOjMzMjI1NTEwMTM4fQ.-A4BBDngD4AJWTDmomVBAZXfmcQqovxWP_nVKolTFoI',
     );
   }, []);
 

@@ -82,6 +82,11 @@ function Desktop() {
         method: m1,
         url: u1,
         data: formData,
+      }).catch(err => {
+        console.error(err);
+        alert('잠시 후 다시 시도해주세요.');
+        setIsLoading(false);
+        return;
       });
 
       if (!r1) {
@@ -103,6 +108,11 @@ function Desktop() {
           detail,
           attachFileIds,
         },
+      }).catch(err => {
+        console.error(err);
+        alert('잠시 후 다시 시도해주세요.');
+        setIsLoading(false);
+        return;
       });
 
       if (!r2) {
