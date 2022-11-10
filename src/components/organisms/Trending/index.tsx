@@ -58,6 +58,7 @@ function Desktop({ trending, top }: Props) {
           </S.SubTitleContainer>
           <S.ProfileContainer>
             {trendingActive &&
+              trending &&
               trending.map(
                 (user, index) =>
                   index < 5 && (
@@ -79,6 +80,7 @@ function Desktop({ trending, top }: Props) {
                   ),
               )}
             {topActive &&
+              top &&
               top.map(
                 (user, index) =>
                   index < 5 && (
@@ -109,6 +111,7 @@ function Desktop({ trending, top }: Props) {
           </S.SubTitleContainer>
           <S.ProfileContainer>
             {trendingActive &&
+              trending &&
               trending.map(
                 (user, index) =>
                   index >= 5 && (
@@ -130,6 +133,7 @@ function Desktop({ trending, top }: Props) {
                   ),
               )}
             {topActive &&
+              top &&
               top.map(
                 (user, index) =>
                   index >= 5 && (
