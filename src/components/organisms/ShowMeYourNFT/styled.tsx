@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  height: 448px;
+  height: 532px;
 `;
 
 export const Header = styled.div`
@@ -21,11 +21,12 @@ export const Header = styled.div`
 export const Img = styled.div`
   & > img {
     cursor: pointer;
-    width: 316px;
-    height: 316px;
+    width: 320px;
+    height: 400px;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
+    object-fit: cover;
   }
 `;
