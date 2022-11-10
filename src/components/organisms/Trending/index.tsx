@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+import * as C from '../../../constants';
 import * as S from './styled';
 import * as I from '../../../interfaces';
 import { MEDIA } from '../../../constants';
@@ -19,6 +21,8 @@ export default function Trending({ trending, top }: Props) {
 }
 
 function Desktop({ trending, top }: Props) {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [trendingActive, setTrendingActive] = useState<boolean>(true);
   const [topActive, setTopActive] = useState<boolean>(false);
 
@@ -38,6 +42,18 @@ function Desktop({ trending, top }: Props) {
       return;
     }
   }, []);
+
+  const moveToPath = useCallback(
+    (path: string, e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (location.pathname !== path) {
+        navigate(path);
+      }
+    },
+    [location.pathname, navigate],
+  );
 
   return (
     <S.Container>
@@ -62,7 +78,7 @@ function Desktop({ trending, top }: Props) {
               trending.map(
                 (user, index) =>
                   index < 5 && (
-                    <S.Profile key={index}>
+                    <S.Profile key={index} onClick={moveToPath.bind(null, C.PATH.MARKET_DETAIL)}>
                       <div>
                         <div>{index + 1}</div>
                         <div>
@@ -84,7 +100,7 @@ function Desktop({ trending, top }: Props) {
               top.map(
                 (user, index) =>
                   index < 5 && (
-                    <S.Profile key={index}>
+                    <S.Profile key={index} onClick={moveToPath.bind(null, C.PATH.MARKET_DETAIL)}>
                       <div>
                         <div>{index + 1}</div>
                         <div>
@@ -115,7 +131,7 @@ function Desktop({ trending, top }: Props) {
               trending.map(
                 (user, index) =>
                   index >= 5 && (
-                    <S.Profile key={index}>
+                    <S.Profile key={index} onClick={moveToPath.bind(null, C.PATH.MARKET_DETAIL)}>
                       <div>
                         <div>{index + 1}</div>
                         <div>
@@ -137,7 +153,7 @@ function Desktop({ trending, top }: Props) {
               top.map(
                 (user, index) =>
                   index >= 5 && (
-                    <S.Profile key={index}>
+                    <S.Profile key={index} onClick={moveToPath.bind(null, C.PATH.MARKET_DETAIL)}>
                       <div>
                         <div>{index + 1}</div>
                         <div>

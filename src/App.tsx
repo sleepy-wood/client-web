@@ -52,7 +52,6 @@ export default function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <GlobalStyles colorTheme={configurations.theme} />
-
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <OuterContainer>
           <InnerContainer>

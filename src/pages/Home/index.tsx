@@ -22,12 +22,16 @@ export default function Home() {
       ]);
       const [trending, trendingError] = result1;
       const [top, topError] = result2;
+
       if (trendingError || topError) {
         trendingError && console.log(trendingError.data.error.reason);
         topError && console.log(topError.data.error.reason);
       }
+
       setTrending(trending);
       setTop(top);
+
+      return;
     }
 
     (!trending || !top) && fetchData();

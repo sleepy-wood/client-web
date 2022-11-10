@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+import * as C from '../../../constants';
 import * as S from './styled';
 import categoryFlower from '../../../assets/images/cate_flower.webp';
 import categoryPlants from '../../../assets/images/cate_plants.webp';
@@ -19,25 +21,40 @@ export default function BrowseByCategory() {
 }
 
 function Desktop() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const moveToPath = useCallback(
+    (path: string, e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (location.pathname !== path) {
+        navigate(path);
+      }
+    },
+    [location.pathname, navigate],
+  );
+
   return (
     <S.Container>
       <S.TitleContainer>
         <S.Title>Browse by category</S.Title>
       </S.TitleContainer>
       <S.CategoryContainer>
-        <S.Category>
+        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET)}>
           <div>
             <img src={categoryFlower} alt='category' />
           </div>
           <div>꽃</div>
         </S.Category>
-        <S.Category>
+        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET)}>
           <div>
             <img src={categoryPlants} alt='category' />
           </div>
           <div>식물</div>
         </S.Category>
-        <S.Category>
+        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET)}>
           <div>
             <img src={categoryMushroom} alt='category' />
           </div>
@@ -45,19 +62,19 @@ function Desktop() {
         </S.Category>
       </S.CategoryContainer>
       <S.CategoryContainer>
-        <S.Category>
+        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET)}>
           <div>
             <img src={categoryRock} alt='category' />
           </div>
           <div>바위</div>
         </S.Category>
-        <S.Category>
+        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET)}>
           <div>
             <img src={categoryWooden} alt='category' />
           </div>
           <div>나무 소품</div>
         </S.Category>
-        <S.Category>
+        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET)}>
           <div>
             <img src={categoryLight} alt='category' />
           </div>

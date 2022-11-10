@@ -1,7 +1,9 @@
-import React from 'react';
-import { useMediaQuery } from 'react-responsive';
+import React, { useCallback } from 'react';
 import Slider, { Settings } from 'react-slick';
+import { useMediaQuery } from 'react-responsive';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+import * as C from '../../../constants';
 import * as S from './styled';
 import day01 from '../../../assets/images/DAY01.png';
 import sunset01 from '../../../assets/images/Sunset01.png';
@@ -19,6 +21,8 @@ export default function ShowMeYourNFT() {
 }
 
 function Desktop() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const settings: Settings = {
     dots: false,
     infinite: true,
@@ -29,6 +33,18 @@ function Desktop() {
     arrows: false,
   };
 
+  const moveToPath = useCallback(
+    (path: string, e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (location.pathname !== path) {
+        navigate(path);
+      }
+    },
+    [location.pathname, navigate],
+  );
+
   return (
     <S.Container>
       <S.Header>
@@ -36,19 +52,19 @@ function Desktop() {
       </S.Header>
       <div>
         <Slider {...settings}>
-          <S.Img>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
             <img src={day01} alt='beauty tree' />
           </S.Img>
-          <S.Img>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
             <img src={beauty} alt='beauty tree' />
           </S.Img>
-          <S.Img>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
             <img src={sunset01} alt='beauty tree' />
           </S.Img>
-          <S.Img>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
             <img src={night01} alt='beauty tree' />
           </S.Img>
-          <S.Img>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
             <img src={beauty2} alt='beauty tree' />
           </S.Img>
         </Slider>
