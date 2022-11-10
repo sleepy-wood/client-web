@@ -1,8 +1,12 @@
 export interface CommonError {
   data?: OldError;
+  status: number;
 }
 
 export interface OldError {
-  message: string;
-  name: string;
+  code: number;
+  error: {
+    text?: string;
+    reason?: string;
+  };
 }

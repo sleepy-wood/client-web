@@ -26,6 +26,8 @@ export const Title = styled.div<{ active?: boolean }>`
 
   color: ${props => (props.active ? '#353840' : '#707A83')};
 
+  cursor: pointer;
+
   position: relative;
 
   ${props =>
