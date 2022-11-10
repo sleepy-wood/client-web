@@ -87,7 +87,7 @@ function Desktop({ trending, top }: Props) {
                         <div>{user.nickname}</div>
                       </div>
                       <div>
-                        <p>0.32 ETH</p>
+                        <p>{index + 0.32 * 7} ETH</p>
                       </div>
                       <div>
                         <p>{user.productCount}</p>
@@ -109,7 +109,7 @@ function Desktop({ trending, top }: Props) {
                         <div>{user.nickname}</div>
                       </div>
                       <div>
-                        <p>0.32 ETH</p>
+                        <p>{index + 0.32 * 7} ETH</p>
                       </div>
                       <div>
                         <p>{user.productCount}</p>
@@ -140,7 +140,7 @@ function Desktop({ trending, top }: Props) {
                         <div>{user.nickname}</div>
                       </div>
                       <div>
-                        <p>0.32 ETH</p>
+                        <p>{index + 0.32 * 7} ETH</p>
                       </div>
                       <div>
                         <p>{user.productCount}</p>
@@ -162,7 +162,7 @@ function Desktop({ trending, top }: Props) {
                         <div>{user.nickname}</div>
                       </div>
                       <div>
-                        <p>0.32 ETH</p>
+                        <p>{index + 0.32 * 7} ETH</p>
                       </div>
                       <div>
                         <p>{user.productCount}</p>
