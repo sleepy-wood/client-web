@@ -3,11 +3,6 @@ import { useMediaQuery } from 'react-responsive';
 
 import * as S from './styled';
 import * as I from '../../../interfaces';
-import profile6 from '../../../assets/images/profile6.png';
-import profile7 from '../../../assets/images/profile7.png';
-import profile8 from '../../../assets/images/profile8.png';
-import profile9 from '../../../assets/images/profile9.png';
-import profile10 from '../../../assets/images/profile10.png';
 import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
