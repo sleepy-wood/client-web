@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   height: 422px;
-  padding: 40px 96px;
+  padding: 40px 34px;
 
   display: flex;
   justify-content: space-between;
@@ -13,8 +13,7 @@ export const Container = styled.div`
 export const Main = styled.div`
   & > div:nth-of-type(1) {
     font-weight: 700;
-    font-size: 32px;
-    line-height: 48px;
+    font-size: 40px;
     display: flex;
     align-items: center;
     color: var(--color-palette3);
@@ -25,8 +24,7 @@ export const Main = styled.div`
 
   & > div:nth-of-type(2) {
     font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
+    font-size: 24px;
     display: flex;
     align-items: center;
     color: var(--color-palette3);
@@ -41,19 +39,13 @@ export const Main = styled.div`
   }
 `;
 
-export const Img = styled.div`
-  display: flex;
+export const Video = styled.div`
+  width: 740px;
+  height: 350px;
+  border-radius: 16px;
+  overflow: hidden;
 
-  & > img:not(:last-of-type) {
-    margin-right: 16px;
-  }
-
-  & > img {
-    width: 344px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+  & > video {
+    object-fit: cover;
   }
 `;
