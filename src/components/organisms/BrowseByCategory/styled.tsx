@@ -42,19 +42,22 @@ export const Category = styled.div`
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
 
-  & > div:nth-of-type(1) {
+  & > div {
     width: 440px;
+  }
+
+  & > div:nth-of-type(1) {
     height: 224px;
 
     & > img {
       width: 100%;
       height: 100%;
       border-radius: 10px 10px 0 0;
+      object-fit: cover;
     }
   }
 
   & > div:nth-of-type(2) {
-    width: 440px;
     height: 68px;
 
     display: flex;
@@ -68,5 +71,9 @@ export const Category = styled.div`
     font-size: 32px;
 
     color: #04111d;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
