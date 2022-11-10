@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
+import * as C from '../../../constants';
 import * as S from './styled';
+import * as U from '../../../utils';
 import profile1 from '../../../assets/images/profile1.png';
 import profile2 from '../../../assets/images/profile2.png';
 import profile3 from '../../../assets/images/profile3.png';
@@ -23,6 +25,25 @@ export default function Trending() {
 }
 
 function Desktop() {
+  const [trending, setTrending] = React.useState<any[]>(null);
+
+  useEffect(() => {
+    console.log('I fire once');
+
+    (async () => {
+      if (!trending) {
+        const { method, url } = C.APIs.v1.user.trendingTen;
+        const { result, data } = await U.callRequest({
+          method,
+          url,
+        });
+
+        setTrending(data);
+        console.log(data);
+      }
+    })();
+  }, [trending]);
+
   return (
     <S.Container>
       <S.TitleContainer>
