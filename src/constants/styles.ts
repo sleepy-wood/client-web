@@ -6,6 +6,11 @@ export const COLORS = <const>{
     palette3: '#6C5B7B',
     palette4: '#35477D',
     palette5: '#F8B195',
+    palette6: '#2B67FF',
+    palette7: '#275CE3',
+    palette8: '#EDF2FC',
+    palette9: '#EFF3FD',
+    palette10: '#E2EAFE',
   },
   dark: {
     text: '#F5F5F5',
@@ -14,6 +19,11 @@ export const COLORS = <const>{
     palette3: '#5B4B8A',
     palette4: '#7858A6',
     palette5: '#A67CBA',
+    palette6: '#2B67FF',
+    palette7: '#275CE3',
+    palette8: '#EDF2FC',
+    palette9: '#EFF3FD',
+    palette10: '#E2EAFE',
   },
 };
 

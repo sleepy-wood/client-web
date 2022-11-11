@@ -65,7 +65,7 @@ export const Card = styled.div`
   box-sizing: border-box;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
-  border: 2px solid #35477d;
+  border: 2px solid var(--color-palette10);
   border-radius: 10px;
 
   overflow: hidden;
@@ -87,7 +87,7 @@ export const Card = styled.div`
     background: #ffffff;
     box-shadow: 0 3px 6px rgb(0 0 0 / 16%);
 
-    border: 4px solid #6c5b7b;
+    border: 4px solid var(--color-palette4);
     border-radius: 120px;
 
     position: absolute;
@@ -103,11 +103,11 @@ export const Card = styled.div`
     height: calc(100% - 170px);
 
     padding: 30px 15px 0;
-    background-color: #c06c844f;
+    background-color: var(--color-palette8);
 
     display: flex;
     flex-direction: column;
-    color: #35477d;
+    color: var(--color-text);
 
     & > div:nth-of-type(1) {
       font-size: 16px;
