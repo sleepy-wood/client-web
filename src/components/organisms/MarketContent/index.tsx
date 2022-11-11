@@ -1,12 +1,18 @@
-import React, { useCallback } from 'react';
-import { FaRegArrowAltCircleRight } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import * as C from '../../../constants';
 import * as S from './styled';
-import beauty from '../../../assets/images/beauty.png';
-import profile1 from '../../../assets/images/profile1.png';
+import MarketContentAll from '../../molecules/MarketContentAll';
+import MarketContentCollection from '../../molecules/MarketContentCollection';
+import MarketContentEmoticon from '../../molecules/MarketContentEmoticon';
+import MarketContentFlower from '../../molecules/MarketContentFlower';
+import MarketContentLight from '../../molecules/MarketContentLight';
+import MarketContentMushroom from '../../molecules/MarketContentMushroom';
+import MarketContentPlants from '../../molecules/MarketContentPlants';
+import MarketContentRock from '../../molecules/MarketContentRock';
+import MarketContentWooden from '../../molecules/MarketContentWooden';
 
 const { minWidth } = C.MEDIA;
 
@@ -17,118 +23,52 @@ export default function MarketContent() {
 }
 
 function Desktop() {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { category } = useParams<string>();
+  const [active, setActive] = useState<number>(0);
 
-  const moveToPath = useCallback(
-    (path: string, e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      if (location.pathname !== path) {
-        scrollTo(0, 0);
-        navigate(path);
-      }
-    },
-    [location.pathname, navigate],
-  );
+  useEffect(() => {
+    switch (category) {
+      case 'collection':
+        setActive(1);
+        break;
+      case 'emoticon':
+        setActive(2);
+        break;
+      case 'flower':
+        setActive(3);
+        break;
+      case 'plants':
+        setActive(4);
+        break;
+      case 'mushroom':
+        setActive(5);
+        break;
+      case 'rock':
+        setActive(6);
+        break;
+      case 'wooden':
+        setActive(7);
+        break;
+      case 'light':
+        setActive(8);
+        break;
+      default:
+        setActive(0);
+        break;
+    }
+  }, [category]);
 
   return (
     <S.Container>
-      <S.Header>
-        <h1>NFT 마켓플레이스에 오신 것을 환영합니다.</h1>
-        <p>여기에서 크리에이터의 에셋을 검색하고 ETH로 구매하여 App에서 사용할 수 있습니다.</p>
-      </S.Header>
-      <S.ContentContainer>
-        <S.ContentContainerHeader>
-          <div>컬렉션</div>
-          <div>(100)</div>
-        </S.ContentContainerHeader>
-        <S.CardContainer>
-          {[1, 2, 3, 4, 5].map((_, index) => (
-            <S.Card key={index} onClick={moveToPath.bind(null, C.PATH.MARKET_DETAIL)}>
-              <div>
-                <img src={beauty} alt='beauty' />
-              </div>
-              <div>
-                <img src={profile1} alt='profile' />
-              </div>
-              <div>
-                <div>User Nickname</div>
-                <div>8 에셋</div>
-              </div>
-            </S.Card>
-          ))}
-        </S.CardContainer>
-        <S.More>
-          <div onClick={moveToPath.bind(null, '')}>
-            <div>더보기</div>
-            <div>
-              <FaRegArrowAltCircleRight />
-            </div>
-          </div>
-        </S.More>
-      </S.ContentContainer>
-      <S.ContentContainer>
-        <S.ContentContainerHeader>
-          <div>랜드소품</div>
-          <div>(100)</div>
-        </S.ContentContainerHeader>
-        <S.CardContainer>
-          {[1, 2, 3, 4, 5].map((_, index) => (
-            <S.Card key={index}>
-              <div>
-                <img src={beauty} alt='beauty' />
-              </div>
-              <div>
-                <img src={profile1} alt='profile' />
-              </div>
-              <div>
-                <div>User Nickname</div>
-                <div>8 에셋</div>
-              </div>
-            </S.Card>
-          ))}
-        </S.CardContainer>
-        <S.More>
-          <div onClick={moveToPath.bind(null, '')}>
-            <div>더보기</div>
-            <div>
-              <FaRegArrowAltCircleRight />
-            </div>
-          </div>
-        </S.More>
-      </S.ContentContainer>
-      <S.ContentContainer>
-        <S.ContentContainerHeader>
-          <div>이모티콘</div>
-          <div>(100)</div>
-        </S.ContentContainerHeader>
-        <S.CardContainer>
-          {[1, 2, 3, 4, 5].map((_, index) => (
-            <S.Card key={index}>
-              <div>
-                <img src={beauty} alt='beauty' />
-              </div>
-              <div>
-                <img src={profile1} alt='profile' />
-              </div>
-              <div>
-                <div>User Nickname</div>
-                <div>8 에셋</div>
-              </div>
-            </S.Card>
-          ))}
-        </S.CardContainer>
-        <S.More>
-          <div onClick={moveToPath.bind(null, '')}>
-            <div>더보기</div>
-            <div>
-              <FaRegArrowAltCircleRight />
-            </div>
-          </div>
-        </S.More>
-      </S.ContentContainer>
+      {active === 0 && <MarketContentAll />}
+      {active === 1 && <MarketContentCollection />}
+      {active === 2 && <MarketContentEmoticon />}
+      {active === 3 && <MarketContentFlower />}
+      {active === 4 && <MarketContentPlants />}
+      {active === 5 && <MarketContentMushroom />}
+      {active === 6 && <MarketContentRock />}
+      {active === 7 && <MarketContentWooden />}
+      {active === 8 && <MarketContentLight />}
     </S.Container>
   );
 }

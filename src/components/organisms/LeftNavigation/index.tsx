@@ -35,6 +35,12 @@ export default function LeftNavigation() {
 
   useEffect(() => {
     switch (category) {
+      case 'collection':
+        setActive(1);
+        break;
+      case 'emoticon':
+        setActive(2);
+        break;
       case 'flower':
         setActive(3);
         break;

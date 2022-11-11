@@ -6,7 +6,7 @@ import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
 
-export default function MarketContentPlant() {
+export default function MarketContentPlants() {
   const isDesktop = useMediaQuery({ minWidth });
 
   return isDesktop ? <Desktop /> : <Mobile />;

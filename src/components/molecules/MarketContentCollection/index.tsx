@@ -6,14 +6,14 @@ import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
 
-export default function MarketContentMushroom() {
+export default function MarketContentCollection() {
   const isDesktop = useMediaQuery({ minWidth });
 
   return isDesktop ? <Desktop /> : <Mobile />;
 }
 
 function Desktop() {
-  return <S.Container>MarketContentMushRoom</S.Container>;
+  return <S.Container>MarkContentCollection</S.Container>;
 }
 
 function Mobile() {
