@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FaTh, FaTree, FaSmileWink } from 'react-icons/fa';
 import {
   GiFlowers,
@@ -12,6 +13,21 @@ import {
 import * as S from './styled';
 
 export default function LeftNavigation() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const moveToPath = useCallback(
+    (path: string, e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (location.pathname !== path) {
+        navigate(path);
+      }
+    },
+    [location.pathname, navigate],
+  );
+
   return (
     <S.Container>
       <div>
