@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   padding: 40px 16px 0;
+
+  overflow: hidden;
 `;
 
 export const TitleContainer = styled.div`
