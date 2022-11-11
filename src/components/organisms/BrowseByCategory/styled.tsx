@@ -3,8 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   padding: 40px 16px 0;
-
-  overflow: hidden;
 `;
 
 export const TitleContainer = styled.div`
@@ -43,6 +41,8 @@ export const Category = styled.div`
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
+
+  overflow: hidden;
 
   & > div {
     width: 440px;
