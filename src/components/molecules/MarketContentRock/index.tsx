@@ -13,7 +13,14 @@ export default function MarketContentRock() {
 }
 
 function Desktop() {
-  return <S.Container>MarketContentRock</S.Container>;
+  return (
+    <S.Container>
+      <S.Header>
+        <h1>바위 알아보기</h1>
+        <p>다양한 바위를 살펴보고 메타버스 속 나만의 특별한 경험을 만들어요.</p>
+      </S.Header>
+    </S.Container>
+  );
 }
 
 function Mobile() {
