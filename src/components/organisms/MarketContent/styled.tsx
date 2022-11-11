@@ -11,6 +11,7 @@ export const Container = styled.div`
 
 export const Header = styled.div`
   color: var(--color-text);
+  margin-bottom: 36px;
 
   & > h1 {
     margin-bottom: 15px;
@@ -25,9 +26,7 @@ export const Header = styled.div`
 `;
 
 export const ContentContainer = styled.div`
-  &:not(:first-child) {
-    margin-top: 48px;
-  }
+  margin-bottom: 36px;
 `;
 
 export const ContentContainerHeader = styled.div`
@@ -39,11 +38,12 @@ export const ContentContainerHeader = styled.div`
   & > div:nth-of-type(1) {
     margin-right: 12px;
     font-size: 20px;
+    font-weight: 500;
   }
 
   & > div:nth-of-type(2) {
     font-size: 16px;
-    color: #35477d;
+    color: #35477dc4;
   }
 `;
 
@@ -132,14 +132,17 @@ export const Card = styled.div`
 `;
 
 export const More = styled.div`
-  display: flex;
-  align-items: center;
+  display: inline-block;
+  & > div {
+    display: flex;
+    align-items: center;
 
-  margin-top: 12px;
+    margin-top: 12px;
 
-  cursor: pointer;
+    cursor: pointer;
 
-  & > div:nth-of-type(1) {
-    margin-right: 8px;
+    & > div:nth-of-type(1) {
+      margin-right: 8px;
+    }
   }
 `;
