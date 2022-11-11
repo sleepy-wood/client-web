@@ -7,9 +7,8 @@ import * as C from '../../../constants';
 import * as S from './styled';
 import beauty from '../../../assets/images/beauty.png';
 import profile1 from '../../../assets/images/profile1.png';
-import { MEDIA } from '../../../constants';
 
-const { minWidth } = MEDIA;
+const { minWidth } = C.MEDIA;
 
 export default function MarketContent() {
   const isDesktop = useMediaQuery({ minWidth });
@@ -69,7 +68,7 @@ function Desktop() {
       </S.ContentContainer>
       <S.ContentContainer>
         <S.ContentContainerHeader>
-          <div>컬렉션</div>
+          <div>랜드소품</div>
           <div>(100)</div>
         </S.ContentContainerHeader>
         <S.CardContainer>
@@ -97,7 +96,7 @@ function Desktop() {
       </S.ContentContainer>
       <S.ContentContainer>
         <S.ContentContainerHeader>
-          <div>컬렉션</div>
+          <div>이모티콘</div>
           <div>(100)</div>
         </S.ContentContainerHeader>
         <S.CardContainer>

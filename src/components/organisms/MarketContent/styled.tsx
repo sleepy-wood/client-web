@@ -25,9 +25,7 @@ export const Header = styled.div`
 `;
 
 export const ContentContainer = styled.div`
-  &:not(:first-child) {
-    margin-top: 48px;
-  }
+  margin-bottom: 48px;
 `;
 
 export const ContentContainerHeader = styled.div`
