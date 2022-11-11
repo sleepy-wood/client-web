@@ -24,6 +24,7 @@ export default function LeftNavigation() {
       e.stopPropagation();
 
       if (location.pathname !== path) {
+        scrollTo(0, 0);
         setActive(active);
         navigate(path);
       }

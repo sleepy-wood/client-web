@@ -55,6 +55,7 @@ function Desktop({ connectWallet }: Props) {
       e.stopPropagation();
 
       if (location.pathname !== path) {
+        scrollTo(0, 0);
         setShowMyInfo(false);
         setShowWallet(false);
         navigate(path);

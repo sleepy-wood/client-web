@@ -29,6 +29,7 @@ function Desktop() {
       e.stopPropagation();
 
       if (location.pathname !== path) {
+        scrollTo(0, 0);
         navigate(path);
       }
     },

@@ -49,6 +49,7 @@ function Desktop({ trending, top }: Props) {
       e.stopPropagation();
 
       if (location.pathname !== path) {
+        scrollTo(0, 0);
         navigate(path);
       }
     },

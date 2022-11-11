@@ -30,6 +30,7 @@ function Desktop() {
       e.stopPropagation();
 
       if (location.pathname !== path) {
+        scrollTo(0, 0);
         navigate(path);
       }
     },
@@ -42,19 +43,19 @@ function Desktop() {
         <S.Title>Browse by category</S.Title>
       </S.TitleContainer>
       <S.CategoryContainer>
-        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET)}>
+        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET.FLOWER)}>
           <div>
             <img src={categoryFlower} alt='category' />
           </div>
           <div>꽃</div>
         </S.Category>
-        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET)}>
+        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET.PLANTS)}>
           <div>
             <img src={categoryPlants} alt='category' />
           </div>
           <div>식물</div>
         </S.Category>
-        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET)}>
+        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET.MUSHROOM)}>
           <div>
             <img src={categoryMushroom} alt='category' />
           </div>
@@ -62,19 +63,19 @@ function Desktop() {
         </S.Category>
       </S.CategoryContainer>
       <S.CategoryContainer>
-        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET)}>
+        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET.ROCK)}>
           <div>
             <img src={categoryRock} alt='category' />
           </div>
           <div>바위</div>
         </S.Category>
-        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET)}>
+        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET.WOODEN)}>
           <div>
             <img src={categoryWooden} alt='category' />
           </div>
           <div>나무 소품</div>
         </S.Category>
-        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET)}>
+        <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET.LIGHT)}>
           <div>
             <img src={categoryLight} alt='category' />
           </div>
