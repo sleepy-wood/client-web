@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import * as I from './interfaces';
 import Home from './pages/Home';
@@ -58,7 +58,11 @@ export default function App() {
             <LocationDetector />
             <Routes>
               <Route path={PATH.HOME} element={<Home />} />
-              <Route path={PATH.MARKET} element={<Market />} />
+              <Route path={PATH.MARKET.PATH} element={<Market />} />
+              <Route
+                path={PATH.MARKET.REDIRECT}
+                element={<Navigate to={PATH.MARKET.ALL} replace />}
+              />
               <Route path={PATH.MARKET_DETAIL} element={<MarketDetail />} />
               <Route path={PATH.MARKET_REGISTER} element={<MarketRegister />} />
               <Route path={PATH.ASSETS} element={<Asset />} />
