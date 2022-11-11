@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FaTh, FaTree, FaSmileWink } from 'react-icons/fa';
 import {
   GiFlowers,
@@ -14,9 +14,10 @@ import * as C from '../../../constants';
 import * as S from './styled';
 
 export default function LeftNavigation() {
-  const [active, setActive] = useState<number>(0);
   const location = useLocation();
   const navigate = useNavigate();
+  const { category } = useParams<string>();
+  const [active, setActive] = useState<number>(0);
 
   const moveToPath = useCallback(
     (path: string, active: number, e: React.MouseEvent) => {
@@ -31,6 +32,32 @@ export default function LeftNavigation() {
     },
     [location.pathname, navigate],
   );
+
+  useEffect(() => {
+    switch (category) {
+      case 'flower':
+        setActive(3);
+        break;
+      case 'plants':
+        setActive(4);
+        break;
+      case 'mushroom':
+        setActive(5);
+        break;
+      case 'rock':
+        setActive(6);
+        break;
+      case 'wooden':
+        setActive(7);
+        break;
+      case 'light':
+        setActive(8);
+        break;
+      default:
+        setActive(0);
+        break;
+    }
+  }, [category]);
 
   return (
     <S.Container>
