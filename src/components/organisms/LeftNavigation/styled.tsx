@@ -32,3 +32,8 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const Li = styled.li<{ active?: boolean }>`
+  color: ${props => (props.active ? 'var(--color-palette4)' : 'var(--color-text)')};
+  opacity: ${props => (props.active ? '1' : '0.5')};
+`;

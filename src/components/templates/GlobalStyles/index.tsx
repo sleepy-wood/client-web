@@ -9,6 +9,7 @@ export const GlobalStyles = createGlobalStyle<{ colorTheme: 'light' | 'dark' }>`
     --color-palette2: ${({ colorTheme }) => COLORS[colorTheme].palette2};
     --color-palette3: ${({ colorTheme }) => COLORS[colorTheme].palette3};
     --color-palette4: ${({ colorTheme }) => COLORS[colorTheme].palette4};
+    --color-palette5: ${({ colorTheme }) => COLORS[colorTheme].palette5};
     --size-extra-small: ${SIZES.extraSmall};
     --size-small: ${SIZES.small};
     --size-medium: ${SIZES.medium};

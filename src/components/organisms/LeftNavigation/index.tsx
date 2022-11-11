@@ -1,6 +1,13 @@
 import React from 'react';
 import { FaTh, FaTree, FaSmileWink } from 'react-icons/fa';
-import { GiGardeningShears } from 'react-icons/gi';
+import {
+  GiFlowers,
+  GiPlantRoots,
+  GiMushrooms,
+  GiRock,
+  GiWoodenSign,
+  GiCandleLight,
+} from 'react-icons/gi';
 
 import * as S from './styled';
 
@@ -10,22 +17,42 @@ export default function LeftNavigation() {
       <div>
         <p>카테고리</p>
         <ul>
-          <li>
+          <S.Li active={true}>
             <FaTh />
             <div>전체</div>
-          </li>
-          <li>
+          </S.Li>
+          <S.Li>
             <FaTree />
             <div>컬렉션</div>
-          </li>
-          <li>
-            <GiGardeningShears />
-            <div>랜드소품</div>
-          </li>
-          <li>
+          </S.Li>
+          <S.Li>
             <FaSmileWink />
             <div>이모티콘</div>
-          </li>
+          </S.Li>
+          <S.Li>
+            <GiFlowers />
+            <div>꽃</div>
+          </S.Li>
+          <S.Li>
+            <GiPlantRoots />
+            <div>식물</div>
+          </S.Li>
+          <S.Li>
+            <GiMushrooms />
+            <div>버섯</div>
+          </S.Li>
+          <S.Li>
+            <GiRock />
+            <div>바위</div>
+          </S.Li>
+          <S.Li>
+            <GiWoodenSign />
+            <div>나무 소품</div>
+          </S.Li>
+          <S.Li>
+            <GiCandleLight />
+            <div>라이트</div>
+          </S.Li>
         </ul>
       </div>
     </S.Container>
