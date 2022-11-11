@@ -60,9 +60,11 @@ function Desktop() {
           ))}
         </S.CardContainer>
         <S.More>
-          <div>더보기</div>
-          <div>
-            <FaRegArrowAltCircleRight />
+          <div onClick={moveToPath.bind(null, '')}>
+            <div>더보기</div>
+            <div>
+              <FaRegArrowAltCircleRight />
+            </div>
           </div>
         </S.More>
       </S.ContentContainer>
@@ -88,9 +90,11 @@ function Desktop() {
           ))}
         </S.CardContainer>
         <S.More>
-          <div>더보기</div>
-          <div>
-            <FaRegArrowAltCircleRight />
+          <div onClick={moveToPath.bind(null, '')}>
+            <div>더보기</div>
+            <div>
+              <FaRegArrowAltCircleRight />
+            </div>
           </div>
         </S.More>
       </S.ContentContainer>
@@ -116,9 +120,11 @@ function Desktop() {
           ))}
         </S.CardContainer>
         <S.More>
-          <div>더보기</div>
-          <div>
-            <FaRegArrowAltCircleRight />
+          <div onClick={moveToPath.bind(null, '')}>
+            <div>더보기</div>
+            <div>
+              <FaRegArrowAltCircleRight />
+            </div>
           </div>
         </S.More>
       </S.ContentContainer>
