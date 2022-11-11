@@ -25,6 +25,10 @@ export const APIs = {
         method: 'POST',
         url: `/api/v1/products`,
       },
+      findFiveByCategory: {
+        method: 'GET',
+        url: `/api/v1/products/category`,
+      },
     },
   },
 };

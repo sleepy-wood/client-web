@@ -188,6 +188,7 @@ export class AttachFile {
 export class User {
   id: number;
   profileImg: string;
+  bannerImg: string;
   type: I.UserType;
   nickname: string;
   avatar: string;
