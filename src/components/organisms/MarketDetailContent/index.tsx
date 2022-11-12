@@ -3,23 +3,31 @@ import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import * as C from '../../../constants';
+import * as I from '../../../interfaces';
 import * as S from './styled';
-import banner from '../../../assets/images/banner.avif';
-import profile from '../../../assets/images/profile1.png';
-import tree1 from '../../../assets/images/tree1.png';
-import tree2 from '../../../assets/images/tree2.png';
 import wood from '../../../assets/images/wood.png';
+import errorImg from '../../../assets/images/cate_plants.webp';
 import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
 
-export default function MarketDetailContent() {
+type Props = {
+  user: I.User;
+  products: I.Product[];
+  productCount: number;
+};
+
+export default function MarketDetailContent({ user, products, productCount }: Props) {
   const isDesktop = useMediaQuery({ minWidth });
 
-  return isDesktop ? <Desktop /> : <Mobile />;
+  return isDesktop ? (
+    <Desktop user={user} products={products} productCount={productCount} />
+  ) : (
+    <Mobile />
+  );
 }
 
-function Desktop() {
+function Desktop({ user, products, productCount }: Props) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -38,68 +46,64 @@ function Desktop() {
 
   return (
     <S.Container>
-      <S.Banner>
-        <img src={banner} alt='Banner' />
-      </S.Banner>
-      <div style={{ width: '100%', height: '300px' }}></div>
-      <S.Content>
-        <S.Info>
-          <S.ProfileImg>
-            <img src={profile} alt='profile' />
-          </S.ProfileImg>
-          <S.Profile>
-            <S.ProfileContainer>
-              <S.Name>User Nickname</S.Name>
-              <S.Description>안녕하세요. 메타버스 플랫폼 슬리피우드입니다.</S.Description>
-            </S.ProfileContainer>
-            <S.CollectionInfo>
-              <div>컬렉션 정보</div>
-              <div>
-                <div>에셋</div>
-                <div>4</div>
-              </div>
-            </S.CollectionInfo>
-          </S.Profile>
-        </S.Info>
-        <S.Items>
-          {[1, 2].map((_, index) => (
-            <React.Fragment>
-              <S.Item key={index + 1} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
-                <S.ItemImg>
-                  <img src={tree1} alt='tree' />
-                </S.ItemImg>
-                <S.ItemName>나무 이름</S.ItemName>
-                <S.ItemCount>1 / 1</S.ItemCount>
-                <S.ItemPrice>
+      {user && (
+        <React.Fragment>
+          <S.Banner>
+            <img src={user.bannerImg} alt='Banner' />
+          </S.Banner>
+          <div style={{ width: '100%', height: '300px' }}></div>
+          <S.Content>
+            <S.Info>
+              <S.ProfileImg>
+                <img src={user.profileImg} alt='profile' />
+              </S.ProfileImg>
+              <S.Profile>
+                <S.ProfileContainer>
+                  <S.Name>{user.nickname}</S.Name>
+                  <S.Description>안녕하세요. 메타버스 플랫폼 슬리피우드입니다.</S.Description>
+                </S.ProfileContainer>
+                <S.CollectionInfo>
+                  <div>컬렉션 정보</div>
                   <div>
-                    <img src={wood} alt='wood' />
+                    <div>에셋</div>
+                    <div>{productCount}</div>
                   </div>
-                  <div>
-                    <div>3150.00</div>
-                    <div>2923.03 USD</div>
-                  </div>
-                </S.ItemPrice>
-              </S.Item>
-              <S.Item key={index + 2}>
-                <S.ItemImg>
-                  <img src={tree2} alt='tree' />
-                </S.ItemImg>
-                <S.ItemName>나무 이름</S.ItemName>
-                <S.ItemCount>1 / 1</S.ItemCount>
-                <S.ItemPrice>
-                  <div>
-                    <img src={wood} alt='wood' />
-                  </div>
-                  <div>
-                    <div>3150.00</div>
-                    <div>2923.03 USD</div>
-                  </div>
-                </S.ItemPrice>
-              </S.Item>
-            </React.Fragment>
-          ))}
-        </S.Items>
-      </S.Content>
+                </S.CollectionInfo>
+              </S.Profile>
+            </S.Info>
+            <S.Items>
+              {products.map((product, index) => (
+                <S.ExtraAsset key={index} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+                  <S.ExtraAssetImg>
+                    <img
+                      src={product.productImages[product.productImages.length - 1].path}
+                      alt={`${product.name}'s represent image`}
+                      onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                        e.currentTarget.src = errorImg;
+                      }}
+                    />
+                  </S.ExtraAssetImg>
+                  <S.ExtraAssetName>{product.name}</S.ExtraAssetName>
+                  <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
+                  <S.ExtraAssetPrice>
+                    <div>
+                      <img src={wood} alt='wood' />
+                    </div>
+                    <div>
+                      <div>
+                        {Number(product.price).toFixed(2) === '0.00'
+                          ? 'FREE'
+                          : Number(product.price).toFixed(2) + ' ETH'}
+                      </div>
+                      <div>2923.03 USD</div>
+                    </div>
+                  </S.ExtraAssetPrice>
+                </S.ExtraAsset>
+              ))}
+            </S.Items>
+          </S.Content>
+        </React.Fragment>
+      )}
     </S.Container>
   );
 }

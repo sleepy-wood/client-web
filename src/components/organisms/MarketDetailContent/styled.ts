@@ -83,13 +83,15 @@ export const CollectionInfo = styled.div`
   height: 98px;
 
   padding: 18px 18px 0;
-  background-color: #f6728084;
+  background-color: var(--color-palette9);
 
-  border: 2px solid #c06c84;
+  border: 2px solid var(--color-palette10);
   border-radius: 10px;
 
   display: flex;
   flex-direction: column;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   & > div:nth-of-type(1) {
     width: 100%;
@@ -103,7 +105,7 @@ export const CollectionInfo = styled.div`
     display: flex;
     justify-content: space-between;
 
-    & > div:nth-of-type(1) {
+    & > div {
       font-size: 14px;
       opacity: 0.7;
     }
@@ -111,70 +113,66 @@ export const CollectionInfo = styled.div`
 `;
 
 export const Items = styled.div`
-  min-height: calc(100vh - 500px);
-  margin-top: 24px;
+  margin-top: 48px;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, 220px);
-  justify-content: center;
-  grid-gap: 20px 0;
+  grid-template-columns: repeat(auto-fill, 200px);
+  grid-gap: 24px 24px;
+  justify-content: start;
 `;
 
-export const Item = styled.div`
-  width: 204px;
-  height: 270px;
+export const ExtraAsset = styled.div`
+  width: 200px;
+  height: 260px;
 
-  border: 4px solid transparent;
-  border-radius: 10px;
+  border: 2px solid transparent;
+  border-radius: 12px;
 
   cursor: pointer;
 
-  background-image: linear-gradient(#f3f3f3, #f3f3f3),
-    linear-gradient(
-      196.75deg,
-      rgba(246, 114, 128, 0.6) 0.02%,
-      rgba(108, 91, 123, 0.4) 0.03%,
-      rgba(246, 114, 128, 0.6) 82.49%,
-      rgba(246, 114, 128, 0.6) 82.49%
-    );
+  background-image: linear-gradient(#f5f5f5, #f5f5f5),
+    linear-gradient(180deg, #6189ff, #8252fc, #fc52be);
   background-origin: border-box;
   background-clip: content-box, border-box;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 
-export const ItemImg = styled.div`
+export const ExtraAssetImg = styled.div`
   display: flex;
   justify-content: center;
   & > img {
-    height: 160px;
-    width: 164px;
+    margin: 12px 0;
+    height: 132px;
+    width: calc(100% - 24px);
     object-fit: contain;
     filter: brightness(1.2);
   }
 `;
 
-export const ItemName = styled.div`
+export const ExtraAssetName = styled.div`
   width: 100%;
 
   margin-left: 16px;
 
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
 
-export const ItemCount = styled.div`
+export const ExtraAssetCount = styled.div`
   margin-left: 16px;
 
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--color-text);
-  opacity: 0.7;
+  opacity: 0.6;
 `;
 
-export const ItemPrice = styled.div`
+export const ExtraAssetPrice = styled.div`
   margin-left: 16px;
 
   display: flex;
@@ -183,13 +181,13 @@ export const ItemPrice = styled.div`
     margin-top: 3px;
     margin-right: 8px;
 
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
 
   & > div:nth-of-type(2) {
     & > div:nth-of-type(1) {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       color: #35477d;
     }
