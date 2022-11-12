@@ -51,7 +51,7 @@ function Desktop() {
     <S.Container>
       <S.LeftContainer>
         <S.Summary>
-          <div>수면 요약</div>
+          <div>수면 흐름 분석</div>
           <div>
             <Chart
               type='bar'
@@ -169,7 +169,15 @@ function Desktop() {
                 datasets: [
                   {
                     type: 'bar' as const,
-                    backgroundColor: '#00DEA3',
+                    backgroundColor: [
+                      '#D9D9D999',
+                      '#00DEA3',
+                      '#D9D9D999',
+                      '#D9D9D999',
+                      '#D9D9D999',
+                      '#D9D9D999',
+                      '#D9D9D999',
+                    ],
                     data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
                     barThickness: 15,
                   },
@@ -211,7 +219,15 @@ function Desktop() {
                 datasets: [
                   {
                     type: 'bar' as const,
-                    backgroundColor: '#00DEA3',
+                    backgroundColor: [
+                      '#D9D9D999',
+                      '#00DEA3',
+                      '#D9D9D999',
+                      '#D9D9D999',
+                      '#D9D9D999',
+                      '#D9D9D999',
+                      '#D9D9D999',
+                    ],
                     data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
                     barThickness: 15,
                   },
@@ -253,7 +269,15 @@ function Desktop() {
                 datasets: [
                   {
                     type: 'bar' as const,
-                    backgroundColor: '#00DEA3',
+                    backgroundColor: [
+                      '#D9D9D999',
+                      '#00DEA3',
+                      '#D9D9D999',
+                      '#D9D9D999',
+                      '#D9D9D999',
+                      '#D9D9D999',
+                      '#D9D9D999',
+                    ],
                     data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
                     barThickness: 15,
                   },
