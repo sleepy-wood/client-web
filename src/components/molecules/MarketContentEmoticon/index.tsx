@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
 
+import * as API from '../../../apis';
+import * as C from '../../../constants';
+import * as I from '../../../interfaces';
 import * as S from './styled';
+import wood from '../../../assets/images/wood.png';
 import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
@@ -13,12 +19,136 @@ export default function MarketContentEmoticon() {
 }
 
 function Desktop() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [page, setPage] = useState<number>(1);
+  const [itemsWithCount, setItemsWithCount] = useState<[I.Product[], number]>(null);
+
+  const moveToPath = useCallback(
+    (path: string, e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (location.pathname !== path) {
+        scrollTo(0, 0);
+        navigate(path);
+      }
+    },
+    [location.pathname, navigate],
+  );
+
+  useEffect(() => {
+    async function fetchData() {
+      const [result, error] = await API.product.findAll({
+        page,
+        category: I.ProductCategory.emoticon,
+      });
+
+      if (error) {
+        error && console.log(error.data.error.reason);
+        return;
+      }
+
+      console.log(result);
+      setItemsWithCount(result);
+    }
+
+    !itemsWithCount && fetchData();
+  }, [itemsWithCount, page]);
+
   return (
     <S.Container>
       <S.Header>
         <h1>이모티콘 알아보기</h1>
-        <p>다양한 이모티콘을 살펴보고 메타버스 속 나만의 특별한 감정을 표현해요.</p>
+        <p>다양한 이모티콘을 살펴보고 메타버스 속 나만의 특별한 경험을 만들어요.</p>
       </S.Header>
+      <S.ContentContainer>
+        {itemsWithCount && (
+          <React.Fragment>
+            <S.ContentContainerHeader>
+              <div>이모티콘</div>
+              <div>({itemsWithCount[1]})</div>
+            </S.ContentContainerHeader>
+            <S.CardContainer>
+              {itemsWithCount[0].map((item, index) => (
+                <S.ExtraAsset key={index} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+                  <S.ExtraAssetImg>
+                    <img
+                      src={item.productImages[item.productImages.length - 1].path}
+                      alt={`${item.name}'s represent image`}
+                    />
+                  </S.ExtraAssetImg>
+                  <S.ExtraAssetName>{item.name}</S.ExtraAssetName>
+                  <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
+                  <S.ExtraAssetPrice>
+                    <div>
+                      <img src={wood} alt='wood' />
+                    </div>
+                    <div>
+                      <div>
+                        {Number(item.price).toFixed(2) === '0.00'
+                          ? 'FREE'
+                          : Number(item.price).toFixed(2)}
+                      </div>
+                      <div>2923.03 USD</div>
+                    </div>
+                  </S.ExtraAssetPrice>
+                </S.ExtraAsset>
+              ))}
+              {itemsWithCount[0].map((item, index) => (
+                <S.ExtraAsset key={index} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+                  <S.ExtraAssetImg>
+                    <img
+                      src={item.productImages[item.productImages.length - 1].path}
+                      alt={`${item.name}'s represent image`}
+                    />
+                  </S.ExtraAssetImg>
+                  <S.ExtraAssetName>{item.name}</S.ExtraAssetName>
+                  <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
+                  <S.ExtraAssetPrice>
+                    <div>
+                      <img src={wood} alt='wood' />
+                    </div>
+                    <div>
+                      <div>
+                        {Number(item.price).toFixed(2) === '0.00'
+                          ? 'FREE'
+                          : Number(item.price).toFixed(2)}
+                      </div>
+                      <div>2923.03 USD</div>
+                    </div>
+                  </S.ExtraAssetPrice>
+                </S.ExtraAsset>
+              ))}
+              {itemsWithCount[0].map((item, index) => (
+                <S.ExtraAsset key={index} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+                  <S.ExtraAssetImg>
+                    <img
+                      src={item.productImages[item.productImages.length - 1].path}
+                      alt={`${item.name}'s represent image`}
+                    />
+                  </S.ExtraAssetImg>
+                  <S.ExtraAssetName>{item.name}</S.ExtraAssetName>
+                  <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
+                  <S.ExtraAssetPrice>
+                    <div>
+                      <img src={wood} alt='wood' />
+                    </div>
+                    <div>
+                      <div>
+                        {Number(item.price).toFixed(2) === '0.00'
+                          ? 'FREE'
+                          : Number(item.price).toFixed(2)}
+                      </div>
+                      <div>2923.03 USD</div>
+                    </div>
+                  </S.ExtraAssetPrice>
+                </S.ExtraAsset>
+              ))}
+            </S.CardContainer>
+          </React.Fragment>
+        )}
+      </S.ContentContainer>
     </S.Container>
   );
 }
