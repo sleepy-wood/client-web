@@ -83,6 +83,98 @@ export const Activity = styled.div`
     font-size: 24px;
     font-weight: 600;
   }
+
+  & > div:not(:nth-of-type(1)) {
+    display: flex;
+    align-items: center;
+
+    height: 40px;
+
+    margin: 16px 24px 0;
+
+    & > div:nth-of-type(1) {
+      width: 40px;
+      height: 40px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 12px;
+
+      margin-right: 140px;
+    }
+
+    & > div:nth-of-type(2) {
+      width: 80px;
+
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+
+      color: #707eae;
+
+      margin-right: 140px;
+    }
+
+    & > div:nth-of-type(3) {
+      width: 40px;
+
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+
+      color: #707eae;
+
+      margin-right: 140px;
+    }
+
+    & > div:nth-of-type(4) {
+      margin-right: auto;
+    }
+
+    & > div:nth-of-type(5) {
+    }
+  }
+
+  & > div:nth-of-type(2) {
+    & > div:nth-of-type(1) {
+      background-color: #ffcc40;
+    }
+
+    & > div:nth-of-type(4) {
+      font-size: 16px;
+      font-weight: 500;
+
+      color: #4318ff;
+    }
+  }
+
+  & > div:nth-of-type(3) {
+    & > div:nth-of-type(1) {
+      background-color: #783efd;
+    }
+
+    & > div:nth-of-type(4) {
+      font-size: 16px;
+      font-weight: 500;
+
+      color: #00dea3;
+    }
+  }
+
+  & > div:nth-of-type(4) {
+    & > div:nth-of-type(1) {
+      background-color: #fe8f66;
+    }
+
+    & > div:nth-of-type(4) {
+      font-size: 16px;
+      font-weight: 500;
+
+      color: #4318ff;
+    }
+  }
 `;
 
 export const RightContainer = styled.div`

@@ -12,8 +12,10 @@ import {
   LineController,
   BarController,
 } from 'chart.js';
-import { Chart, ChartProps } from 'react-chartjs-2';
+import { Chart } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
+import { FaHeartbeat, FaLungs, FaAngleRight } from 'react-icons/fa';
+import { SiOxygen } from 'react-icons/si';
 
 import * as S from './styled';
 
@@ -63,6 +65,39 @@ function Desktop() {
         </S.ThreeContainer>
         <S.Activity>
           <div>분당 심박수 / 혈중 산소 / 분당 호흡수</div>
+          <div>
+            <div>
+              <FaHeartbeat size={24} color='#fff' />
+            </div>
+            <div>분당 심박수</div>
+            <div>72회</div>
+            <div>-10pt</div>
+            <div>
+              <FaAngleRight color='#535353' />
+            </div>
+          </div>
+          <div>
+            <div>
+              <SiOxygen size={24} color='#fff' />
+            </div>
+            <div>혈중 산소</div>
+            <div>96%</div>
+            <div>+15pt</div>
+            <div>
+              <FaAngleRight color='#535353' />
+            </div>
+          </div>
+          <div>
+            <div>
+              <FaLungs size={24} color='#fff' />
+            </div>
+            <div>분당 호흡수</div>
+            <div>20회</div>
+            <div>-10pt</div>
+            <div>
+              <FaAngleRight color='#535353' />
+            </div>
+          </div>
         </S.Activity>
       </S.LeftContainer>
       <S.RightContainer>
