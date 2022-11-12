@@ -15,7 +15,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       const [result1, result2] = await Promise.all([
-        API.user.getTrendingTen(),
+        API.user.findTrendingTen(),
         API.user.getTopTen(),
       ]);
       const [trending, trendingError] = result1;
