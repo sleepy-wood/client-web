@@ -6,6 +6,21 @@ import { callRequest } from '../utils';
 const { v1 } = C.APIs;
 
 export const user = {
+  async findOne(): Promise<[I.User, E.HttpException]> {
+    try {
+      const { method, url } = v1.user.findOne;
+      const { result, data } = await callRequest<I.BasicResponse<I.User>>({
+        method,
+        url,
+      });
+
+      return [data, null];
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return [null, new E.HttpException(_data, status)];
+    }
+  },
   async findUserById(id: string): Promise<[I.User, E.HttpException]> {
     try {
       const { method, url } = v1.user.findUserById;
