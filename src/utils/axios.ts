@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import qs from 'qs';
 
 export const callRequest = async <T = any>({
   method,
@@ -11,6 +12,10 @@ export const callRequest = async <T = any>({
   axios.defaults.withCredentials = true;
   axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
   axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+  axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+  axios.defaults.paramsSerializer = {
+    encode: params => qs.stringify(params, { arrayFormat: 'repeat' }),
+  };
 
   if (method.toLowerCase() === 'post') {
     data.token = data.token ?? token;
