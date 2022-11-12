@@ -7,7 +7,7 @@ export const APIs = {
       },
       findUserById: {
         method: 'GET',
-        url: '/api/v1/users/:id',
+        url: '/api/v1/users/profile/:id',
       },
       trendingTen: {
         method: 'GET',

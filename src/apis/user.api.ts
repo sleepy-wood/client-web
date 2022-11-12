@@ -21,10 +21,10 @@ export const user = {
       return [null, new E.HttpException(_data, status)];
     }
   },
-  async findUserById(id: string): Promise<[I.User, E.HttpException]> {
+  async findUserById(id: string): Promise<[[I.User, [I.Product[], number]], E.HttpException]> {
     try {
       const { method, url } = v1.user.findUserById;
-      const { result, data } = await callRequest<I.BasicResponse<I.User>>({
+      const { result, data } = await callRequest<I.BasicResponse<[I.User, [I.Product[], number]]>>({
         method,
         url: url.replace(':id', id),
       });
