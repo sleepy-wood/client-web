@@ -56,12 +56,42 @@ export const MiniContainer = styled.div`
   width: calc(100% / 3 - 16px);
   height: 100%;
 
-  & > div {
+  & > div:nth-of-type(1) {
     margin-top: 24px;
     margin-left: 24px;
 
     font-size: 16px;
     font-weight: 400;
+  }
+
+  & > div:nth-of-type(2) {
+    width: 100%;
+    height: calc(100% - 60px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 68px;
+    font-weight: 700;
+  }
+
+  &:nth-of-type(1) {
+    & > div:nth-of-type(2) {
+      color: #00dea3;
+    }
+  }
+
+  &:nth-of-type(2) {
+    & > div:nth-of-type(2) {
+      color: #00bbde;
+    }
+  }
+
+  &:nth-of-type(3) {
+    & > div:nth-of-type(2) {
+      color: #00de7c;
+    }
   }
 `;
 
@@ -134,6 +164,7 @@ export const Activity = styled.div`
     }
 
     & > div:nth-of-type(5) {
+      cursor: pointer;
     }
   }
 

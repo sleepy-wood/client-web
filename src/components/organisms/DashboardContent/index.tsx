@@ -55,12 +55,15 @@ function Desktop() {
         <S.ThreeContainer>
           <S.MiniContainer>
             <div>수면 시간</div>
+            <div>8:15</div>
           </S.MiniContainer>
           <S.MiniContainer>
             <div>REM 수면 시간</div>
+            <div>2:10</div>
           </S.MiniContainer>
           <S.MiniContainer>
             <div>숙면 시간</div>
+            <div>1:27</div>
           </S.MiniContainer>
         </S.ThreeContainer>
         <S.Activity>
