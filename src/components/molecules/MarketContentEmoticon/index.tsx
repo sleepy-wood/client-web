@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
 
 import * as API from '../../../apis';
 import * as C from '../../../constants';
 import * as I from '../../../interfaces';
 import * as S from './styled';
 import wood from '../../../assets/images/wood.png';
+import errorImg from '../../../assets/images/cate_plants.webp';
 import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
@@ -49,7 +49,6 @@ function Desktop() {
         return;
       }
 
-      console.log(result);
       setItemsWithCount(result);
     }
 
@@ -76,6 +75,9 @@ function Desktop() {
                     <img
                       src={item.productImages[item.productImages.length - 1].path}
                       alt={`${item.name}'s represent image`}
+                      onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                        e.currentTarget.src = errorImg;
+                      }}
                     />
                   </S.ExtraAssetImg>
                   <S.ExtraAssetName>{item.name}</S.ExtraAssetName>
@@ -88,57 +90,7 @@ function Desktop() {
                       <div>
                         {Number(item.price).toFixed(2) === '0.00'
                           ? 'FREE'
-                          : Number(item.price).toFixed(2)}
-                      </div>
-                      <div>2923.03 USD</div>
-                    </div>
-                  </S.ExtraAssetPrice>
-                </S.ExtraAsset>
-              ))}
-              {itemsWithCount[0].map((item, index) => (
-                <S.ExtraAsset key={index} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
-                  <S.ExtraAssetImg>
-                    <img
-                      src={item.productImages[item.productImages.length - 1].path}
-                      alt={`${item.name}'s represent image`}
-                    />
-                  </S.ExtraAssetImg>
-                  <S.ExtraAssetName>{item.name}</S.ExtraAssetName>
-                  <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
-                  <S.ExtraAssetPrice>
-                    <div>
-                      <img src={wood} alt='wood' />
-                    </div>
-                    <div>
-                      <div>
-                        {Number(item.price).toFixed(2) === '0.00'
-                          ? 'FREE'
-                          : Number(item.price).toFixed(2)}
-                      </div>
-                      <div>2923.03 USD</div>
-                    </div>
-                  </S.ExtraAssetPrice>
-                </S.ExtraAsset>
-              ))}
-              {itemsWithCount[0].map((item, index) => (
-                <S.ExtraAsset key={index} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
-                  <S.ExtraAssetImg>
-                    <img
-                      src={item.productImages[item.productImages.length - 1].path}
-                      alt={`${item.name}'s represent image`}
-                    />
-                  </S.ExtraAssetImg>
-                  <S.ExtraAssetName>{item.name}</S.ExtraAssetName>
-                  <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
-                  <S.ExtraAssetPrice>
-                    <div>
-                      <img src={wood} alt='wood' />
-                    </div>
-                    <div>
-                      <div>
-                        {Number(item.price).toFixed(2) === '0.00'
-                          ? 'FREE'
-                          : Number(item.price).toFixed(2)}
+                          : Number(item.price).toFixed(2) + ' ETH'}
                       </div>
                       <div>2923.03 USD</div>
                     </div>
