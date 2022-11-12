@@ -36,6 +36,7 @@ ChartJS.register(
 );
 
 const labels = ['일', '월', '화', '수', '목', '금', '토'];
+const sleepLabels = ['기상', 'REM', '얕은 수면', '깊은 수면'];
 
 export default function DashboardContent() {
   const isDesktop = useMediaQuery({ minWidth });
@@ -51,6 +52,37 @@ function Desktop() {
       <S.LeftContainer>
         <S.Summary>
           <div>수면 요약</div>
+          <div>
+            <Chart
+              type='bar'
+              options={{
+                indexAxis: 'y',
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  xAxes: {
+                    grid: {
+                      display: false,
+                    },
+                  },
+                },
+              }}
+              data={{
+                labels: sleepLabels,
+                datasets: [
+                  {
+                    type: 'bar' as const,
+                    backgroundColor: '#00DEA3',
+                    data: sleepLabels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+                    barThickness: 15,
+                  },
+                ],
+              }}
+            />
+          </div>
         </S.Summary>
         <S.ThreeContainer>
           <S.MiniContainer>
