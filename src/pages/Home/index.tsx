@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import * as API from '../../apis';
-import * as C from '../../constants';
 import * as I from '../../interfaces';
-import * as U from '../../utils';
 import * as S from './styled';
 import DownloadApp from '../../components/organisms/DownloadApp';
 import ShowMeYourNFT from '../../components/organisms/ShowMeYourNFT';
