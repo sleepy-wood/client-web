@@ -100,7 +100,7 @@ export default function LeftNavigation() {
           </S.Li>
           <S.Li active={active === 7} onClick={moveToPath.bind(null, C.PATH.MARKET.WOODEN, 7)}>
             <GiWoodenSign />
-            <div>나무 소품</div>
+            <div>목재 소품</div>
           </S.Li>
           <S.Li active={active === 8} onClick={moveToPath.bind(null, C.PATH.MARKET.LIGHT, 8)}>
             <GiCandleLight />

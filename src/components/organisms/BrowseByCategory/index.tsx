@@ -73,7 +73,7 @@ function Desktop() {
           <div>
             <img src={categoryWooden} alt='category' />
           </div>
-          <div>나무 소품</div>
+          <div>목재 소품</div>
         </S.Category>
         <S.Category onClick={moveToPath.bind(null, C.PATH.MARKET.LIGHT)}>
           <div>

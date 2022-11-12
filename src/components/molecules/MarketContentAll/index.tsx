@@ -64,7 +64,7 @@ function Desktop() {
           ['식물', 'PLANTS'],
           ['버섯', 'MUSHROOM'],
           ['바위', 'ROCK'],
-          ['나무 소품', 'WOODEN'],
+          ['목재 소품', 'WOODEN'],
           ['라이트', 'LIGHT'],
         ].map(([item, category], index) => (
           <S.ContentContainer key={index}>
