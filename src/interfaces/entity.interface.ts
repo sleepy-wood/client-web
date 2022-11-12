@@ -246,10 +246,10 @@ export class Product {
   price: number;
   discount: number;
   stock: number;
-  type: I.ProductType;
   detail: string;
   hit: number;
   sell: number;
+  category: I.ProductCategory;
   userId: number;
   createdAt: Date;
   updatedAt: Date;
