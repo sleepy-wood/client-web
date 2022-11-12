@@ -7,8 +7,6 @@ import * as API from '../../../apis';
 import * as C from '../../../constants';
 import * as I from '../../../interfaces';
 import * as S from './styled';
-import beauty from '../../../assets/images/beauty.png';
-import profile1 from '../../../assets/images/profile1.png';
 import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
