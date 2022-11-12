@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import {
   Chart as ChartJS,
@@ -12,7 +12,7 @@ import {
   LineController,
   BarController,
 } from 'chart.js';
-import { Chart } from 'react-chartjs-2';
+import { Chart, ChartProps } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 
 import * as S from './styled';
@@ -20,12 +20,6 @@ import * as S from './styled';
 import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
-
-export default function DashboardContent() {
-  const isDesktop = useMediaQuery({ minWidth });
-
-  return isDesktop ? <Desktop /> : <Mobile />;
-}
 
 ChartJS.register(
   LinearScale,
@@ -39,37 +33,17 @@ ChartJS.register(
   BarController,
 );
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ['일', '월', '화', '수', '목', '금', '토'];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      type: 'line' as const,
-      label: 'Dataset 1',
-      borderColor: 'rgb(255, 99, 132)',
-      borderWidth: 2,
-      fill: false,
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-    },
-    {
-      type: 'bar' as const,
-      label: 'Dataset 2',
-      backgroundColor: 'rgb(75, 192, 192)',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'white',
-      borderWidth: 2,
-    },
-    {
-      type: 'bar' as const,
-      label: 'Dataset 3',
-      backgroundColor: 'rgb(53, 162, 235)',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-    },
-  ],
-};
+export default function DashboardContent() {
+  const isDesktop = useMediaQuery({ minWidth });
+
+  return isDesktop ? <Desktop /> : <Mobile />;
+}
 
 function Desktop() {
+  useEffect(() => {}, []);
+
   return (
     <S.Container>
       <S.LeftContainer>
@@ -82,9 +56,132 @@ function Desktop() {
         <S.Activity></S.Activity>
       </S.LeftContainer>
       <S.RightContainer>
-        <S.BarGraphContainer></S.BarGraphContainer>
-        <S.BarGraphContainer></S.BarGraphContainer>
-        <S.BarGraphContainer></S.BarGraphContainer>
+        <S.BarGraphContainer>
+          <div>
+            <div>움직이기</div>
+            <div>88</div>
+            <div>점</div>
+          </div>
+          <div>
+            <Chart
+              type='bar'
+              options={{
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  xAxes: {
+                    grid: {
+                      display: false,
+                    },
+                  },
+                  yAxes: {
+                    ticks: {
+                      stepSize: 25,
+                    },
+                  },
+                },
+              }}
+              data={{
+                labels,
+                datasets: [
+                  {
+                    type: 'bar' as const,
+                    backgroundColor: '#00DEA3',
+                    data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+                    barThickness: 15,
+                  },
+                ],
+              }}
+            />
+          </div>
+        </S.BarGraphContainer>
+        <S.BarGraphContainer>
+          <div>
+            <div>운동하기</div>
+            <div>88</div>
+            <div>점</div>
+          </div>
+          <div>
+            <Chart
+              type='bar'
+              options={{
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  xAxes: {
+                    grid: {
+                      display: false,
+                    },
+                  },
+                  yAxes: {
+                    ticks: {
+                      stepSize: 25,
+                    },
+                  },
+                },
+              }}
+              data={{
+                labels,
+                datasets: [
+                  {
+                    type: 'bar' as const,
+                    backgroundColor: '#00DEA3',
+                    data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+                    barThickness: 15,
+                  },
+                ],
+              }}
+            />
+          </div>
+        </S.BarGraphContainer>
+        <S.BarGraphContainer>
+          <div>
+            <div>일어서기</div>
+            <div>88</div>
+            <div>점</div>
+          </div>
+          <div>
+            <Chart
+              type='bar'
+              options={{
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  xAxes: {
+                    grid: {
+                      display: false,
+                    },
+                  },
+                  yAxes: {
+                    ticks: {
+                      stepSize: 25,
+                    },
+                  },
+                },
+              }}
+              data={{
+                labels,
+                datasets: [
+                  {
+                    type: 'bar' as const,
+                    backgroundColor: '#00DEA3',
+                    data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+                    barThickness: 15,
+                  },
+                ],
+              }}
+            />
+          </div>
+        </S.BarGraphContainer>
       </S.RightContainer>
     </S.Container>
   );

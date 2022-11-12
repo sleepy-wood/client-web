@@ -79,4 +79,51 @@ export const BarGraphContainer = styled.div`
 
   width: 100%;
   height: calc(100% / 3 - 16px);
+
+  & > div:nth-of-type(1) {
+    width: 100%;
+    height: 48px;
+
+    margin-top: 8px;
+    margin-left: 24px;
+
+    font-size: 26px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+
+    & > div:nth-of-type(1) {
+      margin-right: 16px;
+    }
+
+    & > div:nth-of-type(2) {
+      font-size: 32px;
+      font-weight: 700;
+
+      color: #00dea3;
+
+      margin-right: 4px;
+    }
+
+    & > div:nth-of-type(3) {
+      font-size: 18px;
+      font-weight: 400;
+
+      padding-top: 8px;
+
+      color: #535353;
+    }
+  }
+
+  & > div:nth-of-type(2) {
+    width: 480px;
+    height: 188px;
+
+    & > canvas {
+      height: 188px !important;
+    }
+
+    margin: 8px 24px;
+  }
 `;
