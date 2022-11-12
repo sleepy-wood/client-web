@@ -36,7 +36,7 @@ ChartJS.register(
 );
 
 const labels = ['일', '월', '화', '수', '목', '금', '토'];
-const sleepLabels = ['기상', 'REM', '얕은 수면', '깊은 수면'];
+const sleepLabels = ['기상', '램 수면', '얕은 수면', '깊은 수면'];
 
 export default function DashboardContent() {
   const isDesktop = useMediaQuery({ minWidth });

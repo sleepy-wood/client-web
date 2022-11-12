@@ -33,6 +33,17 @@ export const Summary = styled.div`
     font-size: 24px;
     font-weight: 600;
   }
+
+  & > div:nth-of-type(2) {
+    width: 772px;
+    height: 300px;
+
+    & > canvas {
+      height: 300px !important;
+    }
+
+    margin: 8px 24px;
+  }
 `;
 
 export const ThreeContainer = styled.div`
