@@ -19,6 +19,5 @@ export const PATH = {
   },
   MARKET_REGISTER: '/register',
   ITEM_DETAIL: '/item',
-  ASSETS: '/assets',
   DASHBOARD: '/dashboard',
 };

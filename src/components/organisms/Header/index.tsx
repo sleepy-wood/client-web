@@ -101,7 +101,7 @@ function Desktop({ connectWallet }: Props) {
                     </div>
                     <div
                       style={{ cursor: 'pointer' }}
-                      onClick={moveToPath.bind(null, C.PATH.ASSETS)}>
+                      onClick={moveToPath.bind(null, C.PATH.MARKET_REGISTER)}>
                       <S.InfoIconContainer>
                         <FaGem size={24} />
                       </S.InfoIconContainer>
