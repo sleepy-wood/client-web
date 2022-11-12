@@ -10,11 +10,13 @@ import {
 } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import * as C from '../../../constants';
 import * as S from './styled';
 import metamask from '../../../assets/images/metamask-fox.svg';
 import { MEDIA } from '../../../constants';
+import { RootState } from '../../../reducers';
 
 const { minWidth } = MEDIA;
 type Props = {
@@ -46,6 +48,7 @@ function Desktop({ connectWallet }: Props) {
   const location = useLocation();
   const navigate = useNavigate();
   const showSearch = useMediaQuery({ minWidth: 768 });
+  const { user } = useSelector((state: RootState) => state.user);
   const [showMyInfo, setShowMyInfo] = useState<boolean>(false);
   const [showWallet, setShowWallet] = useState<boolean>(false);
 
@@ -101,7 +104,10 @@ function Desktop({ connectWallet }: Props) {
                     </div>
                     <div
                       style={{ cursor: 'pointer' }}
-                      onClick={moveToPath.bind(null, C.PATH.MARKET_REGISTER)}>
+                      onClick={moveToPath.bind(
+                        null,
+                        C.PATH.MARKET_DETAIL.PATH.replace(':id', user.id.toString()),
+                      )}>
                       <S.InfoIconContainer>
                         <FaGem size={24} />
                       </S.InfoIconContainer>
