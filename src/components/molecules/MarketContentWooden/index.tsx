@@ -41,7 +41,7 @@ function Desktop() {
     async function fetchData() {
       const [result, error] = await API.product.findAll({
         page,
-        category: I.ProductCategory.rock,
+        category: I.ProductCategory.wooden,
       });
 
       if (error) {
