@@ -47,13 +47,23 @@ function Desktop() {
   return (
     <S.Container>
       <S.LeftContainer>
-        <S.Summary></S.Summary>
+        <S.Summary>
+          <div>수면 요약</div>
+        </S.Summary>
         <S.ThreeContainer>
-          <S.MiniContainer></S.MiniContainer>
-          <S.MiniContainer></S.MiniContainer>
-          <S.MiniContainer></S.MiniContainer>
+          <S.MiniContainer>
+            <div>수면 시간</div>
+          </S.MiniContainer>
+          <S.MiniContainer>
+            <div>REM 수면 시간</div>
+          </S.MiniContainer>
+          <S.MiniContainer>
+            <div>숙면 시간</div>
+          </S.MiniContainer>
         </S.ThreeContainer>
-        <S.Activity></S.Activity>
+        <S.Activity>
+          <div>분당 심박수 / 혈중 산소 / 분당 호흡수</div>
+        </S.Activity>
       </S.LeftContainer>
       <S.RightContainer>
         <S.BarGraphContainer>

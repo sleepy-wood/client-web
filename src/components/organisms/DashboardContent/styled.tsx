@@ -25,6 +25,14 @@ export const Summary = styled.div`
   height: 380px;
 
   margin-bottom: 16px;
+
+  & > div:nth-of-type(1) {
+    margin-top: 24px;
+    margin-left: 24px;
+
+    font-size: 24px;
+    font-weight: 600;
+  }
 `;
 
 export const ThreeContainer = styled.div`
@@ -47,6 +55,14 @@ export const MiniContainer = styled.div`
 
   width: calc(100% / 3 - 16px);
   height: 100%;
+
+  & > div {
+    margin-top: 24px;
+    margin-left: 24px;
+
+    font-size: 16px;
+    font-weight: 400;
+  }
 `;
 
 export const Activity = styled.div`
@@ -59,6 +75,14 @@ export const Activity = styled.div`
 
   width: 100%;
   height: 252px;
+
+  & > div:nth-of-type(1) {
+    margin-top: 24px;
+    margin-left: 24px;
+
+    font-size: 24px;
+    font-weight: 600;
+  }
 `;
 
 export const RightContainer = styled.div`
@@ -88,7 +112,7 @@ export const BarGraphContainer = styled.div`
     margin-left: 24px;
 
     font-size: 26px;
-    font-weight: 700;
+    font-weight: 600;
 
     display: flex;
     align-items: center;
@@ -99,7 +123,7 @@ export const BarGraphContainer = styled.div`
 
     & > div:nth-of-type(2) {
       font-size: 32px;
-      font-weight: 700;
+      font-weight: 600;
 
       color: #00dea3;
 
