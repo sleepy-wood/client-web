@@ -74,7 +74,12 @@ function Desktop() {
             </S.ContentContainerHeader>
             <S.CardContainer>
               {usersWithCount[index][0].map((user, _index) => (
-                <S.Card key={_index} onClick={moveToPath.bind(null, C.PATH.MARKET_DETAIL)}>
+                <S.Card
+                  key={_index}
+                  onClick={moveToPath.bind(
+                    null,
+                    C.PATH.MARKET_DETAIL.PATH.replace(':id', user.id.toString()),
+                  )}>
                   <div>
                     <img src={user.bannerImg} alt={`${user.nickname}'s profile banner`} />
                   </div>
