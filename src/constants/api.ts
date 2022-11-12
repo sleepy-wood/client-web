@@ -5,6 +5,10 @@ export const APIs = {
         method: 'GET',
         url: '/api/v1/users',
       },
+      findUserById: {
+        method: 'GET',
+        url: '/api/v1/users/:id',
+      },
       trendingTen: {
         method: 'GET',
         url: '/api/v1/users/trending-ten',
