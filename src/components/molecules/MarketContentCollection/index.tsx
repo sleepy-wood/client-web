@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
 
 import * as API from '../../../apis';
 import * as C from '../../../constants';
 import * as I from '../../../interfaces';
 import * as S from './styled';
+import wood from '../../../assets/images/wood.png';
+import errorImg from '../../../assets/images/cate_plants.webp';
 import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
@@ -40,7 +41,7 @@ function Desktop() {
     async function fetchData() {
       const [result, error] = await API.product.findAll({
         page,
-        category: I.ProductCategory.emoticon,
+        category: I.ProductCategory.collection,
       });
 
       if (error) {
@@ -48,7 +49,6 @@ function Desktop() {
         return;
       }
 
-      console.log(result);
       setItemsWithCount(result);
     }
 
@@ -70,29 +70,32 @@ function Desktop() {
             </S.ContentContainerHeader>
             <S.CardContainer>
               {itemsWithCount[0].map((item, index) => (
-                <S.Card key={index} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
-                  <div>
+                <S.ExtraAsset key={index} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+                  <S.ExtraAssetImg>
                     <img
                       src={item.productImages[item.productImages.length - 1].path}
                       alt={`${item.name}'s represent image`}
+                      onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                        e.currentTarget.src = errorImg;
+                      }}
                     />
-                  </div>
-                  <S.ItemContentContainer>
+                  </S.ExtraAssetImg>
+                  <S.ExtraAssetName>{item.name}</S.ExtraAssetName>
+                  <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
+                  <S.ExtraAssetPrice>
                     <div>
-                      <div>{item.name}</div>
+                      <img src={wood} alt='wood' />
+                    </div>
+                    <div>
                       <div>
                         {Number(item.price).toFixed(2) === '0.00'
                           ? 'FREE'
-                          : Number(item.price).toFixed(2)}
+                          : Number(item.price).toFixed(2) + ' ETH'}
                       </div>
+                      <div>2923.03 USD</div>
                     </div>
-                    <S.AssetButtonContainer>
-                      <div>
-                        <FaShoppingCart size={24} />
-                      </div>
-                    </S.AssetButtonContainer>
-                  </S.ItemContentContainer>
-                </S.Card>
+                  </S.ExtraAssetPrice>
+                </S.ExtraAsset>
               ))}
             </S.CardContainer>
           </React.Fragment>

@@ -43,88 +43,88 @@ export const ContentContainerHeader = styled.div`
 `;
 
 export const CardContainer = styled.div`
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  grid-gap: 24px 24px;
+  justify-content: start;
 `;
 
-export const Card = styled.div`
-  width: 206px;
-  height: 270px;
+export const ExtraAsset = styled.div`
+  width: 200px;
+  height: 260px;
 
-  &:not(:last-child) {
-    margin-right: auto;
-  }
+  border: 2px solid transparent;
+  border-radius: 12px;
 
   cursor: pointer;
 
+  background-image: linear-gradient(#f5f5f5, #f5f5f5),
+    linear-gradient(180deg, #6189ff, #8252fc, #fc52be);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+`;
+
+export const ExtraAssetImg = styled.div`
   display: flex;
-  flex-direction: column;
-
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-
-  overflow: hidden;
-
-  & > div:nth-of-type(1) {
-    width: 100%;
-    height: 170px;
-
-    & > img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+  justify-content: center;
+  & > img {
+    margin: 12px 0;
+    height: 132px;
+    width: calc(100% - 24px);
+    object-fit: contain;
+    filter: brightness(1.2);
   }
 `;
 
-export const ItemContentContainer = styled.div`
+export const ExtraAssetName = styled.div`
+  width: 100%;
+
+  margin-left: 16px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export const ExtraAssetCount = styled.div`
+  margin-left: 16px;
+
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-text);
+  opacity: 0.6;
+`;
+
+export const ExtraAssetPrice = styled.div`
+  margin-left: 16px;
+
   display: flex;
 
-  height: calc(100% - 170px);
-
-  padding: 30px 15px 0;
-  background-color: var(--color-palette8);
-
-  color: var(--color-text);
-
   & > div:nth-of-type(1) {
-    font-size: 16px;
-    font-weight: 700;
+    margin-top: 3px;
+    margin-right: 8px;
 
-    display: inline-block;
-
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    width: 28px;
+    height: 28px;
   }
 
   & > div:nth-of-type(2) {
-    font-size: 14px;
+    & > div:nth-of-type(1) {
+      font-size: 16px;
+      font-weight: 600;
+      color: #35477d;
+    }
+
+    & > div:nth-of-type(2) {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text);
+      opacity: 0.7;
+    }
   }
-`;
-
-export const AssetButtonContainer = styled.div`
-  width: 52px;
-  height: 52px;
-
-  margin-left: 8px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: var(--color-text);
-
-  cursor: pointer;
-
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.5);
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
 `;

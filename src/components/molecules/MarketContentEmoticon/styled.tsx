@@ -58,19 +58,21 @@ export const ExtraAsset = styled.div`
 
   cursor: pointer;
 
-  background-image: linear-gradient(#f3f3f3, #f3f3f3),
+  background-image: linear-gradient(#f5f5f5, #f5f5f5),
     linear-gradient(180deg, #6189ff, #8252fc, #fc52be);
   background-origin: border-box;
   background-clip: content-box, border-box;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 
 export const ExtraAssetImg = styled.div`
   display: flex;
   justify-content: center;
   & > img {
-    margin: 8px 0;
-    height: 120px;
-    width: 100%;
+    margin: 12px 0;
+    height: 132px;
+    width: calc(100% - 24px);
     object-fit: contain;
     filter: brightness(1.2);
   }
@@ -81,8 +83,8 @@ export const ExtraAssetName = styled.div`
 
   margin-left: 16px;
 
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
 
   white-space: nowrap;
   overflow: hidden;
@@ -92,10 +94,10 @@ export const ExtraAssetName = styled.div`
 export const ExtraAssetCount = styled.div`
   margin-left: 16px;
 
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--color-text);
-  opacity: 0.7;
+  opacity: 0.6;
 `;
 
 export const ExtraAssetPrice = styled.div`
@@ -107,19 +109,19 @@ export const ExtraAssetPrice = styled.div`
     margin-top: 3px;
     margin-right: 8px;
 
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
 
   & > div:nth-of-type(2) {
     & > div:nth-of-type(1) {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: #35477d;
     }
 
     & > div:nth-of-type(2) {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 400;
       color: var(--color-text);
       opacity: 0.7;
