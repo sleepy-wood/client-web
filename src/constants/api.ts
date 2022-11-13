@@ -29,6 +29,14 @@ export const APIs = {
         method: 'GET',
         url: '/api/v1/sleeps',
       },
+      findRem: {
+        method: 'GET',
+        url: '/api/v1/sleeps/rem',
+      },
+      findDeepSleep: {
+        method: 'GET',
+        url: '/api/v1/sleeps/deep',
+      },
       findHeart: {
         method: 'GET',
         url: '/api/v1/heart',

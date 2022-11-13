@@ -21,6 +21,36 @@ export const health = {
       return [null, new E.HttpException(_data, status)];
     }
   },
+  async findRem(): Promise<[I.Sleep[], E.HttpException]> {
+    try {
+      const { method, url } = v1.health.findRem;
+      const { result, data } = await callRequest<I.BasicResponse<I.Sleep[]>>({
+        method,
+        url,
+      });
+
+      return [data, null];
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return [null, new E.HttpException(_data, status)];
+    }
+  },
+  async findDeepSleep(): Promise<[I.Sleep[], E.HttpException]> {
+    try {
+      const { method, url } = v1.health.findDeepSleep;
+      const { result, data } = await callRequest<I.BasicResponse<I.Sleep[]>>({
+        method,
+        url,
+      });
+
+      return [data, null];
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return [null, new E.HttpException(_data, status)];
+    }
+  },
   async findHeart(): Promise<[I.Heart[], E.HttpException]> {
     try {
       const { method, url } = v1.health.findHeart;
