@@ -55,7 +55,13 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
       {product && (
         <S.AssetContainer>
           <S.AssetImg>
-            <img src={product.productImages[product.productImages.length - 1].path} alt='tree' />
+            <video
+              controls={false}
+              muted={true}
+              autoPlay={true}
+              loop={true}
+              src={product.productImages[0].path}></video>
+            {/* <img src={product.productImages[product.productImages.length - 1].path} alt='tree' /> */}
           </S.AssetImg>
           <S.AssetInfo>
             <S.AssetName>{product.name}</S.AssetName>
@@ -97,11 +103,13 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                 </div>
               </S.AssetButtonContainer>
             </div>
+            <S.AssetDescription
+              dangerouslySetInnerHTML={{ __html: product ? product.detail : '' }}
+            />
           </S.AssetInfo>
         </S.AssetContainer>
       )}
       <S.BottomContainer>
-        <S.AssetDescription dangerouslySetInnerHTML={{ __html: product ? product.detail : '' }} />
         <S.SemiTitle>이 크리에이터의 에셋 더 알아보기</S.SemiTitle>
         <S.ExtraAssets>
           {extraProducts &&

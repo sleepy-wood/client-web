@@ -15,9 +15,7 @@ export const AssetContainer = styled.div`
 
 export const AssetImg = styled.div`
   width: 400px;
-  height: 388px;
-
-  padding: 20px 25px;
+  height: 640px;
 
   background-color: var(--color-palette9);
 
@@ -26,10 +24,19 @@ export const AssetImg = styled.div`
 
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
+  overflow: hidden;
+
   & > img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    filter: brightness(1.2);
+  }
+
+  & > video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     filter: brightness(1.2);
   }
 `;
@@ -216,7 +223,9 @@ export const BottomContainer = styled.div`
 
 export const AssetDescription = styled.div`
   margin-top: 48px;
-  margin-bottom: 48px;
+  /* margin-bottom: 48px; */
+
+  height: 206px;
 
   padding: 20px 24px;
 

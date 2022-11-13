@@ -82,7 +82,7 @@ function Desktop({ user, products, productCount }: Props) {
                   )}>
                   <S.ExtraAssetImg>
                     <img
-                      src={product.productImages[product.productImages.length - 1].path}
+                      src={product.productImages[0]?.path}
                       alt={`${product.name}'s represent image`}
                       onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                         e.currentTarget.src = errorImg;
