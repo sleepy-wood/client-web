@@ -15,21 +15,16 @@ export const AssetContainer = styled.div`
 
 export const AssetImg = styled.div`
   width: 400px;
-  height: 520px;
+  height: 388px;
 
-  border: 4px solid transparent;
-  border-radius: 10px;
+  padding: 20px 25px;
 
-  background-image: linear-gradient(#f3f3f3, #f3f3f3),
-    linear-gradient(
-      196.75deg,
-      rgba(246, 114, 128, 0.6) 0.02%,
-      rgba(108, 91, 123, 0.4) 0.03%,
-      rgba(246, 114, 128, 0.6) 82.49%,
-      rgba(246, 114, 128, 0.6) 82.49%
-    );
-  background-origin: border-box;
-  background-clip: content-box, border-box;
+  background-color: var(--color-palette9);
+
+  border: 2px solid var(--color-palette10);
+  border-radius: 16px;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   & > img {
     width: 100%;
@@ -61,14 +56,12 @@ export const AssetSeller = styled.div`
 
   width: 100%;
   padding: 20px 25px;
+  margin-top: 32px;
 
-  border: 2px solid #c06c84;
+  border: 2px solid var(--color-palette10);
   border-radius: 16px;
 
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   & > div:not(:first-child) {
     margin-left: 16px;
@@ -128,7 +121,7 @@ export const AssetSeller = styled.div`
 `;
 
 export const AssetCurrentPrice = styled.div`
-  margin-top: 20px;
+  margin-top: 32px;
   margin-left: 16px;
 
   opacity: 0.6;
@@ -164,7 +157,7 @@ export const AssetPrice = styled.div`
 `;
 
 export const AssetButtonContainer = styled.div`
-  margin-top: 20px;
+  margin-top: 32px;
 
   display: flex;
   align-items: center;
@@ -184,21 +177,19 @@ export const AssetButtonContainer = styled.div`
 
     cursor: pointer;
 
-    border: 1px solid black;
+    background-color: var(--color-palette9);
+
+    border: 2px solid var(--color-palette10);
     border-radius: 12px;
 
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 
   & > div:not(:first-child) {
     width: 52px;
     height: 52px;
 
-    margin-left: 8px;
+    margin-left: 16px;
 
     display: flex;
     align-items: center;
@@ -206,22 +197,37 @@ export const AssetButtonContainer = styled.div`
 
     cursor: pointer;
 
+    background-color: var(--color-palette9);
+
+    border: 2px solid var(--color-palette10);
     border-radius: 50%;
 
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
+`;
+
+export const BottomContainer = styled.div`
+  width: 100%;
+
+  padding: 0 96px;
 `;
 
 export const AssetDescription = styled.div`
   margin-top: 48px;
+  margin-bottom: 48px;
+
+  padding: 20px 24px;
+
+  background-color: var(--color-palette9);
+
+  border: 2px solid var(--color-palette10);
+  border-radius: 10px;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 
 export const SemiTitle = styled.div`
-  margin-top: 16px;
+  margin-top: 24px;
 
   font-size: 15px;
   color: rgb(4, 17, 29);
@@ -229,42 +235,39 @@ export const SemiTitle = styled.div`
 `;
 
 export const ExtraAssets = styled.div`
-  margin-top: 12px;
+  margin-top: 16px;
   margin-bottom: 16px;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, 160px);
-  justify-content: space-between;
-  grid-gap: 14px 0;
+  grid-template-columns: repeat(auto-fill, 200px);
+  grid-gap: 24px 24px;
+  justify-content: start;
 `;
 
 export const ExtraAsset = styled.div`
-  width: 150px;
-  height: 186px;
+  width: 200px;
+  height: 260px;
 
-  border: 4px solid transparent;
-  border-radius: 10px;
+  border: 2px solid transparent;
+  border-radius: 12px;
 
   cursor: pointer;
 
-  background-image: linear-gradient(#f3f3f3, #f3f3f3),
-    linear-gradient(
-      196.75deg,
-      rgba(246, 114, 128, 0.6) 0.02%,
-      rgba(108, 91, 123, 0.4) 0.03%,
-      rgba(246, 114, 128, 0.6) 82.49%,
-      rgba(246, 114, 128, 0.6) 82.49%
-    );
+  background-image: linear-gradient(#f5f5f5, #f5f5f5),
+    linear-gradient(180deg, #6189ff, #8252fc, #fc52be);
   background-origin: border-box;
   background-clip: content-box, border-box;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 
 export const ExtraAssetImg = styled.div`
   display: flex;
   justify-content: center;
   & > img {
-    height: 90px;
-    width: 94px;
+    margin: 12px 0;
+    height: 132px;
+    width: calc(100% - 24px);
     object-fit: contain;
     filter: brightness(1.2);
   }
@@ -275,8 +278,8 @@ export const ExtraAssetName = styled.div`
 
   margin-left: 16px;
 
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
 
   white-space: nowrap;
   overflow: hidden;
@@ -286,10 +289,10 @@ export const ExtraAssetName = styled.div`
 export const ExtraAssetCount = styled.div`
   margin-left: 16px;
 
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--color-text);
-  opacity: 0.7;
+  opacity: 0.6;
 `;
 
 export const ExtraAssetPrice = styled.div`
@@ -301,19 +304,19 @@ export const ExtraAssetPrice = styled.div`
     margin-top: 3px;
     margin-right: 8px;
 
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
 
   & > div:nth-of-type(2) {
     & > div:nth-of-type(1) {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: #35477d;
     }
 
     & > div:nth-of-type(2) {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 400;
       color: var(--color-text);
       opacity: 0.7;

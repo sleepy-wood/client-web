@@ -90,91 +90,89 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
               <S.AssetButtonContainer>
                 <div>지금구매</div>
                 <div>
-                  <FaShoppingCart size={24} />
+                  <FaShoppingCart size={20} />
                 </div>
                 <div>
-                  <FaHeart size={24} />
+                  <FaHeart size={20} />
                 </div>
               </S.AssetButtonContainer>
-              <S.AssetDescription dangerouslySetInnerHTML={{ __html: product.detail }} />
-              <S.SemiTitle>이 크리에이터의 에셋 더 알아보기</S.SemiTitle>
-              <S.ExtraAssets>
-                {extraProducts &&
-                  extraProducts.map((extraProduct, index) => (
-                    <S.ExtraAsset
-                      key={index}
-                      onClick={moveToPath.bind(
-                        null,
-                        C.PATH.ITEM_DETAIL.PATH.replace(':id', extraProduct.id.toString()),
-                      )}>
-                      <S.ExtraAssetImg>
-                        <img
-                          src={
-                            extraProduct.productImages[extraProduct.productImages.length - 1].path
-                          }
-                          alt='tree'
-                        />
-                      </S.ExtraAssetImg>
-                      <S.ExtraAssetName>{extraProduct.name}</S.ExtraAssetName>
-                      <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
-                      <S.ExtraAssetPrice>
-                        <div>
-                          <img src={wood} alt='wood' />
-                        </div>
-                        <div>
-                          <div>
-                            {Number(extraProduct.price).toFixed(2) === '0.00'
-                              ? 'FREE'
-                              : Number(extraProduct.price).toFixed(2) + ' ETH'}
-                          </div>
-                          <div>2923.03 USD</div>
-                        </div>
-                      </S.ExtraAssetPrice>
-                    </S.ExtraAsset>
-                  ))}
-              </S.ExtraAssets>
-              <S.SemiTitle>추천 상품</S.SemiTitle>
-              <S.ExtraAssets>
-                {recommendProducts &&
-                  recommendProducts.map((recommendProduct, index) => (
-                    <S.ExtraAsset
-                      key={index}
-                      onClick={moveToPath.bind(
-                        null,
-                        C.PATH.ITEM_DETAIL.PATH.replace(':id', recommendProduct.id.toString()),
-                      )}>
-                      <S.ExtraAssetImg>
-                        <img
-                          src={
-                            recommendProduct.productImages[
-                              recommendProduct.productImages.length - 1
-                            ].path
-                          }
-                          alt='tree'
-                        />
-                      </S.ExtraAssetImg>
-                      <S.ExtraAssetName>{recommendProduct.name}</S.ExtraAssetName>
-                      <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
-                      <S.ExtraAssetPrice>
-                        <div>
-                          <img src={wood} alt='wood' />
-                        </div>
-                        <div>
-                          <div>
-                            {Number(recommendProduct.price).toFixed(2) === '0.00'
-                              ? 'FREE'
-                              : Number(recommendProduct.price).toFixed(2) + ' ETH'}
-                          </div>
-                          <div>2923.03 USD</div>
-                        </div>
-                      </S.ExtraAssetPrice>
-                    </S.ExtraAsset>
-                  ))}
-              </S.ExtraAssets>
             </div>
           </S.AssetInfo>
         </S.AssetContainer>
       )}
+      <S.BottomContainer>
+        <S.AssetDescription dangerouslySetInnerHTML={{ __html: product ? product.detail : '' }} />
+        <S.SemiTitle>이 크리에이터의 에셋 더 알아보기</S.SemiTitle>
+        <S.ExtraAssets>
+          {extraProducts &&
+            extraProducts.map((extraProduct, index) => (
+              <S.ExtraAsset
+                key={index}
+                onClick={moveToPath.bind(
+                  null,
+                  C.PATH.ITEM_DETAIL.PATH.replace(':id', extraProduct.id.toString()),
+                )}>
+                <S.ExtraAssetImg>
+                  <img
+                    src={extraProduct.productImages[extraProduct.productImages.length - 1].path}
+                    alt='tree'
+                  />
+                </S.ExtraAssetImg>
+                <S.ExtraAssetName>{extraProduct.name}</S.ExtraAssetName>
+                <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
+                <S.ExtraAssetPrice>
+                  <div>
+                    <img src={wood} alt='wood' />
+                  </div>
+                  <div>
+                    <div>
+                      {Number(extraProduct.price).toFixed(2) === '0.00'
+                        ? 'FREE'
+                        : Number(extraProduct.price).toFixed(2) + ' ETH'}
+                    </div>
+                    <div>2923.03 USD</div>
+                  </div>
+                </S.ExtraAssetPrice>
+              </S.ExtraAsset>
+            ))}
+        </S.ExtraAssets>
+        <S.SemiTitle>추천 상품</S.SemiTitle>
+        <S.ExtraAssets>
+          {recommendProducts &&
+            recommendProducts.map((recommendProduct, index) => (
+              <S.ExtraAsset
+                key={index}
+                onClick={moveToPath.bind(
+                  null,
+                  C.PATH.ITEM_DETAIL.PATH.replace(':id', recommendProduct.id.toString()),
+                )}>
+                <S.ExtraAssetImg>
+                  <img
+                    src={
+                      recommendProduct.productImages[recommendProduct.productImages.length - 1].path
+                    }
+                    alt='tree'
+                  />
+                </S.ExtraAssetImg>
+                <S.ExtraAssetName>{recommendProduct.name}</S.ExtraAssetName>
+                <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
+                <S.ExtraAssetPrice>
+                  <div>
+                    <img src={wood} alt='wood' />
+                  </div>
+                  <div>
+                    <div>
+                      {Number(recommendProduct.price).toFixed(2) === '0.00'
+                        ? 'FREE'
+                        : Number(recommendProduct.price).toFixed(2) + ' ETH'}
+                    </div>
+                    <div>2923.03 USD</div>
+                  </div>
+                </S.ExtraAssetPrice>
+              </S.ExtraAsset>
+            ))}
+        </S.ExtraAssets>
+      </S.BottomContainer>
     </S.Container>
   );
 }
