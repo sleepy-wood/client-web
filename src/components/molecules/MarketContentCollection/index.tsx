@@ -70,7 +70,12 @@ function Desktop() {
             </S.ContentContainerHeader>
             <S.CardContainer>
               {itemsWithCount[0].map((item, index) => (
-                <S.ExtraAsset key={index} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+                <S.ExtraAsset
+                  key={index}
+                  onClick={moveToPath.bind(
+                    null,
+                    C.PATH.ITEM_DETAIL.PATH.replace(':id', item.id.toString()),
+                  )}>
                   <S.ExtraAssetImg>
                     <img
                       src={item.productImages[item.productImages.length - 1].path}

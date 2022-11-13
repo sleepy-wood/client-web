@@ -73,7 +73,12 @@ function Desktop({ user, products, productCount }: Props) {
             </S.Info>
             <S.Items>
               {products.map((product, index) => (
-                <S.ExtraAsset key={index} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+                <S.ExtraAsset
+                  key={index}
+                  onClick={moveToPath.bind(
+                    null,
+                    C.PATH.ITEM_DETAIL.PATH.replace(':id', product.id.toString()),
+                  )}>
                   <S.ExtraAssetImg>
                     <img
                       src={product.productImages[product.productImages.length - 1].path}

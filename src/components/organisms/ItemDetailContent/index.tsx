@@ -88,7 +88,9 @@ function Desktop() {
             <S.ExtraAssets>
               {[1, 2].map((_, index) => (
                 <React.Fragment>
-                  <S.ExtraAsset key={index + 1} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+                  <S.ExtraAsset
+                    key={index + 1}
+                    onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '1'))}>
                     <S.ExtraAssetImg>
                       <img src={tree1} alt='tree' />
                     </S.ExtraAssetImg>
@@ -127,7 +129,9 @@ function Desktop() {
             <S.ExtraAssets>
               {[1, 2].map((_, index) => (
                 <React.Fragment>
-                  <S.ExtraAsset key={index + 1} onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+                  <S.ExtraAsset
+                    key={index + 1}
+                    onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '1'))}>
                     <S.ExtraAssetImg>
                       <img src={tree1} alt='tree' />
                     </S.ExtraAssetImg>

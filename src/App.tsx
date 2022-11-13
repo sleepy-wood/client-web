@@ -86,10 +86,14 @@ export default function App() {
               <Route path={PATH.MARKET_DETAIL.PATH} element={<MarketDetail />} />
               <Route
                 path={PATH.MARKET_DETAIL.REDIRECT}
-                element={<Navigate to={PATH.MARKET_DETAIL.REDIRECT} replace />}
+                element={<Navigate to={PATH.HOME} replace />}
               />
               <Route path={PATH.MARKET_REGISTER} element={<MarketRegister />} />
-              <Route path={PATH.ITEM_DETAIL} element={<ItemDetail />} />
+              <Route path={PATH.ITEM_DETAIL.PATH} element={<ItemDetail />} />
+              <Route
+                path={PATH.ITEM_DETAIL.REDIRECT}
+                element={<Navigate to={PATH.HOME} replace />}
+              />
               <Route path={PATH.DASHBOARD} element={<Dashboard />} />
               <Route
                 path='*'

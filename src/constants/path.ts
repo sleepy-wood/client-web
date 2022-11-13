@@ -15,9 +15,12 @@ export const PATH = {
   },
   MARKET_DETAIL: {
     PATH: '/users/:id',
-    REDIRECT: '/',
+    REDIRECT: '/users',
   },
   MARKET_REGISTER: '/register',
-  ITEM_DETAIL: '/item',
+  ITEM_DETAIL: {
+    PATH: '/items/:id',
+    REDIRECT: '/items',
+  },
   DASHBOARD: '/dashboard',
 };
