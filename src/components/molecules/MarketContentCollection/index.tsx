@@ -45,8 +45,7 @@ function Desktop() {
       });
 
       if (error) {
-        error && console.log(error.data.error.reason);
-        return;
+        console.log(error.data.error.reason);
       }
 
       setItemsWithCount(result);

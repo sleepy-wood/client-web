@@ -40,8 +40,7 @@ function Desktop() {
       const [result, error] = await API.product.findFiveByCategory();
 
       if (error) {
-        error && console.log(error.data.error.reason);
-        return;
+        console.log(error.data.error.reason);
       }
 
       setUsersWithCount(result);

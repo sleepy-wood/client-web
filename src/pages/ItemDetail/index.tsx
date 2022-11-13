@@ -20,8 +20,6 @@ export default function ItemDetail() {
         API.product.findFourRecommendProducts(id),
       ]);
 
-      console.log({ result1, result2, result3 });
-
       const [_product, _productError] = result1;
       const [_extraProducts, _extraProductsError] = result2;
       const [_recommendProducts, _recommendProductsError] = result3;
@@ -30,7 +28,6 @@ export default function ItemDetail() {
         _productError && console.log(_productError.data.error.reason);
         _extraProductsError && console.log(_extraProductsError.data.error.reason);
         _recommendProductsError && console.log(_recommendProductsError.data.error.reason);
-        return;
       }
 
       setProduct(_product);
