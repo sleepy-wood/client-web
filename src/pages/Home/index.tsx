@@ -24,6 +24,7 @@ export default function Home() {
       if (trendingError || topError) {
         trendingError && console.log(trendingError.data.error.reason);
         topError && console.log(topError.data.error.reason);
+        return;
       }
 
       setTrending(trending);
