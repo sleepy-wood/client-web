@@ -186,7 +186,7 @@ export const AssetButtonContainer = styled.div`
   }
 
   & > div:not(:first-child) {
-    width: 52px;
+    width: 60px;
     height: 52px;
 
     margin-left: 16px;
