@@ -27,7 +27,7 @@ function Desktop() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [title, onChangeTitle] = H.useInput('');
-  const [price, onChangePrice] = H.useInput(1000);
+  const [price, onChangePrice] = H.useInput<number>(1000);
 
   const [type, setType] = useState<string>('emoticon');
   const [description, setDescription] = useState<CustomElement[]>([
@@ -103,7 +103,7 @@ function Desktop() {
         url: u2,
         data: {
           name: title,
-          price,
+          price: Number(price),
           category: type,
           detail,
           attachFileIds,
