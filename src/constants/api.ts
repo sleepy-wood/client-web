@@ -29,6 +29,10 @@ export const APIs = {
         method: 'POST',
         url: `/api/v1/products`,
       },
+      findOne: {
+        method: 'GET',
+        url: `/api/v1/products/:id`,
+      },
       findAll: {
         method: 'GET',
         url: `/api/v1/products`,
@@ -36,6 +40,14 @@ export const APIs = {
       findFiveByCategory: {
         method: 'GET',
         url: `/api/v1/products/category`,
+      },
+      findFourExtraProducts: {
+        method: 'GET',
+        url: '/api/v1/products/extra/:id',
+      },
+      findFourRecommendProducts: {
+        method: 'GET',
+        url: '/api/v1/products/recommend/:id',
       },
     },
   },
