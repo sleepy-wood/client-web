@@ -26,8 +26,8 @@ export default function MarketDetail() {
       setProductCount(_productCount);
     }
 
-    !user && fetchData();
-  }, [user, id]);
+    fetchData();
+  }, [id]);
 
   return (
     <S.Container>

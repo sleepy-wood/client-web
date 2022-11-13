@@ -66,8 +66,8 @@ export default function App() {
       return;
     }
 
-    !user && fetchData();
-  }, [dispatch, user]);
+    fetchData();
+  }, [dispatch]);
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>

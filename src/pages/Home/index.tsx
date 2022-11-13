@@ -32,8 +32,8 @@ export default function Home() {
       return;
     }
 
-    (!trending || !top) && fetchData();
-  }, [top, trending]);
+    fetchData();
+  }, []);
 
   return (
     <S.Container>

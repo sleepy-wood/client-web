@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import * as C from '../../../constants';
 import * as I from '../../../interfaces';
@@ -30,6 +30,7 @@ export default function MarketDetailContent({ user, products, productCount }: Pr
 function Desktop({ user, products, productCount }: Props) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { id } = useParams<string>();
 
   const moveToPath = useCallback(
     (path: string, e: React.MouseEvent) => {

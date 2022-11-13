@@ -35,8 +35,8 @@ export default function ItemDetail() {
       setRecommendProducts(_recommendProducts);
     }
 
-    !product && fetchData();
-  }, [id, product]);
+    fetchData();
+  }, [id]);
 
   return (
     <S.Container>

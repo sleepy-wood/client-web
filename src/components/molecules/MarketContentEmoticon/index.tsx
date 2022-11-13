@@ -52,8 +52,8 @@ function Desktop() {
       setItemsWithCount(result);
     }
 
-    !itemsWithCount && fetchData();
-  }, [itemsWithCount, page]);
+    fetchData();
+  }, [page]);
 
   return (
     <S.Container>

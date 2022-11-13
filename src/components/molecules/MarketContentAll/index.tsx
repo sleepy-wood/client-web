@@ -46,8 +46,8 @@ function Desktop() {
       setUsersWithCount(result);
     }
 
-    !usersWithCount && fetchData();
-  }, [usersWithCount]);
+    fetchData();
+  }, []);
 
   return (
     <S.Container>
