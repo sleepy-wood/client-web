@@ -52,18 +52,30 @@ export const product = {
       return [null, new E.HttpException(_data, status)];
     }
   },
-  async findFourExtraProducts(id: string | number): Promise<[I.Product, E.HttpException]> {
+  async findFourExtraProducts(id: string): Promise<[I.Product[], E.HttpException]> {
     try {
       const { method, url } = v1.product.findFourExtraProducts;
+      const { result, data } = await callRequest<I.BasicResponse<I.Product[]>>({
+        method,
+        url: url.replace(':id', id),
+      });
+
+      return [data, null];
     } catch (error) {
       const { data: _data, status } = error.response;
 
       return [null, new E.HttpException(_data, status)];
     }
   },
-  async findFourRecommendProducts(id: string | number): Promise<[I.Product, E.HttpException]> {
+  async findFourRecommendProducts(id: string): Promise<[I.Product[], E.HttpException]> {
     try {
       const { method, url } = v1.product.findFourRecommendProducts;
+      const { result, data } = await callRequest<I.BasicResponse<I.Product[]>>({
+        method,
+        url: url.replace(':id', id),
+      });
+
+      return [data, null];
     } catch (error) {
       const { data: _data, status } = error.response;
 
