@@ -275,3 +275,36 @@ export class ProductImage {
   deletedAt: Date;
   product: Product;
 }
+
+export class Heart {
+  id: number;
+  valueInCountPerMinute: number;
+  date: Date;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  user: User;
+}
+
+export class Oxygen {
+  id: number;
+  valueInRatio: number;
+  date: Date;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  user: User;
+}
+
+export class Respiratory {
+  id: number;
+  valueInCountPerMinute: number;
+  date: Date;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  user: User;
+}

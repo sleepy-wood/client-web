@@ -25,6 +25,18 @@ export const APIs = {
       },
     },
     health: {
+      findHeart: {
+        method: 'GET',
+        url: '/api/v1/heart',
+      },
+      findOxygen: {
+        method: 'GET',
+        url: '/api/v1/oxygen',
+      },
+      findRespiratory: {
+        method: 'GET',
+        url: '/api/v1/respiratory',
+      },
       findWeekData: {
         method: 'GET',
         url: '/api/v1/activities/week-data',

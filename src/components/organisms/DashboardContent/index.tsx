@@ -26,15 +26,22 @@ const activate = '#00DEA3';
 
 type Props = {
   weekHealth: I.Activity[];
+  heart: I.Heart;
+  oxygen: I.Oxygen;
+  respiratory: I.Respiratory;
 };
 
-export default function DashboardContent({ weekHealth }: Props) {
+export default function DashboardContent({ weekHealth, heart, oxygen, respiratory }: Props) {
   const isDesktop = useMediaQuery({ minWidth });
 
-  return isDesktop ? <Desktop weekHealth={weekHealth} /> : <Mobile />;
+  return isDesktop ? (
+    <Desktop weekHealth={weekHealth} heart={heart} oxygen={oxygen} respiratory={respiratory} />
+  ) : (
+    <Mobile />
+  );
 }
 
-function Desktop({ weekHealth }: Props) {
+function Desktop({ weekHealth, heart, oxygen, respiratory }: Props) {
   const [energyBurnData, setEnergyBurnData] = useState<ChartDataset<'bar', number[]>[]>([]);
   const [exerciseData, setExerciseData] = useState<ChartDataset<'bar', number[]>[]>([]);
   const [standData, setStandData] = useState<ChartDataset<'bar', number[]>[]>([]);
@@ -185,40 +192,55 @@ function Desktop({ weekHealth }: Props) {
           </S.MiniContainer>
         </S.ThreeContainer>
         <S.Activity>
-          <div>분당 심박수 / 혈중 산소 / 분당 호흡수</div>
-          <div>
-            <div>
-              <FaHeartbeat size={24} color='#fff' />
-            </div>
-            <div>분당 심박수</div>
-            <div>72회</div>
-            <div>-10pt</div>
-            <div>
-              <FaAngleRight color='#535353' />
-            </div>
-          </div>
-          <div>
-            <div>
-              <SiOxygen size={24} color='#fff' />
-            </div>
-            <div>혈중 산소</div>
-            <div>96%</div>
-            <div>+15pt</div>
-            <div>
-              <FaAngleRight color='#535353' />
-            </div>
-          </div>
-          <div>
-            <div>
-              <FaLungs size={24} color='#fff' />
-            </div>
-            <div>분당 호흡수</div>
-            <div>20회</div>
-            <div>-10pt</div>
-            <div>
-              <FaAngleRight color='#535353' />
-            </div>
-          </div>
+          {heart && (
+            <React.Fragment>
+              <div>분당 심박수 / 혈중 산소 / 분당 호흡수</div>
+              <div>
+                <div>
+                  <FaHeartbeat size={24} color='#fff' />
+                </div>
+                <div>분당 심박수</div>
+                <div>{parseInt(heart[0].valueInCountPerMinute)}회</div>
+                <div>
+                  {parseInt(heart[0].valueInCountPerMinute) -
+                    parseInt(heart[1].valueInCountPerMinute)}
+                  pt
+                </div>
+                <div>
+                  <FaAngleRight color='#535353' />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <SiOxygen size={24} color='#fff' />
+                </div>
+                <div>혈중 산소</div>
+                <div>{parseInt((Number(oxygen[0].valueInRatio) * 100).toString())}%</div>
+                <div>
+                  +{Number(oxygen[0].valueInRatio) * 100 - Number(oxygen[1].valueInRatio) * 100}pt
+                </div>
+                <div>
+                  <FaAngleRight color='#535353' />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <FaLungs size={24} color='#fff' />
+                </div>
+                <div>분당 호흡수</div>
+                <div>{parseInt(respiratory[0].valueInCountPerMinute)}회</div>
+                <div>
+                  +
+                  {parseInt(respiratory[0].valueInCountPerMinute) -
+                    parseInt(respiratory[1].valueInCountPerMinute)}
+                  pt
+                </div>
+                <div>
+                  <FaAngleRight color='#535353' />
+                </div>
+              </div>
+            </React.Fragment>
+          )}
         </S.Activity>
       </S.LeftContainer>
       {weekHealth && (
