@@ -37,7 +37,7 @@ export const AssetImg = styled.div`
 export const AssetInfo = styled.div`
   width: calc(100% - 400px);
 
-  padding: 0 48px;
+  padding-left: 48px;
 `;
 
 export const AssetName = styled.h2`
