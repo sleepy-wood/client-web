@@ -58,8 +58,7 @@ export const ExtraAsset = styled.div`
 
   cursor: pointer;
 
-  background-image: linear-gradient(#f5f5f5, #f5f5f5),
-    linear-gradient(180deg, #6189ff, #8252fc, #fc52be);
+  background-image: linear-gradient(#f5f5f5, #f5f5f5), linear-gradient(180deg, #6189ff, #8252fc);
   background-origin: border-box;
   background-clip: content-box, border-box;
 

@@ -58,6 +58,8 @@ export const AssetSeller = styled.div`
   padding: 20px 25px;
   margin-top: 32px;
 
+  background-color: var(--color-palette9);
+
   border: 2px solid var(--color-palette10);
   border-radius: 16px;
 
@@ -253,8 +255,7 @@ export const ExtraAsset = styled.div`
 
   cursor: pointer;
 
-  background-image: linear-gradient(#f5f5f5, #f5f5f5),
-    linear-gradient(180deg, #6189ff, #8252fc, #fc52be);
+  background-image: linear-gradient(#f5f5f5, #f5f5f5), linear-gradient(180deg, #6189ff, #8252fc);
   background-origin: border-box;
   background-clip: content-box, border-box;
 
