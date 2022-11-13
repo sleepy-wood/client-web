@@ -26,22 +26,35 @@ const activate = '#00DEA3';
 
 type Props = {
   weekHealth: I.Activity[];
-  heart: I.Heart;
-  oxygen: I.Oxygen;
-  respiratory: I.Respiratory;
+  heart: I.Heart[];
+  oxygen: I.Oxygen[];
+  respiratory: I.Respiratory[];
+  sleeps: I.Sleep[];
 };
 
-export default function DashboardContent({ weekHealth, heart, oxygen, respiratory }: Props) {
+export default function DashboardContent({
+  weekHealth,
+  heart,
+  oxygen,
+  respiratory,
+  sleeps,
+}: Props) {
   const isDesktop = useMediaQuery({ minWidth });
 
   return isDesktop ? (
-    <Desktop weekHealth={weekHealth} heart={heart} oxygen={oxygen} respiratory={respiratory} />
+    <Desktop
+      weekHealth={weekHealth}
+      heart={heart}
+      oxygen={oxygen}
+      respiratory={respiratory}
+      sleeps={sleeps}
+    />
   ) : (
     <Mobile />
   );
 }
 
-function Desktop({ weekHealth, heart, oxygen, respiratory }: Props) {
+function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
   const [energyBurnData, setEnergyBurnData] = useState<ChartDataset<'bar', number[]>[]>([]);
   const [exerciseData, setExerciseData] = useState<ChartDataset<'bar', number[]>[]>([]);
   const [standData, setStandData] = useState<ChartDataset<'bar', number[]>[]>([]);
@@ -91,6 +104,8 @@ function Desktop({ weekHealth, heart, oxygen, respiratory }: Props) {
       );
     }
   }, [weekHealth]);
+
+  console.log({ sleeps });
 
   return (
     <S.Container>
@@ -200,10 +215,10 @@ function Desktop({ weekHealth, heart, oxygen, respiratory }: Props) {
                   <FaHeartbeat size={24} color='#fff' />
                 </div>
                 <div>분당 심박수</div>
-                <div>{parseInt(heart[0].valueInCountPerMinute)}회</div>
+                <div>{parseInt(heart[0].valueInCountPerMinute.toString())}회</div>
                 <div>
-                  {parseInt(heart[0].valueInCountPerMinute) -
-                    parseInt(heart[1].valueInCountPerMinute)}
+                  {parseInt(heart[0].valueInCountPerMinute.toString()) -
+                    parseInt(heart[1].valueInCountPerMinute.toString())}
                   pt
                 </div>
                 <div>
@@ -228,11 +243,11 @@ function Desktop({ weekHealth, heart, oxygen, respiratory }: Props) {
                   <FaLungs size={24} color='#fff' />
                 </div>
                 <div>분당 호흡수</div>
-                <div>{parseInt(respiratory[0].valueInCountPerMinute)}회</div>
+                <div>{parseInt(respiratory[0].valueInCountPerMinute.toString())}회</div>
                 <div>
                   +
-                  {parseInt(respiratory[0].valueInCountPerMinute) -
-                    parseInt(respiratory[1].valueInCountPerMinute)}
+                  {parseInt(respiratory[0].valueInCountPerMinute.toString()) -
+                    parseInt(respiratory[1].valueInCountPerMinute.toString())}
                   pt
                 </div>
                 <div>

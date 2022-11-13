@@ -25,6 +25,10 @@ export const APIs = {
       },
     },
     health: {
+      findSleep: {
+        method: 'GET',
+        url: '/api/v1/sleeps',
+      },
       findHeart: {
         method: 'GET',
         url: '/api/v1/heart',

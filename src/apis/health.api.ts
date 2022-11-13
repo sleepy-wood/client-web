@@ -6,10 +6,25 @@ import { callRequest } from '../utils';
 const { v1 } = C.APIs;
 
 export const health = {
-  async findHeart(): Promise<[I.Heart, E.HttpException]> {
+  async findSleep(): Promise<[I.Sleep[], E.HttpException]> {
+    try {
+      const { method, url } = v1.health.findSleep;
+      const { result, data } = await callRequest<I.BasicResponse<I.Sleep[]>>({
+        method,
+        url,
+      });
+
+      return [data, null];
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return [null, new E.HttpException(_data, status)];
+    }
+  },
+  async findHeart(): Promise<[I.Heart[], E.HttpException]> {
     try {
       const { method, url } = v1.health.findHeart;
-      const { result, data } = await callRequest<I.BasicResponse<I.Heart>>({
+      const { result, data } = await callRequest<I.BasicResponse<I.Heart[]>>({
         method,
         url,
       });
@@ -21,10 +36,10 @@ export const health = {
       return [null, new E.HttpException(_data, status)];
     }
   },
-  async findOxygen(): Promise<[I.Oxygen, E.HttpException]> {
+  async findOxygen(): Promise<[I.Oxygen[], E.HttpException]> {
     try {
       const { method, url } = v1.health.findOxygen;
-      const { result, data } = await callRequest<I.BasicResponse<I.Oxygen>>({
+      const { result, data } = await callRequest<I.BasicResponse<I.Oxygen[]>>({
         method,
         url,
       });
@@ -36,10 +51,10 @@ export const health = {
       return [null, new E.HttpException(_data, status)];
     }
   },
-  async findRespiratory(): Promise<[I.Respiratory, E.HttpException]> {
+  async findRespiratory(): Promise<[I.Respiratory[], E.HttpException]> {
     try {
       const { method, url } = v1.health.findRespiratory;
-      const { result, data } = await callRequest<I.BasicResponse<I.Respiratory>>({
+      const { result, data } = await callRequest<I.BasicResponse<I.Respiratory[]>>({
         method,
         url,
       });
