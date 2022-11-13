@@ -233,7 +233,7 @@ export const SemiTitle = styled.div`
 
   font-size: 15px;
   color: rgb(4, 17, 29);
-  opacity: 0.6;
+  opacity: 0.8;
 `;
 
 export const ExtraAssets = styled.div`
