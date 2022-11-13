@@ -136,7 +136,7 @@ export const Activity = styled.div`
     }
 
     & > div:nth-of-type(2) {
-      width: 80px;
+      width: 100px;
 
       font-size: 16px;
       font-weight: 500;
