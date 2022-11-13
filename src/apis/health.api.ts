@@ -6,12 +6,13 @@ import { callRequest } from '../utils';
 const { v1 } = C.APIs;
 
 export const health = {
-  async findWeekData(): Promise<[I.Activity[], E.HttpException]> {
+  async findWeekData(date: Date): Promise<[I.Activity[], E.HttpException]> {
     try {
       const { method, url } = v1.health.findWeekData;
       const { result, data } = await callRequest<I.BasicResponse<I.Activity[]>>({
         method,
         url,
+        params: { date },
       });
 
       return [data, null];

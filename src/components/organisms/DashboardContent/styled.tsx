@@ -239,27 +239,39 @@ export const BarGraphContainer = styled.div`
 
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     & > div:nth-of-type(1) {
-      margin-right: 16px;
+      display: flex;
+      align-items: center;
+
+      & > div:nth-of-type(1) {
+        margin-right: 16px;
+      }
+
+      & > div:nth-of-type(2) {
+        font-size: 32px;
+        font-weight: 600;
+
+        color: #00dea3;
+
+        margin-right: 4px;
+      }
+
+      & > div:nth-of-type(3) {
+        font-size: 18px;
+        font-weight: 400;
+
+        padding-top: 8px;
+
+        color: #535353;
+      }
     }
 
     & > div:nth-of-type(2) {
-      font-size: 32px;
-      font-weight: 600;
-
-      color: #00dea3;
-
-      margin-right: 4px;
-    }
-
-    & > div:nth-of-type(3) {
-      font-size: 18px;
-      font-weight: 400;
-
-      padding-top: 8px;
-
-      color: #535353;
+      margin-right: 52px;
+      font-size: 12px;
+      opacity: 0.7;
     }
   }
 

@@ -1,52 +1,89 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ApexChart from 'react-apexcharts';
 import { useMediaQuery } from 'react-responsive';
 import {
   Chart as ChartJS,
-  LinearScale,
   CategoryScale,
   BarElement,
-  PointElement,
-  LineElement,
-  Legend,
-  Tooltip,
-  LineController,
   BarController,
+  ChartDataset,
+  LinearScale,
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
 import { FaHeartbeat, FaLungs, FaAngleRight } from 'react-icons/fa';
 import { SiOxygen } from 'react-icons/si';
 
-import * as S from './styled';
+ChartJS.register(CategoryScale, BarElement, BarController, LinearScale);
 
+import * as I from '../../../interfaces';
+import * as S from './styled';
 import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
-
-ChartJS.register(
-  LinearScale,
-  CategoryScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  Legend,
-  Tooltip,
-  LineController,
-  BarController,
-);
-
 const labels = ['일', '월', '화', '수', '목', '금', '토'];
-const sleepLabels = ['기상', '램 수면', '얕은 수면', '깊은 수면'];
+const deactivate = '#D9D9D999';
+const activate = '#00DEA3';
 
-export default function DashboardContent() {
+type Props = {
+  weekHealth: I.Activity[];
+};
+
+export default function DashboardContent({ weekHealth }: Props) {
   const isDesktop = useMediaQuery({ minWidth });
 
-  return isDesktop ? <Desktop /> : <Mobile />;
+  return isDesktop ? <Desktop weekHealth={weekHealth} /> : <Mobile />;
 }
 
-function Desktop() {
-  useEffect(() => {}, []);
+function Desktop({ weekHealth }: Props) {
+  const [energyBurnData, setEnergyBurnData] = useState<ChartDataset<'bar', number[]>[]>([]);
+  const [exerciseData, setExerciseData] = useState<ChartDataset<'bar', number[]>[]>([]);
+  const [standData, setStandData] = useState<ChartDataset<'bar', number[]>[]>([]);
+  const [energyBurnScore, setEnergyBurnScore] = useState<number>(0);
+  const [exerciseScore, setExerciseScore] = useState<number>(0);
+  const [standScore, setStandScore] = useState<number>(0);
+  const [chatBackground, setChartBackground] = useState<string[]>([
+    deactivate,
+    deactivate,
+    deactivate,
+    deactivate,
+    deactivate,
+    deactivate,
+    deactivate,
+  ]);
+
+  useEffect(() => {
+    if (weekHealth) {
+      const energyBurn = [];
+      const exercise = [];
+      const stand = [];
+      for (const data of weekHealth) {
+        const {
+          activeEnergyBurnedInKcal,
+          activeEnergyBurnedGoalInKcal,
+          exerciseTimeInMinutes,
+          exerciseTimeGoalInMinutes,
+          standHours,
+          standHoursGoal,
+        } = data;
+
+        energyBurn.push((activeEnergyBurnedInKcal / activeEnergyBurnedGoalInKcal) * 100);
+        exercise.push((exerciseTimeInMinutes / exerciseTimeGoalInMinutes) * 100);
+        stand.push((standHours / standHoursGoal) * 100);
+      }
+
+      setEnergyBurnData(energyBurn);
+      setExerciseData(exercise);
+      setStandData(stand);
+      setEnergyBurnScore(parseInt((energyBurn.reduce((a, b) => a + b, 0) / 7).toString()));
+      setExerciseScore(parseInt((exercise.reduce((a, b) => a + b, 0) / 7).toString()));
+      setStandScore(parseInt((stand.reduce((a, b) => a + b, 0) / 7).toString()));
+      setChartBackground(
+        [0, 1, 2, 3, 4, 5, 6].map(_ => {
+          return new Date().getDay() === _ ? activate : deactivate;
+        }),
+      );
+    }
+  }, [weekHealth]);
 
   return (
     <S.Container>
@@ -184,158 +221,109 @@ function Desktop() {
           </div>
         </S.Activity>
       </S.LeftContainer>
-      <S.RightContainer>
-        <S.BarGraphContainer>
-          <div>
-            <div>움직이기</div>
-            <div>88</div>
-            <div>점</div>
-          </div>
-          <div>
-            <Chart
-              type='bar'
-              options={{
-                plugins: {
-                  legend: {
-                    display: false,
+      {weekHealth && (
+        <S.RightContainer>
+          <S.BarGraphContainer>
+            <div>
+              <div>
+                <div>움직이기</div>
+                <div>{energyBurnScore}</div>
+                <div>점</div>
+              </div>
+              <div>2022-10-30 ~ 2022-11-05</div>
+            </div>
+            <div>
+              <Chart
+                type='bar'
+                options={{
+                  plugins: { legend: { display: false } },
+                  scales: {
+                    xAxes: { grid: { display: false } },
+                    yAxes: { ticks: { stepSize: 25 } },
                   },
-                },
-                scales: {
-                  xAxes: {
-                    grid: {
-                      display: false,
+                }}
+                data={{
+                  labels,
+                  datasets: [
+                    {
+                      type: 'bar',
+                      backgroundColor: chatBackground,
+                      data: energyBurnData,
+                      barThickness: 15,
                     },
+                  ],
+                }}
+              />
+            </div>
+          </S.BarGraphContainer>
+          <S.BarGraphContainer>
+            <div>
+              <div>
+                <div>운동하기</div>
+                <div>{exerciseScore}</div>
+                <div>점</div>
+              </div>
+              <div>2022-10-30 ~ 2022-11-05</div>
+            </div>
+            <div>
+              <Chart
+                type='bar'
+                options={{
+                  plugins: { legend: { display: false } },
+                  scales: {
+                    xAxes: { grid: { display: false } },
+                    yAxes: { ticks: { stepSize: 25 } },
                   },
-                  yAxes: {
-                    ticks: {
-                      stepSize: 25,
+                }}
+                data={{
+                  labels,
+                  datasets: [
+                    {
+                      type: 'bar',
+                      backgroundColor: chatBackground,
+                      data: exerciseData,
+                      barThickness: 15,
                     },
+                  ],
+                }}
+              />
+            </div>
+          </S.BarGraphContainer>
+          <S.BarGraphContainer>
+            <div>
+              <div>
+                <div>일어서기</div>
+                <div>{standScore}</div>
+                <div>점</div>
+              </div>
+              <div>2022-10-30 ~ 2022-11-05</div>
+            </div>
+            <div>
+              <Chart
+                type='bar'
+                options={{
+                  plugins: { legend: { display: false } },
+                  scales: {
+                    xAxes: { grid: { display: false } },
+                    yAxes: { ticks: { stepSize: 25 } },
                   },
-                },
-              }}
-              data={{
-                labels,
-                datasets: [
-                  {
-                    type: 'bar' as const,
-                    backgroundColor: [
-                      '#D9D9D999',
-                      '#00DEA3',
-                      '#D9D9D999',
-                      '#D9D9D999',
-                      '#D9D9D999',
-                      '#D9D9D999',
-                      '#D9D9D999',
-                    ],
-                    data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
-                    barThickness: 15,
-                  },
-                ],
-              }}
-            />
-          </div>
-        </S.BarGraphContainer>
-        <S.BarGraphContainer>
-          <div>
-            <div>운동하기</div>
-            <div>88</div>
-            <div>점</div>
-          </div>
-          <div>
-            <Chart
-              type='bar'
-              options={{
-                plugins: {
-                  legend: {
-                    display: false,
-                  },
-                },
-                scales: {
-                  xAxes: {
-                    grid: {
-                      display: false,
+                }}
+                data={{
+                  labels,
+                  datasets: [
+                    {
+                      type: 'bar',
+                      backgroundColor: chatBackground,
+                      data: standData,
+                      barThickness: 15,
                     },
-                  },
-                  yAxes: {
-                    ticks: {
-                      stepSize: 25,
-                    },
-                  },
-                },
-              }}
-              data={{
-                labels,
-                datasets: [
-                  {
-                    type: 'bar' as const,
-                    backgroundColor: [
-                      '#D9D9D999',
-                      '#00DEA3',
-                      '#D9D9D999',
-                      '#D9D9D999',
-                      '#D9D9D999',
-                      '#D9D9D999',
-                      '#D9D9D999',
-                    ],
-                    data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
-                    barThickness: 15,
-                  },
-                ],
-              }}
-            />
-          </div>
-        </S.BarGraphContainer>
-        <S.BarGraphContainer>
-          <div>
-            <div>일어서기</div>
-            <div>88</div>
-            <div>점</div>
-          </div>
-          <div>
-            <Chart
-              type='bar'
-              options={{
-                plugins: {
-                  legend: {
-                    display: false,
-                  },
-                },
-                scales: {
-                  xAxes: {
-                    grid: {
-                      display: false,
-                    },
-                  },
-                  yAxes: {
-                    ticks: {
-                      stepSize: 25,
-                    },
-                  },
-                },
-              }}
-              data={{
-                labels,
-                datasets: [
-                  {
-                    type: 'bar' as const,
-                    backgroundColor: [
-                      '#D9D9D999',
-                      '#00DEA3',
-                      '#D9D9D999',
-                      '#D9D9D999',
-                      '#D9D9D999',
-                      '#D9D9D999',
-                      '#D9D9D999',
-                    ],
-                    data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
-                    barThickness: 15,
-                  },
-                ],
-              }}
-            />
-          </div>
-        </S.BarGraphContainer>
-      </S.RightContainer>
+                  ],
+                }}
+              />
+            </div>
+          </S.BarGraphContainer>
+        </S.RightContainer>
+      )}
     </S.Container>
   );
 }
