@@ -16,8 +16,8 @@ export default function ItemDetail() {
     async function fetchData() {
       const [result1, result2, result3] = await Promise.all([
         API.product.findOne(id),
-        API.product.findFourExtraProducts(id),
-        API.product.findFourRecommendProducts(id),
+        API.product.findExtraProducts(id),
+        API.product.findRecommendProducts(id),
       ]);
 
       const [_product, _productError] = result1;

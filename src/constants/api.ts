@@ -41,11 +41,11 @@ export const APIs = {
         method: 'GET',
         url: `/api/v1/products/category`,
       },
-      findFourExtraProducts: {
+      findExtraProducts: {
         method: 'GET',
         url: '/api/v1/products/extra/:id',
       },
-      findFourRecommendProducts: {
+      findRecommendProducts: {
         method: 'GET',
         url: '/api/v1/products/recommend/:id',
       },

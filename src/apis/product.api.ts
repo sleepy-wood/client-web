@@ -52,9 +52,9 @@ export const product = {
       return [null, new E.HttpException(_data, status)];
     }
   },
-  async findFourExtraProducts(id: string): Promise<[I.Product[], E.HttpException]> {
+  async findExtraProducts(id: string): Promise<[I.Product[], E.HttpException]> {
     try {
-      const { method, url } = v1.product.findFourExtraProducts;
+      const { method, url } = v1.product.findExtraProducts;
       const { result, data } = await callRequest<I.BasicResponse<I.Product[]>>({
         method,
         url: url.replace(':id', id),
@@ -67,9 +67,9 @@ export const product = {
       return [null, new E.HttpException(_data, status)];
     }
   },
-  async findFourRecommendProducts(id: string): Promise<[I.Product[], E.HttpException]> {
+  async findRecommendProducts(id: string): Promise<[I.Product[], E.HttpException]> {
     try {
-      const { method, url } = v1.product.findFourRecommendProducts;
+      const { method, url } = v1.product.findRecommendProducts;
       const { result, data } = await callRequest<I.BasicResponse<I.Product[]>>({
         method,
         url: url.replace(':id', id),
