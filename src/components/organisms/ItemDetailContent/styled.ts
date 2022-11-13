@@ -130,6 +130,8 @@ export const AssetSeller = styled.div`
 export const AssetCurrentPrice = styled.div`
   margin-top: 20px;
   margin-left: 16px;
+
+  opacity: 0.6;
 `;
 
 export const AssetPrice = styled.div`
