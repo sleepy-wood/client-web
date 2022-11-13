@@ -24,6 +24,12 @@ export const APIs = {
         url: `/api/v1/files/temp/upload`,
       },
     },
+    health: {
+      findWeekData: {
+        method: 'GET',
+        url: '/api/v1/activities/week-data',
+      },
+    },
     product: {
       create: {
         method: 'POST',
