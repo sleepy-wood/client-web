@@ -53,19 +53,19 @@ function Desktop() {
       </S.Header>
       <div>
         <Slider {...settings}>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '1'))}>
             <img src={day01} alt='beauty tree' />
           </S.Img>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '1'))}>
             <img src={beauty} alt='beauty tree' />
           </S.Img>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '1'))}>
             <img src={sunset01} alt='beauty tree' />
           </S.Img>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '1'))}>
             <img src={night01} alt='beauty tree' />
           </S.Img>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL)}>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '1'))}>
             <img src={beauty2} alt='beauty tree' />
           </S.Img>
         </Slider>

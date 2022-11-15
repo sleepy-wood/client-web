@@ -79,7 +79,12 @@ function Desktop({ trending, top }: Props) {
               trending.map(
                 (user, index) =>
                   index < 5 && (
-                    <S.Profile key={index} onClick={moveToPath.bind(null, C.PATH.MARKET_DETAIL)}>
+                    <S.Profile
+                      key={index}
+                      onClick={moveToPath.bind(
+                        null,
+                        C.PATH.MARKET_DETAIL.PATH.replace(':id', user.id.toString()),
+                      )}>
                       <div>
                         <div>{index + 1}</div>
                         <div>
@@ -101,7 +106,12 @@ function Desktop({ trending, top }: Props) {
               top.map(
                 (user, index) =>
                   index < 5 && (
-                    <S.Profile key={index} onClick={moveToPath.bind(null, C.PATH.MARKET_DETAIL)}>
+                    <S.Profile
+                      key={index}
+                      onClick={moveToPath.bind(
+                        null,
+                        C.PATH.MARKET_DETAIL.PATH.replace(':id', user.id.toString()),
+                      )}>
                       <div>
                         <div>{index + 1}</div>
                         <div>
@@ -132,7 +142,12 @@ function Desktop({ trending, top }: Props) {
               trending.map(
                 (user, index) =>
                   index >= 5 && (
-                    <S.Profile key={index} onClick={moveToPath.bind(null, C.PATH.MARKET_DETAIL)}>
+                    <S.Profile
+                      key={index}
+                      onClick={moveToPath.bind(
+                        null,
+                        C.PATH.MARKET_DETAIL.PATH.replace(':id', user.id.toString()),
+                      )}>
                       <div>
                         <div>{index + 1}</div>
                         <div>
@@ -154,7 +169,12 @@ function Desktop({ trending, top }: Props) {
               top.map(
                 (user, index) =>
                   index >= 5 && (
-                    <S.Profile key={index} onClick={moveToPath.bind(null, C.PATH.MARKET_DETAIL)}>
+                    <S.Profile
+                      key={index}
+                      onClick={moveToPath.bind(
+                        null,
+                        C.PATH.MARKET_DETAIL.PATH.replace(':id', user.id.toString()),
+                      )}>
                       <div>
                         <div>{index + 1}</div>
                         <div>

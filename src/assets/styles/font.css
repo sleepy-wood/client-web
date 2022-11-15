@@ -1,0 +1,7 @@
+/* File: font.css */
+
+@font-face {
+	font-family: "nexon";
+	src: local("nexon"),
+		url("../fonts/NEXON\ Lv1\ Gothic\ OTF.woff") format("woff");
+}

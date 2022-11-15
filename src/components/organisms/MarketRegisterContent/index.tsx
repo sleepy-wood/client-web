@@ -27,9 +27,9 @@ function Desktop() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [title, onChangeTitle] = H.useInput('');
-  const [price, onChangePrice] = H.useInput(1000);
+  const [price, onChangePrice] = H.useInput<number>(1000);
 
-  const [type, setType] = useState<string>('Emoticon');
+  const [type, setType] = useState<string>('emoticon');
   const [description, setDescription] = useState<CustomElement[]>([
     { type: 'paragraph', children: [{ text: '' }] },
   ]);
@@ -103,8 +103,8 @@ function Desktop() {
         url: u2,
         data: {
           name: title,
-          price,
-          type,
+          price: Number(price),
+          category: type,
           detail,
           attachFileIds,
         },
@@ -160,8 +160,14 @@ function Desktop() {
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               setType(e.target.value);
             }}>
-            <S.Option value='Prop'>랜드소품</S.Option>
-            <S.Option value='Emoticon'>이모티콘</S.Option>
+            <S.Option value='collection'>컬렉션</S.Option>
+            <S.Option value='emoticon'>이모티콘</S.Option>
+            <S.Option value='flower'>꽃</S.Option>
+            <S.Option value='plants'>식물</S.Option>
+            <S.Option value='mushroom'>버섯</S.Option>
+            <S.Option value='rock'>바위</S.Option>
+            <S.Option value='wooden'>목재 소품</S.Option>
+            <S.Option value='light'>라이트</S.Option>
           </S.Select>
         </S.InputContainer>
         <S.RichtextContainer>

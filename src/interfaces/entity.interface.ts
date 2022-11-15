@@ -188,6 +188,7 @@ export class AttachFile {
 export class User {
   id: number;
   profileImg: string;
+  bannerImg: string;
   type: I.UserType;
   nickname: string;
   avatar: string;
@@ -245,10 +246,10 @@ export class Product {
   price: number;
   discount: number;
   stock: number;
-  type: I.ProductType;
   detail: string;
   hit: number;
   sell: number;
+  category: I.ProductCategory;
   userId: number;
   createdAt: Date;
   updatedAt: Date;
@@ -273,4 +274,37 @@ export class ProductImage {
   updatedAt: Date;
   deletedAt: Date;
   product: Product;
+}
+
+export class Heart {
+  id: number;
+  valueInCountPerMinute: number;
+  date: Date;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  user: User;
+}
+
+export class Oxygen {
+  id: number;
+  valueInRatio: number;
+  date: Date;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  user: User;
+}
+
+export class Respiratory {
+  id: number;
+  valueInCountPerMinute: number;
+  date: Date;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  user: User;
 }

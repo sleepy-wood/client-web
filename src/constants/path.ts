@@ -13,9 +13,14 @@ export const PATH = {
     WOODEN: '/market/wooden',
     LIGHT: '/market/light',
   },
-  MARKET_DETAIL: '/detail',
+  MARKET_DETAIL: {
+    PATH: '/users/:id',
+    REDIRECT: '/users',
+  },
   MARKET_REGISTER: '/register',
-  ITEM_DETAIL: '/item',
-  ASSETS: '/assets',
+  ITEM_DETAIL: {
+    PATH: '/items/:id',
+    REDIRECT: '/items',
+  },
   DASHBOARD: '/dashboard',
 };

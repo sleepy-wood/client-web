@@ -4,6 +4,7 @@ export * from './entity.interface';
 export * from './enum.interface';
 export * from './error.interface';
 export * from './ethereum.interface';
+export * from './request.interface';
 export * from './response.interface';
 export * from './sleep.interface';
 export * from './user.interface';

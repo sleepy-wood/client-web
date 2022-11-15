@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import * as API from '../../apis';
-import * as C from '../../constants';
 import * as I from '../../interfaces';
-import * as U from '../../utils';
 import * as S from './styled';
 import DownloadApp from '../../components/organisms/DownloadApp';
 import ShowMeYourNFT from '../../components/organisms/ShowMeYourNFT';
@@ -17,7 +15,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       const [result1, result2] = await Promise.all([
-        API.user.getTrendingTen(),
+        API.user.findTrendingTen(),
         API.user.getTopTen(),
       ]);
       const [trending, trendingError] = result1;
@@ -34,8 +32,8 @@ export default function Home() {
       return;
     }
 
-    (!trending || !top) && fetchData();
-  }, [top, trending]);
+    fetchData();
+  }, []);
 
   return (
     <S.Container>

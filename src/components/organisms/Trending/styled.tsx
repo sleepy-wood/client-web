@@ -99,7 +99,7 @@ export const Profile = styled.div`
 
   &:hover {
     background-color: rgba(108, 91, 123, 0.1);
-    border-radius: 4px;
+    border-radius: 10px;
   }
 
   & > div {

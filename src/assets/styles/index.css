@@ -2,4 +2,5 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("./font.css");
 @import url(./global.css);

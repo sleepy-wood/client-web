@@ -62,10 +62,10 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
 
-  box-sizing: border-box;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
-  border: 2px solid var(--color-palette10);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
 
   overflow: hidden;
@@ -87,12 +87,14 @@ export const Card = styled.div`
     background: #ffffff;
     box-shadow: 0 3px 6px rgb(0 0 0 / 16%);
 
-    border: 4px solid var(--color-palette4);
-    border-radius: 120px;
+    border: 3px solid var(--color-palette9);
+    border-radius: 50%;
 
     position: absolute;
     left: 67px;
     top: 125px;
+
+    overflow: hidden;
 
     & > img {
       border-radius: 120px;

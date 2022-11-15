@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
+import * as API from './apis';
 import * as I from './interfaces';
 import Home from './pages/Home';
 import Market from './pages/Market';
 import MarketDetail from './pages/MarketDetail';
 import MarketRegister from './pages/MarketRegister';
-import Asset from './pages/Asset';
 import ItemDetail from './pages/ItemDetail';
 import Dashboard from './pages/Dashboard';
 import ErrorFallback from './pages/ErrorFallback';
@@ -21,6 +21,7 @@ import Footer from './components/organisms/Footer';
 import { GlobalStyles } from './components/templates/GlobalStyles';
 import { PATH } from './constants/path';
 import { RootState } from './reducers';
+import { setUser } from './reducers/user.reducer';
 
 declare global {
   interface Window {
@@ -29,11 +30,17 @@ declare global {
 }
 
 export default function App() {
+  const dispatch = useDispatch();
   const [web3, setWeb3] = useState<Web3>(null);
-  const { configurations } = useSelector((state: RootState) => state.user);
+  const { configurations, user } = useSelector((state: RootState) => state.user);
   const { currentPathname } = useSelector((state: RootState) => state.path);
 
   useEffect(() => {
+    sessionStorage.setItem(
+      'jwt',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY3OTEwMTM4LCJleHAiOjMzMjI1NTEwMTM4fQ.-A4BBDngD4AJWTDmomVBAZXfmcQqovxWP_nVKolTFoI',
+    );
+
     if (typeof window.ethereum !== 'undefined') {
       try {
         const web3 = new Web3(window.ethereum);
@@ -43,11 +50,24 @@ export default function App() {
       }
     }
 
-    sessionStorage.setItem(
-      'jwt',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY3OTEwMTM4LCJleHAiOjMzMjI1NTEwMTM4fQ.-A4BBDngD4AJWTDmomVBAZXfmcQqovxWP_nVKolTFoI',
-    );
-  }, []);
+    async function fetchData() {
+      const [user, error] = await API.user.findOne();
+
+      if (error) {
+        console.log(error.data.error.reason);
+      }
+
+      dispatch(
+        setUser({
+          user,
+        }),
+      );
+
+      return;
+    }
+
+    fetchData();
+  }, [dispatch]);
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -63,10 +83,17 @@ export default function App() {
                 path={PATH.MARKET.REDIRECT}
                 element={<Navigate to={PATH.MARKET.ALL} replace />}
               />
-              <Route path={PATH.MARKET_DETAIL} element={<MarketDetail />} />
+              <Route path={PATH.MARKET_DETAIL.PATH} element={<MarketDetail />} />
+              <Route
+                path={PATH.MARKET_DETAIL.REDIRECT}
+                element={<Navigate to={PATH.HOME} replace />}
+              />
               <Route path={PATH.MARKET_REGISTER} element={<MarketRegister />} />
-              <Route path={PATH.ASSETS} element={<Asset />} />
-              <Route path={PATH.ITEM_DETAIL} element={<ItemDetail />} />
+              <Route path={PATH.ITEM_DETAIL.PATH} element={<ItemDetail />} />
+              <Route
+                path={PATH.ITEM_DETAIL.REDIRECT}
+                element={<Navigate to={PATH.HOME} replace />}
+              />
               <Route path={PATH.DASHBOARD} element={<Dashboard />} />
               <Route
                 path='*'

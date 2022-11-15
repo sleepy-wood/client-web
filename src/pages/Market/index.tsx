@@ -1,7 +1,6 @@
 import React from 'react';
 
 import * as S from './styled';
-import Header from '../../components/organisms/Header';
 import LeftNavigation from '../../components/organisms/LeftNavigation';
 import MarketContent from '../../components/organisms/MarketContent';
 
