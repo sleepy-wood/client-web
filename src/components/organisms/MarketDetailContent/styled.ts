@@ -140,12 +140,15 @@ export const ExtraAsset = styled.div`
 export const ExtraAssetImg = styled.div`
   display: flex;
   justify-content: center;
+
   & > img {
     margin: 12px 0;
     height: 132px;
     width: calc(100% - 24px);
     object-fit: contain;
     filter: brightness(1.2);
+
+    border-radius: 10px;
   }
 `;
 

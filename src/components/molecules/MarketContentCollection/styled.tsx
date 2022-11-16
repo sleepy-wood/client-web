@@ -43,20 +43,25 @@ export const ContentContainerHeader = styled.div`
 `;
 
 export const CardContainer = styled.div`
+  margin-top: 16px;
+
+  padding-bottom: 16px;
+
   display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
+  grid-template-columns: repeat(auto-fill, 240px);
   grid-gap: 24px 24px;
   justify-content: start;
 `;
 
 export const ExtraAsset = styled.div`
-  width: 200px;
-  height: 260px;
+  width: 240px;
+  height: 400px;
 
   border: 2px solid transparent;
   border-radius: 12px;
 
   cursor: pointer;
+  overflow: hidden;
 
   background-image: linear-gradient(#f5f5f5, #f5f5f5), linear-gradient(180deg, #6189ff, #8252fc);
   background-origin: border-box;
@@ -68,17 +73,18 @@ export const ExtraAsset = styled.div`
 export const ExtraAssetImg = styled.div`
   display: flex;
   justify-content: center;
+
+  padding-bottom: 4px;
   & > img {
-    margin: 12px 0;
-    height: 132px;
-    width: calc(100% - 24px);
-    object-fit: contain;
+    height: 300px;
+    width: calc(100%);
+    object-fit: cover;
     filter: brightness(1.2);
   }
 `;
 
 export const ExtraAssetName = styled.div`
-  width: 100%;
+  width: 90%;
 
   margin-left: 16px;
 
