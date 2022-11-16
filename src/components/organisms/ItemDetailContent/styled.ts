@@ -247,7 +247,8 @@ export const SemiTitle = styled.div`
 
 export const ExtraAssets = styled.div`
   margin-top: 16px;
-  margin-bottom: 16px;
+
+  padding-bottom: 16px;
 
   display: grid;
   grid-template-columns: repeat(auto-fill, 200px);
@@ -284,7 +285,7 @@ export const ExtraAssetImg = styled.div`
 `;
 
 export const ExtraAssetName = styled.div`
-  width: 100%;
+  width: 90%;
 
   margin-left: 16px;
 
@@ -334,4 +335,93 @@ export const ExtraAssetPrice = styled.div`
   }
 `;
 
-export const RecommendAsset = styled.div``;
+export const RecommendAssets = styled.div`
+  margin-top: 16px;
+
+  padding-bottom: 16px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 240px);
+  grid-gap: 24px 24px;
+  justify-content: start;
+`;
+
+export const RecommendAsset = styled.div`
+  width: 240px;
+  height: 400px;
+
+  border: 2px solid transparent;
+  border-radius: 12px;
+
+  cursor: pointer;
+  overflow: hidden;
+
+  background-image: linear-gradient(#f5f5f5, #f5f5f5), linear-gradient(180deg, #6189ff, #8252fc);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+`;
+
+export const RecommendAssetImg = styled.div`
+  display: flex;
+  justify-content: center;
+  & > img {
+    height: 300px;
+    width: calc(100%);
+    object-fit: cover;
+    filter: brightness(1.2);
+  }
+`;
+
+export const RecommendAssetName = styled.div`
+  width: 100%;
+  padding-top: 6px;
+
+  margin-left: 16px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export const RecommendAssetCount = styled.div`
+  margin-left: 16px;
+
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-text);
+  opacity: 0.6;
+`;
+
+export const RecommendAssetPrice = styled.div`
+  margin-left: 16px;
+
+  display: flex;
+
+  & > div:nth-of-type(1) {
+    margin-top: 3px;
+    margin-right: 8px;
+
+    width: 28px;
+    height: 28px;
+  }
+
+  & > div:nth-of-type(2) {
+    & > div:nth-of-type(1) {
+      font-size: 16px;
+      font-weight: 600;
+      color: #35477d;
+    }
+
+    & > div:nth-of-type(2) {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text);
+      opacity: 0.7;
+    }
+  }
+`;

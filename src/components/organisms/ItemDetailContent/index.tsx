@@ -113,58 +113,61 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
         <S.SemiTitle>이 크리에이터의 에셋 더 알아보기</S.SemiTitle>
         <S.ExtraAssets>
           {extraProducts &&
-            extraProducts.map((extraProduct, index) => (
-              <S.ExtraAsset
-                key={index}
-                onClick={moveToPath.bind(
-                  null,
-                  C.PATH.ITEM_DETAIL.PATH.replace(':id', extraProduct.id.toString()),
-                )}>
-                <S.ExtraAssetImg>
-                  <img
-                    src={extraProduct.productImages[extraProduct.productImages.length - 1].path}
-                    alt='tree'
-                  />
-                </S.ExtraAssetImg>
-                <S.ExtraAssetName>{extraProduct.name}</S.ExtraAssetName>
-                <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
-                <S.ExtraAssetPrice>
-                  <div>
-                    <img src={wood} alt='wood' />
-                  </div>
-                  <div>
-                    <div>
-                      {Number(extraProduct.price).toFixed(2) === '0.00'
-                        ? 'FREE'
-                        : Number(extraProduct.price).toFixed(2) + ' ETH'}
-                    </div>
-                    <div>2923.03 USD</div>
-                  </div>
-                </S.ExtraAssetPrice>
-              </S.ExtraAsset>
-            ))}
+            extraProducts.map(
+              (extraProduct, index) =>
+                extraProduct.category !== I.ProductCategory.collection && (
+                  <S.ExtraAsset
+                    key={index}
+                    onClick={moveToPath.bind(
+                      null,
+                      C.PATH.ITEM_DETAIL.PATH.replace(':id', extraProduct.id.toString()),
+                    )}>
+                    <S.ExtraAssetImg>
+                      <img
+                        src={extraProduct.productImages[extraProduct.productImages.length - 1].path}
+                        alt='tree'
+                      />
+                    </S.ExtraAssetImg>
+                    <S.ExtraAssetName>{extraProduct.name}</S.ExtraAssetName>
+                    <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
+                    <S.ExtraAssetPrice>
+                      <div>
+                        <img src={wood} alt='wood' />
+                      </div>
+                      <div>
+                        <div>
+                          {Number(extraProduct.price).toFixed(2) === '0.00'
+                            ? 'FREE'
+                            : Number(extraProduct.price).toFixed(2) + ' ETH'}
+                        </div>
+                        <div>2923.03 USD</div>
+                      </div>
+                    </S.ExtraAssetPrice>
+                  </S.ExtraAsset>
+                ),
+            )}
         </S.ExtraAssets>
         <S.SemiTitle>추천 상품</S.SemiTitle>
-        <S.ExtraAssets>
+        <S.RecommendAssets>
           {recommendProducts &&
             recommendProducts.map((recommendProduct, index) => (
-              <S.ExtraAsset
+              <S.RecommendAsset
                 key={index}
                 onClick={moveToPath.bind(
                   null,
                   C.PATH.ITEM_DETAIL.PATH.replace(':id', recommendProduct.id.toString()),
                 )}>
-                <S.ExtraAssetImg>
+                <S.RecommendAssetImg>
                   <img
                     src={
                       recommendProduct.productImages[recommendProduct.productImages.length - 1].path
                     }
                     alt='tree'
                   />
-                </S.ExtraAssetImg>
-                <S.ExtraAssetName>{recommendProduct.name}</S.ExtraAssetName>
-                <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
-                <S.ExtraAssetPrice>
+                </S.RecommendAssetImg>
+                <S.RecommendAssetName>{recommendProduct.name}</S.RecommendAssetName>
+                <S.RecommendAssetCount>1 / 1</S.RecommendAssetCount>
+                <S.RecommendAssetPrice>
                   <div>
                     <img src={wood} alt='wood' />
                   </div>
@@ -176,10 +179,10 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     </div>
                     <div>2923.03 USD</div>
                   </div>
-                </S.ExtraAssetPrice>
-              </S.ExtraAsset>
+                </S.RecommendAssetPrice>
+              </S.RecommendAsset>
             ))}
-        </S.ExtraAssets>
+        </S.RecommendAssets>
       </S.BottomContainer>
     </S.Container>
   );
