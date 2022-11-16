@@ -150,7 +150,7 @@ export const ExtraAssetImg = styled.div`
 `;
 
 export const ExtraAssetName = styled.div`
-  width: 100%;
+  width: 90%;
 
   margin-left: 16px;
 
