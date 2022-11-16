@@ -176,7 +176,7 @@ function Desktop({ connectWallet }: Props) {
         size={500}>
         <S.CartTitle>
           <div>장바구니</div>
-          <div>(0개)</div>
+          <div>(2개)</div>
         </S.CartTitle>
         <S.Tooltip>
           <div>
@@ -207,7 +207,7 @@ function Desktop({ connectWallet }: Props) {
           <S.PaymentTitle>결제 예정금액</S.PaymentTitle>
           <S.TotalPrice>
             <div>합계</div>
-            <div>0ETH</div>
+            <div>2.4ETH</div>
           </S.TotalPrice>
         </S.PaymentContainer>
         <S.CartButton>
