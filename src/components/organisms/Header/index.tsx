@@ -8,6 +8,8 @@ import {
   FaWallet,
   FaShoppingCart,
   FaGem,
+  FaRegCheckSquare,
+  FaCheckSquare,
 } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -15,6 +17,7 @@ import { useSelector } from 'react-redux';
 
 import * as C from '../../../constants';
 import * as S from './styled';
+import beauty from '../../../assets/images/beauty.png';
 import metamask from '../../../assets/images/metamask-fox.svg';
 import { MEDIA } from '../../../constants';
 import { RootState } from '../../../reducers';
@@ -55,6 +58,8 @@ function Desktop({ connectWallet }: Props) {
   const [showWallet, setShowWallet] = useState<boolean>(false);
 
   const toggleDrawer = useCallback(() => {
+    setShowMyInfo(false);
+    setShowWallet(false);
     setIsOpen(prevState => !prevState);
   }, []);
 
@@ -94,6 +99,7 @@ function Desktop({ connectWallet }: Props) {
             <S.IconContainer>
               <div
                 onClick={() => {
+                  setIsOpen(false);
                   setShowWallet(false);
                   setShowMyInfo(!showMyInfo);
                 }}>
@@ -124,6 +130,7 @@ function Desktop({ connectWallet }: Props) {
               </div>
               <div
                 onClick={() => {
+                  setIsOpen(false);
                   setShowMyInfo(false);
                   setShowWallet(!showWallet);
                 }}>
@@ -160,13 +167,52 @@ function Desktop({ connectWallet }: Props) {
         style={{
           height: 'calc(100vh - 72px)',
           top: '72px',
-          background: 'rgba(255, 255, 255, 0.80)',
+          background: 'rgba(255, 255, 255, 0.9)',
           backdropFilter: 'blur(12px)',
-          borderRadius: '12px',
+          borderRadius: '12px 0 0 12px',
           padding: '24px',
+          overflowY: 'scroll',
         }}
         size={500}>
-        <div>Hello World</div>
+        <S.CartTitle>
+          <div>장바구니</div>
+          <div>(0개)</div>
+        </S.CartTitle>
+        <S.Tooltip>
+          <div>
+            <FaRegCheckSquare size={18} />
+          </div>
+          <div>전체선택</div>
+          <div>선택삭제</div>
+        </S.Tooltip>
+        <S.ItemList>
+          <S.Item>
+            <div>
+              <img src={beauty} alt='beauty' />
+            </div>
+            <div>이름</div>
+            <div>크리에이터</div>
+            <div>1.2ETH</div>
+          </S.Item>
+          <S.Item>
+            <div>
+              <img src={beauty} alt='beauty' />
+            </div>
+            <div>이름</div>
+            <div>크리에이터</div>
+            <div>1.2ETH</div>
+          </S.Item>
+        </S.ItemList>
+        <S.PaymentContainer>
+          <S.PaymentTitle>결제 예정금액</S.PaymentTitle>
+          <S.TotalPrice>
+            <div>합계</div>
+            <div>0ETH</div>
+          </S.TotalPrice>
+        </S.PaymentContainer>
+        <S.CartButton>
+          <div>주문하기</div>
+        </S.CartButton>
       </Drawer>
     </React.Fragment>
   );

@@ -157,3 +157,113 @@ export const InfoWallet = styled.div`
   padding: 2px;
   margin-right: 8px;
 `;
+
+export const CartTitle = styled.div`
+  font-size: 24px;
+  font-weight: 600;
+
+  margin-bottom: 12px;
+
+  display: flex;
+  align-items: center;
+
+  & > div:nth-of-type(1) {
+    margin-right: 12px;
+  }
+
+  & > div:nth-of-type(2) {
+    font-size: 16px;
+    opacity: 0.7;
+  }
+`;
+
+export const Tooltip = styled.div`
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 12px;
+
+  & > div {
+    margin-right: 8px;
+
+    cursor: pointer;
+  }
+`;
+
+export const ItemList = styled.div`
+  margin-bottom: 24px;
+`;
+
+export const Item = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 12px;
+
+  & > div:nth-of-type(1) {
+    width: 80px;
+    height: 80px;
+
+    border-radius: 10px;
+    overflow: hidden;
+  }
+`;
+
+export const PaymentContainer = styled.div`
+  margin-bottom: 24px;
+`;
+
+export const PaymentTitle = styled.div`
+  font-size: 18px;
+  font-weight: 600;
+
+  margin-bottom: 12px;
+`;
+
+export const Price = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 16px;
+
+  & > div:nth-of-type(2) {
+    font-weight: 600;
+  }
+`;
+
+export const TotalPrice = styled.div`
+  color: var(--color-palette4);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 16px;
+
+  & > div:nth-of-type(2) {
+    font-size: 22px;
+    font-weight: 700;
+  }
+`;
+
+export const CartButton = styled.div`
+  width: 100%;
+  height: 52px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  color: var(--color-text);
+
+  cursor: pointer;
+
+  background-color: var(--color-palette9);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 12px;
+`;
