@@ -20,7 +20,9 @@ export default function MarketContentAll() {
 function Desktop() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [usersWithCount, setUsersWithCount] = useState<[I.User[], string][]>(null);
+  const [users, setUsers] = useState<I.User[][]>(null);
+  const [categoryCount, setCategoryCount] =
+    useState<{ category: I.ProductCategory; categoryCount: number }[]>(null);
 
   const moveToPath = useCallback(
     (path: string, e: React.MouseEvent) => {
@@ -37,13 +39,14 @@ function Desktop() {
 
   useEffect(() => {
     async function fetchData() {
-      const [result, error] = await API.product.findFiveByCategory();
+      const [[_users, _categoryCount], error] = await API.product.findFiveByCategory();
 
       if (error) {
         console.log(error.data.error.reason);
       }
 
-      setUsersWithCount(result);
+      setUsers(_users);
+      setCategoryCount(_categoryCount);
     }
 
     fetchData();
@@ -55,7 +58,7 @@ function Desktop() {
         <h1>NFT 마켓플레이스에 오신 것을 환영합니다.</h1>
         <p>여기에서 크리에이터의 에셋을 검색하고 ETH로 구매하여 App에서 사용할 수 있습니다.</p>
       </S.Header>
-      {usersWithCount &&
+      {users &&
         [
           ['컬렉션', 'COLLECTION'],
           ['이모티콘', 'EMOTICON'],
@@ -69,10 +72,19 @@ function Desktop() {
           <S.ContentContainer key={index}>
             <S.ContentContainerHeader>
               <div>{item}</div>
-              <div>({usersWithCount[index][1]})</div>
+              <div>
+                (
+                {(function iife() {
+                  const temp = categoryCount.find(
+                    e => e.category === category.toLowerCase(),
+                  )?.categoryCount;
+                  return temp || 0;
+                })()}
+                )
+              </div>
             </S.ContentContainerHeader>
             <S.CardContainer>
-              {usersWithCount[index][0].map((user, _index) => (
+              {users[index].map((user, _index) => (
                 <S.Card
                   key={_index}
                   onClick={moveToPath.bind(

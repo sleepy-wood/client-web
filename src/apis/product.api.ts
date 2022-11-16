@@ -37,10 +37,14 @@ export const product = {
       return [null, new E.HttpException(_data, status)];
     }
   },
-  async findFiveByCategory(): Promise<[[I.User[], string][], E.HttpException]> {
+  async findFiveByCategory(): Promise<
+    [[I.User[][], { category: I.ProductCategory; categoryCount: number }[]], E.HttpException]
+  > {
     try {
       const { method, url } = v1.product.findFiveByCategory;
-      const { result, data } = await callRequest<I.BasicResponse<[I.User[], string][]>>({
+      const { result, data } = await callRequest<
+        I.BasicResponse<[I.User[][], { category: I.ProductCategory; categoryCount: number }[]]>
+      >({
         method,
         url,
       });

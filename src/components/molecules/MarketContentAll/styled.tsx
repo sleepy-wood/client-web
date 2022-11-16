@@ -43,8 +43,14 @@ export const ContentContainerHeader = styled.div`
 `;
 
 export const CardContainer = styled.div`
-  display: flex;
-  align-items: center;
+  margin-top: 16px;
+
+  padding-bottom: 16px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 220px);
+  grid-gap: 8px 8px;
+  justify-content: start;
 `;
 
 export const Card = styled.div`
