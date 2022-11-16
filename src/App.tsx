@@ -10,8 +10,10 @@ import Home from './pages/Home';
 import Market from './pages/Market';
 import MarketDetail from './pages/MarketDetail';
 import MarketRegister from './pages/MarketRegister';
+import MarketHistory from './pages/MarketHistory';
 import ItemDetail from './pages/ItemDetail';
 import Dashboard from './pages/Dashboard';
+import SearchResult from './pages/SearchResult';
 import ErrorFallback from './pages/ErrorFallback';
 import OuterContainer from './components/templates/OuterContainer';
 import InnerContainer from './components/templates/InnerContainer';
@@ -88,6 +90,11 @@ export default function App() {
                 path={PATH.MARKET_DETAIL.REDIRECT}
                 element={<Navigate to={PATH.HOME} replace />}
               />
+              <Route path={PATH.MARKET_HISTORY.PATH} element={<MarketHistory />} />
+              <Route
+                path={PATH.MARKET_HISTORY.REDIRECT}
+                element={<Navigate to={PATH.HOME} replace />}
+              />
               <Route path={PATH.MARKET_REGISTER} element={<MarketRegister />} />
               <Route path={PATH.ITEM_DETAIL.PATH} element={<ItemDetail />} />
               <Route
@@ -95,6 +102,7 @@ export default function App() {
                 element={<Navigate to={PATH.HOME} replace />}
               />
               <Route path={PATH.DASHBOARD} element={<Dashboard />} />
+              <Route path={PATH.SEARCH_RESULT} element={<SearchResult />} />
               <Route
                 path='*'
                 element={<ErrorFallback error={new Error('404')} resetErrorBoundary={() => {}} />}
