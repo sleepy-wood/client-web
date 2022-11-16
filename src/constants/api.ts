@@ -71,6 +71,10 @@ export const APIs = {
         method: 'GET',
         url: `/api/v1/products/category`,
       },
+      findFiveByQuery: {
+        method: 'GET',
+        url: `/api/v1/products/search`,
+      },
       findExtraProducts: {
         method: 'GET',
         url: '/api/v1/products/extra/:id',

@@ -56,6 +56,22 @@ export const product = {
       return [null, new E.HttpException(_data, status)];
     }
   },
+  async findFiveByQuery(query: string): Promise<[[I.Product[], number][], E.HttpException]> {
+    try {
+      const { method, url } = v1.product.findFiveByQuery;
+      const { result, data } = await callRequest<I.BasicResponse<[I.Product[], number][]>>({
+        method,
+        url,
+        params: { query },
+      });
+
+      return [data, null];
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return [null, new E.HttpException(_data, status)];
+    }
+  },
   async findExtraProducts(id: string): Promise<[I.Product[], E.HttpException]> {
     try {
       const { method, url } = v1.product.findExtraProducts;

@@ -30,7 +30,6 @@ export default function MarketDetailContent({ user, products, productCount }: Pr
 function Desktop({ user, products, productCount }: Props) {
   const location = useLocation();
   const navigate = useNavigate();
-  const { id } = useParams<string>();
 
   const moveToPath = useCallback(
     (path: string, e: React.MouseEvent) => {
@@ -82,17 +81,7 @@ function Desktop({ user, products, productCount }: Props) {
                   )}>
                   <S.ExtraAssetImg>
                     <img
-                      src={
-                        product.category === I.ProductCategory.collection
-                          ? product.productImages[1]?.path
-                          : product.productImages[product.productImages.length - 1].path
-                      }
-                      style={{
-                        objectFit:
-                          product.category === I.ProductCategory.collection ? 'cover' : 'contain',
-                        objectPosition:
-                          product.category === I.ProductCategory.collection ? '0 -48px' : 'unset',
-                      }}
+                      src={product.productImages[0]?.path}
                       alt={`${product.name}'s represent image`}
                       onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                         e.currentTarget.src = errorImg;
