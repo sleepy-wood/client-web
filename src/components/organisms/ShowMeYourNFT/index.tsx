@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Slider, { Settings } from 'react-slick';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import * as C from '../../../constants';
+import * as I from '../../../interfaces';
 import * as S from './styled';
 import day01 from '../../../assets/images/DAY01.png';
 import sunset01 from '../../../assets/images/Sunset01.png';
@@ -23,6 +24,7 @@ export default function ShowMeYourNFT() {
 function Desktop() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [collections, setCollections] = useState<I.Product[]>(null);
   const settings: Settings = {
     dots: false,
     infinite: true,
@@ -46,6 +48,12 @@ function Desktop() {
     [location.pathname, navigate],
   );
 
+  useEffect(() => {
+    function fetch() {}
+
+    fetch();
+  }, []);
+
   return (
     <S.Container>
       <S.Header>
@@ -53,19 +61,19 @@ function Desktop() {
       </S.Header>
       <div>
         <Slider {...settings}>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '1'))}>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '13'))}>
             <img src={day01} alt='beauty tree' />
           </S.Img>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '1'))}>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '17'))}>
             <img src={beauty} alt='beauty tree' />
           </S.Img>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '1'))}>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '17'))}>
             <img src={sunset01} alt='beauty tree' />
           </S.Img>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '1'))}>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '14'))}>
             <img src={night01} alt='beauty tree' />
           </S.Img>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '1'))}>
+          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '17'))}>
             <img src={beauty2} alt='beauty tree' />
           </S.Img>
         </Slider>
