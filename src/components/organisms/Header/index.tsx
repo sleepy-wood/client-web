@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import Drawer from 'react-modern-drawer';
 import { AiFillShop } from 'react-icons/ai';
 import {
   FaSearch,
@@ -49,8 +50,13 @@ function Desktop({ connectWallet }: Props) {
   const navigate = useNavigate();
   const showSearch = useMediaQuery({ minWidth: 768 });
   const { user } = useSelector((state: RootState) => state.user);
+  const [isOpen, setIsOpen] = useState(false);
   const [showMyInfo, setShowMyInfo] = useState<boolean>(false);
   const [showWallet, setShowWallet] = useState<boolean>(false);
+
+  const toggleDrawer = useCallback(() => {
+    setIsOpen(prevState => !prevState);
+  }, []);
 
   const moveToPath = useCallback(
     (path: string, e: React.MouseEvent) => {
@@ -139,13 +145,29 @@ function Desktop({ connectWallet }: Props) {
                   </S.InfoContainer>
                 )}
               </div>
-              <div>
+              <div onClick={toggleDrawer}>
                 <FaShoppingCart size={32} />
               </div>
             </S.IconContainer>
           </S.SubContainer>
         </div>
       </S.Container>
+      <Drawer
+        open={isOpen}
+        onClose={toggleDrawer}
+        direction='right'
+        enableOverlay={false}
+        style={{
+          height: 'calc(100vh - 72px)',
+          top: '72px',
+          background: 'rgba(255, 255, 255, 0.80)',
+          backdropFilter: 'blur(12px)',
+          borderRadius: '12px',
+          padding: '24px',
+        }}
+        size={500}>
+        <div>Hello World</div>
+      </Drawer>
     </React.Fragment>
   );
 }
