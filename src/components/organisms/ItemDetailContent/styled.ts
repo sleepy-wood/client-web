@@ -13,9 +13,32 @@ export const AssetContainer = styled.div`
   display: flex;
 `;
 
-export const AssetImg = styled.div`
+export const AssetVideo = styled.div`
   width: 400px;
   height: 640px;
+
+  background-color: var(--color-palette9);
+
+  border: 2px solid var(--color-palette10);
+  border-radius: 16px;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  overflow: hidden;
+
+  & > video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(1.2);
+  }
+`;
+
+export const AssetImg = styled.div`
+  width: 400px;
+  height: 390px;
+
+  padding: 0 12px;
 
   background-color: var(--color-palette9);
 
@@ -32,13 +55,6 @@ export const AssetImg = styled.div`
     object-fit: contain;
     filter: brightness(1.2);
   }
-
-  & > video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(1.2);
-  }
 `;
 
 export const AssetInfo = styled.div`
@@ -50,6 +66,8 @@ export const AssetInfo = styled.div`
 export const AssetName = styled.h2`
   width: 100%;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   font-size: 36px;
   font-weight: 600;
