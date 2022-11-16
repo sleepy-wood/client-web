@@ -125,7 +125,7 @@ export const InfoContainer = styled.div`
     overflow: hidden;
 
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
     color: rgb(4, 17, 29);
   }
 
@@ -138,6 +138,11 @@ export const InfoContainer = styled.div`
   }
 
   & > div:nth-of-type(2) {
+    padding: 12px;
+    cursor: pointer;
+  }
+
+  & > div:nth-of-type(3) {
     padding: 12px;
     cursor: pointer;
   }
