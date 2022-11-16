@@ -10,12 +10,14 @@ import {
   FaGem,
   FaRegCheckSquare,
   FaCheckSquare,
+  FaHistory,
 } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import * as C from '../../../constants';
+import * as H from '../../../hooks';
 import * as S from './styled';
 import beauty from '../../../assets/images/beauty.png';
 import metamask from '../../../assets/images/metamask-fox.svg';
@@ -56,6 +58,7 @@ function Desktop({ connectWallet }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [showMyInfo, setShowMyInfo] = useState<boolean>(false);
   const [showWallet, setShowWallet] = useState<boolean>(false);
+  const [query, onChangeQuery] = H.useInput<string>('');
 
   const toggleDrawer = useCallback(() => {
     setShowMyInfo(false);
@@ -88,7 +91,26 @@ function Desktop({ connectWallet }: Props) {
               <div>
                 <FaSearch color='#a0a0a0' size={18} />
               </div>
-              <input type='text' placeholder='Search Items' />
+              <input
+                type='text'
+                placeholder='Search Items'
+                value={query}
+                onChange={onChangeQuery}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    const value = e.currentTarget.value;
+                    if (!value) {
+                      return alert('검색어를 입력해주세요.');
+                    }
+
+                    if (value.length < 2) {
+                      return alert('검색어는 2글자 이상 입력해주세요.');
+                    }
+
+                    return navigate(`${C.PATH.SEARCH_RESULT}?query=${query}`);
+                  }
+                }}
+              />
             </S.SearchContainer>
           )}
           <S.SubContainer>
@@ -110,7 +132,7 @@ function Desktop({ connectWallet }: Props) {
                       style={{ cursor: 'pointer' }}
                       onClick={moveToPath.bind(null, C.PATH.MARKET_REGISTER)}>
                       <S.InfoIconContainer>
-                        <AiFillShop size={24} />
+                        <AiFillShop size={20} />
                       </S.InfoIconContainer>
                       <div>에셋 판매</div>
                     </div>
@@ -121,9 +143,20 @@ function Desktop({ connectWallet }: Props) {
                         C.PATH.MARKET_DETAIL.PATH.replace(':id', user.id.toString()),
                       )}>
                       <S.InfoIconContainer>
-                        <FaGem size={24} />
+                        <FaGem size={20} />
                       </S.InfoIconContainer>
                       <div>에셋 조회</div>
+                    </div>
+                    <div
+                      style={{ cursor: 'pointer' }}
+                      onClick={moveToPath.bind(
+                        null,
+                        C.PATH.MARKET_HISTORY.PATH.replace(':id', user.id.toString()),
+                      )}>
+                      <S.InfoIconContainer>
+                        <FaHistory size={20} />
+                      </S.InfoIconContainer>
+                      <div>주문 내역</div>
                     </div>
                   </S.InfoContainer>
                 )}
@@ -139,7 +172,7 @@ function Desktop({ connectWallet }: Props) {
                   <S.InfoContainer>
                     <div>
                       <S.InfoIconContainer>
-                        <FaUserCircle size={24} />
+                        <FaUserCircle size={20} />
                       </S.InfoIconContainer>
                       <div>My wallet</div>
                     </div>
