@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Drawer from 'react-modern-drawer';
 import { AiFillShop } from 'react-icons/ai';
 import {
@@ -19,8 +19,10 @@ import { useSelector } from 'react-redux';
 
 import * as C from '../../../constants';
 import * as H from '../../../hooks';
+import * as I from '../../../interfaces';
 import * as S from './styled';
 import beauty from '../../../assets/images/beauty.png';
+import errorImg from '../../../assets/images/cate_plants.webp';
 import metamask from '../../../assets/images/metamask-fox.svg';
 import { MEDIA } from '../../../constants';
 import { RootState } from '../../../reducers';
@@ -55,7 +57,13 @@ function Desktop({ connectWallet }: Props) {
   const location = useLocation();
   const navigate = useNavigate();
   const showSearch = useMediaQuery({ minWidth: 768 });
+
   const { user } = useSelector((state: RootState) => state.user);
+  const { cartItem } = useSelector((state: RootState) => state.cart);
+  const { wishlistItem } = useSelector((state: RootState) => state.wishlist);
+  const [cartItemTotalPrice, setCartItemTotalPrice] = useState<number>(0);
+  const [wishlistItemTotalPrice, setWishlistItemTotalPrice] = useState<number>(0);
+
   const [isOpenCart, setIsOpenCart] = useState(false);
   const [isOpenWishtlist, setIsOpenWishtlist] = useState(false);
   const [showMyInfo, setShowMyInfo] = useState<boolean>(false);
@@ -90,6 +98,13 @@ function Desktop({ connectWallet }: Props) {
     },
     [location.pathname, navigate],
   );
+
+  useEffect(() => {
+    setCartItemTotalPrice(cartItem.reduce((acc, cur) => acc + Number(cur.product.price), 0));
+    setWishlistItemTotalPrice(
+      wishlistItem.reduce((acc, cur) => acc + Number(cur.product.price), 0),
+    );
+  }, [cartItem, wishlistItem]);
 
   return (
     <React.Fragment>
@@ -221,7 +236,7 @@ function Desktop({ connectWallet }: Props) {
         size={500}>
         <S.CartTitle>
           <div>장바구니</div>
-          <div>(2개)</div>
+          <div>({cartItem.length}개)</div>
         </S.CartTitle>
         <S.Tooltip>
           <div>
@@ -231,28 +246,64 @@ function Desktop({ connectWallet }: Props) {
           <div>선택삭제</div>
         </S.Tooltip>
         <S.ItemList>
-          <S.Item>
-            <div>
-              <img src={beauty} alt='beauty' />
-            </div>
-            <div>이름</div>
-            <div>크리에이터</div>
-            <div>1.2ETH</div>
-          </S.Item>
-          <S.Item>
-            <div>
-              <img src={beauty} alt='beauty' />
-            </div>
-            <div>이름</div>
-            <div>크리에이터</div>
-            <div>1.2ETH</div>
-          </S.Item>
+          {cartItem.map((item, index) => (
+            <S.Item key={index}>
+              <S.ItemCheckbox id={`cart-check-${index}`} type='checkbox' />
+              <label htmlFor={`cart-check-${index}`}></label>
+              <div>
+                <img
+                  src={
+                    item.product.category === I.ProductCategory.collection
+                      ? item.product.productImages[1].path
+                      : item.product.productImages[item.product.productImages.length - 1].path
+                  }
+                  style={{
+                    objectFit:
+                      item.product.category === I.ProductCategory.collection ? 'cover' : 'contain',
+                    objectPosition:
+                      item.product.category === I.ProductCategory.collection ? '0 -18px' : 'unset',
+                  }}
+                  alt={`${item.product.name}'s represent image`}
+                  onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                    e.currentTarget.src = errorImg;
+                  }}
+                />
+              </div>
+              <div>
+                <div>상품 이름</div>
+                <div
+                  style={{ cursor: 'pointer' }}
+                  onClick={moveToPath.bind(
+                    null,
+                    C.PATH.ITEM_DETAIL.PATH.replace(':id', item.product.id.toString()),
+                  )}>
+                  {item.product.name}
+                </div>
+              </div>
+              <div>
+                <div>크리에이터</div>
+                <div>{item.product.user.nickname}</div>
+              </div>
+              <div>
+                <div>가격</div>
+                <div>
+                  {Number(item.product.price).toFixed(2) === '0.00'
+                    ? 'FREE'
+                    : Number(item.product.price).toFixed(2) + ' ETH'}
+                </div>
+              </div>
+            </S.Item>
+          ))}
         </S.ItemList>
         <S.PaymentContainer>
           <S.PaymentTitle>결제 예정금액</S.PaymentTitle>
           <S.TotalPrice>
             <div>합계</div>
-            <div>2.4ETH</div>
+            <div>
+              {cartItemTotalPrice.toFixed(2) === '0.00'
+                ? 'FREE'
+                : cartItemTotalPrice.toFixed(2) + ' ETH'}
+            </div>
           </S.TotalPrice>
         </S.PaymentContainer>
         <S.CartButton>
@@ -287,6 +338,8 @@ function Desktop({ connectWallet }: Props) {
         </S.Tooltip>
         <S.ItemList>
           <S.Item>
+            <S.ItemCheckbox id={`wishlist-check-${1}`} type='checkbox' />
+            <label htmlFor={`wishlist-check-${1}`}></label>
             <div>
               <img src={beauty} alt='beauty' />
             </div>
@@ -295,6 +348,8 @@ function Desktop({ connectWallet }: Props) {
             <div>1.2ETH</div>
           </S.Item>
           <S.Item>
+            <S.ItemCheckbox id={`wishlist-check-${2}`} type='checkbox' />
+            <label htmlFor={`wishlist-check-${2}`}></label>
             <div>
               <img src={beauty} alt='beauty' />
             </div>
