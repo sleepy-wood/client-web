@@ -34,6 +34,9 @@ function Desktop() {
 
   return (
     <S.Container>
+      <S.Header>
+        <h1>주문 내역 상세조회</h1>
+      </S.Header>
       <S.ItemContainer>
         <S.Item>
           <S.ItemImg>

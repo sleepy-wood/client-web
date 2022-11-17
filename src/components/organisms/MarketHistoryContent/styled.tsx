@@ -8,6 +8,17 @@ export const Container = styled.div`
   padding: 32px 240px 0;
 `;
 
+export const Header = styled.div`
+  color: var(--color-text);
+  margin-bottom: 16px;
+
+  & > h1 {
+    margin-bottom: 15px;
+    font-size: 36px;
+    font-weight: 600;
+  }
+`;
+
 export const MonthLine = styled.div`
   width: 100%;
   height: 39px;

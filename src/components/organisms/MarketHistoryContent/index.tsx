@@ -34,6 +34,9 @@ function Desktop() {
 
   return (
     <S.Container>
+      <S.Header>
+        <h1>주문 내역</h1>
+      </S.Header>
       <S.MonthLine>
         <h4>2022.11</h4>
       </S.MonthLine>
