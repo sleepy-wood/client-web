@@ -22,4 +22,20 @@ export const cart = {
       return [null, new E.HttpException(_data, status)];
     }
   },
+  async getCartItems(cartItemIds: number[]): Promise<[I.CartItem[], E.HttpException]> {
+    try {
+      const { method, url } = v1.cart.getCartItems;
+      const { result, data } = await callRequest<I.BasicResponse<I.CartItem[]>>({
+        method,
+        url,
+        data: { cartItemIds },
+      });
+
+      return [data, null];
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return [null, new E.HttpException(_data, status)];
+    }
+  },
 };

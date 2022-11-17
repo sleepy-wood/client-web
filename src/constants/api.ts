@@ -29,6 +29,10 @@ export const APIs = {
         method: 'POST',
         url: '/api/v1/carts/items',
       },
+      getCartItems: {
+        method: 'GET',
+        url: '/api/v1/carts/items',
+      },
     },
     health: {
       findSleep: {
@@ -97,6 +101,10 @@ export const APIs = {
     wishlist: {
       createWishlistItem: {
         method: 'POST',
+        url: '/api/v1/wishlists/items',
+      },
+      getWishlistItem: {
+        method: 'GET',
         url: '/api/v1/wishlists/items',
       },
     },
