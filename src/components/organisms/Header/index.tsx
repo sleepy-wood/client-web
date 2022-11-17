@@ -149,10 +149,7 @@ function Desktop({ connectWallet }: Props) {
                     </div>
                     <div
                       style={{ cursor: 'pointer' }}
-                      onClick={moveToPath.bind(
-                        null,
-                        C.PATH.MARKET_HISTORY.PATH.replace(':id', user.id.toString()),
-                      )}>
+                      onClick={moveToPath.bind(null, C.PATH.MARKET_HISTORY.LIST)}>
                       <S.InfoIconContainer>
                         <FaHistory size={20} />
                       </S.InfoIconContainer>

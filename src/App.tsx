@@ -11,6 +11,7 @@ import Market from './pages/Market';
 import MarketDetail from './pages/MarketDetail';
 import MarketRegister from './pages/MarketRegister';
 import MarketHistory from './pages/MarketHistory';
+import MarketHistoryDetail from './pages/MarketHistoryDetail';
 import ItemDetail from './pages/ItemDetail';
 import Dashboard from './pages/Dashboard';
 import SearchResult from './pages/SearchResult';
@@ -90,11 +91,8 @@ export default function App() {
                 path={PATH.MARKET_DETAIL.REDIRECT}
                 element={<Navigate to={PATH.HOME} replace />}
               />
-              <Route path={PATH.MARKET_HISTORY.PATH} element={<MarketHistory />} />
-              <Route
-                path={PATH.MARKET_HISTORY.REDIRECT}
-                element={<Navigate to={PATH.HOME} replace />}
-              />
+              <Route path={PATH.MARKET_HISTORY.LIST} element={<MarketHistory />} />
+              <Route path={PATH.MARKET_HISTORY.DETAIL} element={<MarketHistoryDetail />} />
               <Route path={PATH.MARKET_REGISTER} element={<MarketRegister />} />
               <Route path={PATH.ITEM_DETAIL.PATH} element={<ItemDetail />} />
               <Route
