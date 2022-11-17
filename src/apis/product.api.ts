@@ -102,4 +102,19 @@ export const product = {
       return [null, new E.HttpException(_data, status)];
     }
   },
+  async updateHitPlusOne(id: string): Promise<E.HttpException> {
+    try {
+      const { method, url } = v1.product.updateHitPlusOne;
+      const { result, data } = await callRequest<I.BasicResponse<I.Product[]>>({
+        method,
+        url: url.replace(':id', id),
+      });
+
+      return null;
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return new E.HttpException(_data, status);
+    }
+  },
 };

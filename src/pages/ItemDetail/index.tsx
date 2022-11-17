@@ -14,20 +14,28 @@ export default function ItemDetail() {
 
   useEffect(() => {
     async function fetchData() {
-      const [result1, result2, result3] = await Promise.all([
+      const [result1, result2, result3, result4] = await Promise.all([
         API.product.findOne(id),
         API.product.findExtraProducts(id),
         API.product.findRecommendProducts(id),
+        API.product.updateHitPlusOne(id),
       ]);
 
       const [_product, _productError] = result1;
       const [_extraProducts, _extraProductsError] = result2;
       const [_recommendProducts, _recommendProductsError] = result3;
+      const updateHitPlusOneError = result4;
 
-      if (_productError || _extraProductsError || _recommendProductsError) {
+      if (
+        _productError ||
+        _extraProductsError ||
+        _recommendProductsError ||
+        updateHitPlusOneError
+      ) {
         _productError && console.log(_productError.data.error.reason);
         _extraProductsError && console.log(_extraProductsError.data.error.reason);
         _recommendProductsError && console.log(_recommendProductsError.data.error.reason);
+        updateHitPlusOneError && console.log(updateHitPlusOneError.data.error.reason);
       }
 
       setProduct(_product);

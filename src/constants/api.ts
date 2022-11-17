@@ -83,6 +83,10 @@ export const APIs = {
         method: 'GET',
         url: '/api/v1/products/recommend/:id',
       },
+      updateHitPlusOne: {
+        method: 'PUT',
+        url: '/api/v1/products/hits/:id',
+      },
     },
   },
 };
