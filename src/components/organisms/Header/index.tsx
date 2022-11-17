@@ -132,8 +132,9 @@ function Desktop({ connectWallet }: Props) {
               <div
                 onClick={() => {
                   setIsOpenCart(false);
+                  setIsOpenWishtlist(false);
                   setShowWallet(false);
-                  setShowMyInfo(!showMyInfo);
+                  setShowMyInfo(prevState => !prevState);
                 }}>
                 <FaRegUserCircle size={26} />
                 {showMyInfo && (
@@ -171,8 +172,9 @@ function Desktop({ connectWallet }: Props) {
               <div
                 onClick={() => {
                   setIsOpenCart(false);
+                  setIsOpenWishtlist(false);
                   setShowMyInfo(false);
-                  setShowWallet(!showWallet);
+                  setShowWallet(prevState => !prevState);
                 }}>
                 <FaWallet size={26} />
                 {showWallet && (
