@@ -74,7 +74,7 @@ export const SubContainer = styled.div`
 `;
 
 export const MenuContainer = styled.div`
-  margin-right: 24px;
+  margin-right: 32px;
 
   & > div {
     cursor: pointer;
@@ -83,7 +83,7 @@ export const MenuContainer = styled.div`
   }
 
   & > div:not(:last-child) {
-    margin-right: 24px;
+    margin-right: 32px;
   }
 `;
 
@@ -99,7 +99,7 @@ export const IconContainer = styled.div`
   }
 
   & > div:not(:last-child) {
-    margin-right: 24px;
+    margin-right: 32px;
   }
 `;
 

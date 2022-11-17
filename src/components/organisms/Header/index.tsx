@@ -7,6 +7,7 @@ import {
   FaUserCircle,
   FaWallet,
   FaShoppingCart,
+  FaHeart,
   FaGem,
   FaRegCheckSquare,
   FaCheckSquare,
@@ -55,15 +56,24 @@ function Desktop({ connectWallet }: Props) {
   const navigate = useNavigate();
   const showSearch = useMediaQuery({ minWidth: 768 });
   const { user } = useSelector((state: RootState) => state.user);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenCart, setIsOpenCart] = useState(false);
+  const [isOpenWishtlist, setIsOpenWishtlist] = useState(false);
   const [showMyInfo, setShowMyInfo] = useState<boolean>(false);
   const [showWallet, setShowWallet] = useState<boolean>(false);
   const [query, onChangeQuery] = H.useInput<string>('');
 
-  const toggleDrawer = useCallback(() => {
+  const toggleCart = useCallback(() => {
+    setIsOpenWishtlist(false);
     setShowMyInfo(false);
     setShowWallet(false);
-    setIsOpen(prevState => !prevState);
+    setIsOpenCart(prevState => !prevState);
+  }, []);
+
+  const toggleWishlist = useCallback(() => {
+    setIsOpenCart(false);
+    setShowMyInfo(false);
+    setShowWallet(false);
+    setIsOpenWishtlist(prevState => !prevState);
   }, []);
 
   const moveToPath = useCallback(
@@ -121,11 +131,11 @@ function Desktop({ connectWallet }: Props) {
             <S.IconContainer>
               <div
                 onClick={() => {
-                  setIsOpen(false);
+                  setIsOpenCart(false);
                   setShowWallet(false);
                   setShowMyInfo(!showMyInfo);
                 }}>
-                <FaRegUserCircle size={32} />
+                <FaRegUserCircle size={26} />
                 {showMyInfo && (
                   <S.InfoContainer>
                     <div
@@ -160,11 +170,11 @@ function Desktop({ connectWallet }: Props) {
               </div>
               <div
                 onClick={() => {
-                  setIsOpen(false);
+                  setIsOpenCart(false);
                   setShowMyInfo(false);
                   setShowWallet(!showWallet);
                 }}>
-                <FaWallet size={32} />
+                <FaWallet size={26} />
                 {showWallet && (
                   <S.InfoContainer>
                     <div>
@@ -182,16 +192,19 @@ function Desktop({ connectWallet }: Props) {
                   </S.InfoContainer>
                 )}
               </div>
-              <div onClick={toggleDrawer}>
-                <FaShoppingCart size={32} />
+              <div onClick={toggleCart}>
+                <FaShoppingCart size={26} />
+              </div>
+              <div onClick={toggleWishlist}>
+                <FaHeart size={26} />
               </div>
             </S.IconContainer>
           </S.SubContainer>
         </div>
       </S.Container>
       <Drawer
-        open={isOpen}
-        onClose={toggleDrawer}
+        open={isOpenCart}
+        onClose={toggleCart}
         direction='right'
         enableOverlay={false}
         style={{
@@ -242,6 +255,54 @@ function Desktop({ connectWallet }: Props) {
         </S.PaymentContainer>
         <S.CartButton>
           <div>주문하기</div>
+        </S.CartButton>
+      </Drawer>
+      <Drawer
+        open={isOpenWishtlist}
+        onClose={toggleWishlist}
+        direction='right'
+        enableOverlay={false}
+        style={{
+          height: 'calc(100vh - 72px)',
+          top: '72px',
+          background: 'rgba(255, 255, 255, 0.9)',
+          backdropFilter: 'blur(12px)',
+          borderRadius: '12px 0 0 12px',
+          padding: '24px',
+          overflowY: 'scroll',
+        }}
+        size={500}>
+        <S.CartTitle>
+          <div>위시리스트</div>
+          <div>(2개)</div>
+        </S.CartTitle>
+        <S.Tooltip>
+          <div>
+            <FaRegCheckSquare size={18} />
+          </div>
+          <div>전체선택</div>
+          <div>선택삭제</div>
+        </S.Tooltip>
+        <S.ItemList>
+          <S.Item>
+            <div>
+              <img src={beauty} alt='beauty' />
+            </div>
+            <div>이름</div>
+            <div>크리에이터</div>
+            <div>1.2ETH</div>
+          </S.Item>
+          <S.Item>
+            <div>
+              <img src={beauty} alt='beauty' />
+            </div>
+            <div>이름</div>
+            <div>크리에이터</div>
+            <div>1.2ETH</div>
+          </S.Item>
+        </S.ItemList>
+        <S.CartButton>
+          <div>장바구니로 이동하기</div>
         </S.CartButton>
       </Drawer>
     </React.Fragment>
