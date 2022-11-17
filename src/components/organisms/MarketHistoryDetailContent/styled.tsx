@@ -29,6 +29,12 @@ export const Item = styled.div`
 
   display: flex;
   align-items: center;
+
+  &:not(:last-child) {
+    height: 140px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d1d1d1;
+  }
 `;
 
 export const ItemImg = styled.div`
