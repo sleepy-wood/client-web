@@ -1,13 +1,17 @@
 import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaHeart } from 'react-icons/fa';
 
+import * as API from '../../../apis';
 import * as C from '../../../constants';
 import * as I from '../../../interfaces';
 import * as S from './styled';
 import wood from '../../../assets/images/wood.png';
 import { MEDIA } from '../../../constants';
+import { pushCartItem } from '../../../reducers/cart.reducer';
+import { pushWishlistItem } from '../../../reducers/wishlist.reducer';
 
 const { minWidth } = MEDIA;
 
@@ -32,6 +36,7 @@ export default function ItemDetailContent({ product, extraProducts, recommendPro
 }
 
 function Desktop({ product, extraProducts, recommendProducts }: Props) {
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -46,6 +51,32 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
       }
     },
     [location.pathname, navigate],
+  );
+
+  const addWishlistItem = useCallback(
+    async (productId: number, e: React.MouseEvent) => {
+      const [wishlistItem, error] = await API.wishlist.createWishlistItem(productId);
+
+      if (error) {
+        console.log(error.data.error.reason);
+      }
+
+      dispatch(pushWishlistItem({ wishlistItem }));
+    },
+    [dispatch],
+  );
+
+  const addCartItem = useCallback(
+    async (productId: number, e: React.MouseEvent) => {
+      const [cartItem, error] = await API.cart.createCartItem(productId);
+
+      if (error) {
+        console.log(error.data.error.reason);
+      }
+
+      dispatch(pushCartItem({ cartItem }));
+    },
+    [dispatch],
   );
 
   return (
@@ -94,10 +125,10 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                   </S.AssetPrice>
                   <S.AssetButtonContainer>
                     <div>지금구매</div>
-                    <div>
+                    <div onClick={addCartItem.bind(null, product.id)}>
                       <FaShoppingCart size={20} />
                     </div>
-                    <div>
+                    <div onClick={addWishlistItem.bind(null, product.id)}>
                       <FaHeart size={20} />
                     </div>
                   </S.AssetButtonContainer>
@@ -147,10 +178,10 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                   </S.AssetPrice>
                   <S.AssetButtonContainer>
                     <div>지금구매</div>
-                    <div>
+                    <div onClick={addCartItem.bind(null, product.id)}>
                       <FaShoppingCart size={20} />
                     </div>
-                    <div>
+                    <div onClick={addWishlistItem.bind(null, product.id)}>
                       <FaHeart size={20} />
                     </div>
                   </S.AssetButtonContainer>

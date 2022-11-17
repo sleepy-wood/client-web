@@ -24,6 +24,12 @@ export const APIs = {
         url: `/api/v1/files/temp/upload`,
       },
     },
+    cart: {
+      createCartItem: {
+        method: 'POST',
+        url: '/api/v1/carts/items',
+      },
+    },
     health: {
       findSleep: {
         method: 'GET',
@@ -86,6 +92,12 @@ export const APIs = {
       updateHitPlusOne: {
         method: 'PUT',
         url: '/api/v1/products/hits/:id',
+      },
+    },
+    wishlist: {
+      createWishlistItem: {
+        method: 'POST',
+        url: '/api/v1/wishlists/items',
       },
     },
   },

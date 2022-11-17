@@ -208,8 +208,8 @@ export class User {
   activities: Activity[];
   sleeps: Sleep[];
   trees: Tree[];
-  // cart: Cart;
-  // wishlist: Wishlist;
+  cart: Cart;
+  wishlist: Wishlist;
   room: Room;
   roomMembers: RoomMember[];
   orders: Order[];
@@ -307,4 +307,46 @@ export class Respiratory {
   updatedAt: Date;
   deletedAt: Date;
   user: User;
+}
+
+export class Cart {
+  id: number;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  user: User;
+  cartItems: CartItem[];
+}
+
+export class CartItem {
+  id: number;
+  cartId: number;
+  productId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  cart: Cart;
+  product: Product;
+}
+
+export class Wishlist {
+  id: number;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  user: User;
+  wishlistItems: WishlistItem[];
+}
+
+export class WishlistItem {
+  id: number;
+  productId: number;
+  wishlistId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  wishlist: Wishlist;
+  product: Product;
 }
