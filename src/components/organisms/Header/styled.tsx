@@ -74,7 +74,7 @@ export const SubContainer = styled.div`
 `;
 
 export const MenuContainer = styled.div`
-  margin-right: 24px;
+  margin-right: 32px;
 
   & > div {
     cursor: pointer;
@@ -83,7 +83,7 @@ export const MenuContainer = styled.div`
   }
 
   & > div:not(:last-child) {
-    margin-right: 24px;
+    margin-right: 32px;
   }
 `;
 
@@ -99,7 +99,7 @@ export const IconContainer = styled.div`
   }
 
   & > div:not(:last-child) {
-    margin-right: 24px;
+    margin-right: 32px;
   }
 `;
 
@@ -199,6 +199,35 @@ export const ItemList = styled.div`
   margin-bottom: 24px;
 `;
 
+export const ItemCheckbox = styled.input`
+  display: none;
+
+  & + label {
+    position: relative;
+
+    cursor: pointer;
+
+    width: 16px;
+    height: 16px;
+
+    border: 2px solid #707070;
+    border-radius: 4px;
+  }
+
+  &:checked + label::after {
+    position: absolute;
+    left: -2px;
+    top: -3px;
+
+    content: '✔';
+    font-size: 12px;
+
+    width: 16px;
+    height: 16px;
+    text-align: center;
+  }
+`;
+
 export const Item = styled.div`
   display: flex;
   justify-content: space-between;
@@ -206,12 +235,45 @@ export const Item = styled.div`
 
   margin-bottom: 12px;
 
+  font-size: 14px;
+
+  & > div:not(:nth-of-type(1)) {
+    & > div:nth-of-type(1) {
+      font-size: 12px;
+      color: var(--color-text);
+      opacity: 0.7;
+      text-align: center;
+
+      margin-bottom: 12px;
+    }
+
+    & > div:nth-of-type(2) {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
   & > div:nth-of-type(1) {
     width: 80px;
     height: 80px;
 
     border-radius: 10px;
     overflow: hidden;
+
+    margin-right: 8px;
+  }
+
+  & > div:nth-of-type(2) {
+    width: 120px;
+
+    margin-right: 8px;
+  }
+
+  & > div:nth-of-type(3) {
+    width: 120px;
+
+    margin-right: 8px;
   }
 `;
 

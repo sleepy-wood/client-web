@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import * as C from '../../../constants';
 import * as I from '../../../interfaces';
@@ -81,7 +81,17 @@ function Desktop({ user, products, productCount }: Props) {
                   )}>
                   <S.ExtraAssetImg>
                     <img
-                      src={product.productImages[0]?.path}
+                      src={
+                        product.category === I.ProductCategory.collection
+                          ? product.productImages[1].path
+                          : product.productImages[product.productImages.length - 1].path
+                      }
+                      style={{
+                        objectFit:
+                          product.category === I.ProductCategory.collection ? 'cover' : 'contain',
+                        objectPosition:
+                          product.category === I.ProductCategory.collection ? '0 -68px' : 'unset',
+                      }}
                       alt={`${product.name}'s represent image`}
                       onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                         e.currentTarget.src = errorImg;

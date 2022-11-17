@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Drawer from 'react-modern-drawer';
 import { AiFillShop } from 'react-icons/ai';
 import {
@@ -7,6 +7,7 @@ import {
   FaUserCircle,
   FaWallet,
   FaShoppingCart,
+  FaHeart,
   FaGem,
   FaRegCheckSquare,
   FaCheckSquare,
@@ -18,8 +19,10 @@ import { useSelector } from 'react-redux';
 
 import * as C from '../../../constants';
 import * as H from '../../../hooks';
+import * as I from '../../../interfaces';
 import * as S from './styled';
 import beauty from '../../../assets/images/beauty.png';
+import errorImg from '../../../assets/images/cate_plants.webp';
 import metamask from '../../../assets/images/metamask-fox.svg';
 import { MEDIA } from '../../../constants';
 import { RootState } from '../../../reducers';
@@ -54,16 +57,31 @@ function Desktop({ connectWallet }: Props) {
   const location = useLocation();
   const navigate = useNavigate();
   const showSearch = useMediaQuery({ minWidth: 768 });
+
   const { user } = useSelector((state: RootState) => state.user);
-  const [isOpen, setIsOpen] = useState(false);
+  const { cartItem } = useSelector((state: RootState) => state.cart);
+  const { wishlistItem } = useSelector((state: RootState) => state.wishlist);
+  const [cartItemTotalPrice, setCartItemTotalPrice] = useState<number>(0);
+  const [wishlistItemTotalPrice, setWishlistItemTotalPrice] = useState<number>(0);
+
+  const [isOpenCart, setIsOpenCart] = useState(false);
+  const [isOpenWishtlist, setIsOpenWishtlist] = useState(false);
   const [showMyInfo, setShowMyInfo] = useState<boolean>(false);
   const [showWallet, setShowWallet] = useState<boolean>(false);
   const [query, onChangeQuery] = H.useInput<string>('');
 
-  const toggleDrawer = useCallback(() => {
+  const toggleCart = useCallback(() => {
+    setIsOpenWishtlist(false);
     setShowMyInfo(false);
     setShowWallet(false);
-    setIsOpen(prevState => !prevState);
+    setIsOpenCart(prevState => !prevState);
+  }, []);
+
+  const toggleWishlist = useCallback(() => {
+    setIsOpenCart(false);
+    setShowMyInfo(false);
+    setShowWallet(false);
+    setIsOpenWishtlist(prevState => !prevState);
   }, []);
 
   const moveToPath = useCallback(
@@ -80,6 +98,13 @@ function Desktop({ connectWallet }: Props) {
     },
     [location.pathname, navigate],
   );
+
+  useEffect(() => {
+    setCartItemTotalPrice(cartItem.reduce((acc, cur) => acc + Number(cur.product.price), 0));
+    setWishlistItemTotalPrice(
+      wishlistItem.reduce((acc, cur) => acc + Number(cur.product.price), 0),
+    );
+  }, [cartItem, wishlistItem]);
 
   return (
     <React.Fragment>
@@ -121,11 +146,12 @@ function Desktop({ connectWallet }: Props) {
             <S.IconContainer>
               <div
                 onClick={() => {
-                  setIsOpen(false);
+                  setIsOpenCart(false);
+                  setIsOpenWishtlist(false);
                   setShowWallet(false);
-                  setShowMyInfo(!showMyInfo);
+                  setShowMyInfo(prevState => !prevState);
                 }}>
-                <FaRegUserCircle size={32} />
+                <FaRegUserCircle size={26} />
                 {showMyInfo && (
                   <S.InfoContainer>
                     <div
@@ -149,10 +175,7 @@ function Desktop({ connectWallet }: Props) {
                     </div>
                     <div
                       style={{ cursor: 'pointer' }}
-                      onClick={moveToPath.bind(
-                        null,
-                        C.PATH.MARKET_HISTORY.PATH.replace(':id', user.id.toString()),
-                      )}>
+                      onClick={moveToPath.bind(null, C.PATH.MARKET_HISTORY.LIST)}>
                       <S.InfoIconContainer>
                         <FaHistory size={20} />
                       </S.InfoIconContainer>
@@ -163,11 +186,12 @@ function Desktop({ connectWallet }: Props) {
               </div>
               <div
                 onClick={() => {
-                  setIsOpen(false);
+                  setIsOpenCart(false);
+                  setIsOpenWishtlist(false);
                   setShowMyInfo(false);
-                  setShowWallet(!showWallet);
+                  setShowWallet(prevState => !prevState);
                 }}>
-                <FaWallet size={32} />
+                <FaWallet size={26} />
                 {showWallet && (
                   <S.InfoContainer>
                     <div>
@@ -185,16 +209,19 @@ function Desktop({ connectWallet }: Props) {
                   </S.InfoContainer>
                 )}
               </div>
-              <div onClick={toggleDrawer}>
-                <FaShoppingCart size={32} />
+              <div onClick={toggleCart}>
+                <FaShoppingCart size={26} />
+              </div>
+              <div onClick={toggleWishlist}>
+                <FaHeart size={26} />
               </div>
             </S.IconContainer>
           </S.SubContainer>
         </div>
       </S.Container>
       <Drawer
-        open={isOpen}
-        onClose={toggleDrawer}
+        open={isOpenCart}
+        onClose={toggleCart}
         direction='right'
         enableOverlay={false}
         style={{
@@ -209,6 +236,97 @@ function Desktop({ connectWallet }: Props) {
         size={500}>
         <S.CartTitle>
           <div>장바구니</div>
+          <div>({cartItem.length}개)</div>
+        </S.CartTitle>
+        <S.Tooltip>
+          <div>
+            <FaRegCheckSquare size={18} />
+          </div>
+          <div>전체선택</div>
+          <div>선택삭제</div>
+        </S.Tooltip>
+        <S.ItemList>
+          {cartItem.map((item, index) => (
+            <S.Item key={index}>
+              <S.ItemCheckbox id={`cart-check-${index}`} type='checkbox' />
+              <label htmlFor={`cart-check-${index}`}></label>
+              <div>
+                <img
+                  src={
+                    item.product.category === I.ProductCategory.collection
+                      ? item.product.productImages[1].path
+                      : item.product.productImages[item.product.productImages.length - 1].path
+                  }
+                  style={{
+                    objectFit:
+                      item.product.category === I.ProductCategory.collection ? 'cover' : 'contain',
+                    objectPosition:
+                      item.product.category === I.ProductCategory.collection ? '0 -18px' : 'unset',
+                  }}
+                  alt={`${item.product.name}'s represent image`}
+                  onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                    e.currentTarget.src = errorImg;
+                  }}
+                />
+              </div>
+              <div>
+                <div>상품 이름</div>
+                <div
+                  style={{ cursor: 'pointer' }}
+                  onClick={moveToPath.bind(
+                    null,
+                    C.PATH.ITEM_DETAIL.PATH.replace(':id', item.product.id.toString()),
+                  )}>
+                  {item.product.name}
+                </div>
+              </div>
+              <div>
+                <div>크리에이터</div>
+                <div>{item.product.user.nickname}</div>
+              </div>
+              <div>
+                <div>가격</div>
+                <div>
+                  {Number(item.product.price).toFixed(2) === '0.00'
+                    ? 'FREE'
+                    : Number(item.product.price).toFixed(2) + ' ETH'}
+                </div>
+              </div>
+            </S.Item>
+          ))}
+        </S.ItemList>
+        <S.PaymentContainer>
+          <S.PaymentTitle>결제 예정금액</S.PaymentTitle>
+          <S.TotalPrice>
+            <div>합계</div>
+            <div>
+              {cartItemTotalPrice.toFixed(2) === '0.00'
+                ? 'FREE'
+                : cartItemTotalPrice.toFixed(2) + ' ETH'}
+            </div>
+          </S.TotalPrice>
+        </S.PaymentContainer>
+        <S.CartButton>
+          <div>주문하기</div>
+        </S.CartButton>
+      </Drawer>
+      <Drawer
+        open={isOpenWishtlist}
+        onClose={toggleWishlist}
+        direction='right'
+        enableOverlay={false}
+        style={{
+          height: 'calc(100vh - 72px)',
+          top: '72px',
+          background: 'rgba(255, 255, 255, 0.9)',
+          backdropFilter: 'blur(12px)',
+          borderRadius: '12px 0 0 12px',
+          padding: '24px',
+          overflowY: 'scroll',
+        }}
+        size={500}>
+        <S.CartTitle>
+          <div>위시리스트</div>
           <div>(2개)</div>
         </S.CartTitle>
         <S.Tooltip>
@@ -220,6 +338,8 @@ function Desktop({ connectWallet }: Props) {
         </S.Tooltip>
         <S.ItemList>
           <S.Item>
+            <S.ItemCheckbox id={`wishlist-check-${1}`} type='checkbox' />
+            <label htmlFor={`wishlist-check-${1}`}></label>
             <div>
               <img src={beauty} alt='beauty' />
             </div>
@@ -228,6 +348,8 @@ function Desktop({ connectWallet }: Props) {
             <div>1.2ETH</div>
           </S.Item>
           <S.Item>
+            <S.ItemCheckbox id={`wishlist-check-${2}`} type='checkbox' />
+            <label htmlFor={`wishlist-check-${2}`}></label>
             <div>
               <img src={beauty} alt='beauty' />
             </div>
@@ -236,15 +358,8 @@ function Desktop({ connectWallet }: Props) {
             <div>1.2ETH</div>
           </S.Item>
         </S.ItemList>
-        <S.PaymentContainer>
-          <S.PaymentTitle>결제 예정금액</S.PaymentTitle>
-          <S.TotalPrice>
-            <div>합계</div>
-            <div>2.4ETH</div>
-          </S.TotalPrice>
-        </S.PaymentContainer>
         <S.CartButton>
-          <div>주문하기</div>
+          <div>장바구니로 이동하기</div>
         </S.CartButton>
       </Drawer>
     </React.Fragment>

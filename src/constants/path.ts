@@ -18,8 +18,8 @@ export const PATH = {
     REDIRECT: '/users',
   },
   MARKET_HISTORY: {
-    PATH: '/history/:id',
-    REDIRECT: '/history',
+    LIST: '/history',
+    DETAIL: '/history/:id',
   },
   MARKET_REGISTER: '/register',
   ITEM_DETAIL: {

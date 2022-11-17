@@ -41,11 +41,7 @@ function Desktop({ products }: Props) {
   return (
     <S.Container>
       {products &&
-        [
-          ['컬렉션', 'collection'],
-          ['이모티콘', 'emoticon'],
-          ['', ''],
-        ].map(([item, category], index) => (
+        ['컬렉션', '이모티콘', '랜드소품'].map((item, index) => (
           <S.ContentContainer key={index}>
             <S.ContentContainerHeader>
               <div>{item}</div>
