@@ -116,5 +116,11 @@ export const APIs = {
         url: '/api/v1/wishlists/items',
       },
     },
+    order: {
+      create: {
+        method: 'POST',
+        url: '/api/v1/orders',
+      },
+    },
   },
 };

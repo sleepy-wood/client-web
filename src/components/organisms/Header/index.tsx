@@ -165,6 +165,23 @@ function Desktop({ connectWallet }: Props) {
     [checkWishlistItems, dispatch],
   );
 
+  const createOrder = useCallback(
+    async (e: React.MouseEvent<HTMLDivElement>) => {
+      const amount = cartItem
+        .filter(el => checkCartItems.includes(el.product.id))
+        .reduce((acc, cur) => acc + Number(cur.product.price), 0);
+      const [order, error] = await API.order.create(amount, I.Payment.Cash, checkCartItems);
+
+      if (error) {
+        console.log(error.data.error.reason);
+      }
+
+      await removeCartItem(e);
+      alert('주문이 완료되었습니다.');
+    },
+    [cartItem, checkCartItems, removeCartItem],
+  );
+
   useEffect(() => {
     setCartItemTotalPrice(cartItem.reduce((acc, cur) => acc + Number(cur.product.price), 0));
   }, [cartItem, wishlistItem]);
@@ -371,7 +388,7 @@ function Desktop({ connectWallet }: Props) {
             </div>
           </S.TotalPrice>
         </S.PaymentContainer>
-        <S.CartButton>
+        <S.CartButton onClick={createOrder.bind(null)}>
           <div>주문하기</div>
         </S.CartButton>
       </Drawer>
