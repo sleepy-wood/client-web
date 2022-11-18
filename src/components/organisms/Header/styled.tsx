@@ -189,7 +189,7 @@ export const Tooltip = styled.div`
   margin-bottom: 12px;
 
   & > * {
-    margin-right: 8px;
+    margin-right: 16px;
 
     cursor: pointer;
   }
@@ -238,11 +238,12 @@ export const Item = styled.div`
   font-size: 14px;
 
   & > div:not(:nth-of-type(1)) {
+    text-align: center;
+
     & > div:nth-of-type(1) {
       font-size: 12px;
       color: var(--color-text);
       opacity: 0.7;
-      text-align: center;
 
       margin-bottom: 12px;
     }

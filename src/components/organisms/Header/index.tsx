@@ -9,8 +9,6 @@ import {
   FaShoppingCart,
   FaHeart,
   FaGem,
-  FaRegCheckSquare,
-  FaCheckSquare,
   FaHistory,
 } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
@@ -61,13 +59,15 @@ function Desktop({ connectWallet }: Props) {
   const { user } = useSelector((state: RootState) => state.user);
   const { cartItem } = useSelector((state: RootState) => state.cart);
   const { wishlistItem } = useSelector((state: RootState) => state.wishlist);
-  const [cartItemTotalPrice, setCartItemTotalPrice] = useState<number>(0);
-  const [wishlistItemTotalPrice, setWishlistItemTotalPrice] = useState<number>(0);
 
   const [isOpenCart, setIsOpenCart] = useState(false);
   const [isOpenWishtlist, setIsOpenWishtlist] = useState(false);
   const [showMyInfo, setShowMyInfo] = useState<boolean>(false);
   const [showWallet, setShowWallet] = useState<boolean>(false);
+  const [cartItemTotalPrice, setCartItemTotalPrice] = useState<number>(0);
+  const [checkCartItems, setCheckCartItems] = useState<number[]>([]);
+  const [checkWishlistItems, setCheckWishlistItems] = useState<number[]>([]);
+
   const [query, onChangeQuery] = H.useInput<string>('');
 
   const toggleCart = useCallback(() => {
@@ -99,11 +99,51 @@ function Desktop({ connectWallet }: Props) {
     [location.pathname, navigate],
   );
 
+  const checkSingleCart = useCallback(
+    (id: number, e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.currentTarget.checked) {
+        setCheckCartItems(prev => [...prev, id]);
+      } else {
+        setCheckCartItems(checkCartItems.filter(el => el !== id));
+      }
+    },
+    [checkCartItems],
+  );
+
+  const checkAllCart = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      setCheckCartItems(cartItem.map(el => el.id));
+    },
+    [cartItem],
+  );
+
+  const checkSingleWishlist = useCallback(
+    (id: number, e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.currentTarget.checked) {
+        setCheckWishlistItems(prev => [...prev, id]);
+      } else {
+        setCheckWishlistItems(checkWishlistItems.filter(el => el !== id));
+      }
+    },
+    [checkWishlistItems],
+  );
+
+  const checkAllWishlist = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      setCheckWishlistItems(wishlistItem.map(el => el.id));
+    },
+    [wishlistItem],
+  );
+
+  const removeCartItem = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      console.log(checkCartItems);
+    },
+    [checkCartItems],
+  );
+
   useEffect(() => {
     setCartItemTotalPrice(cartItem.reduce((acc, cur) => acc + Number(cur.product.price), 0));
-    setWishlistItemTotalPrice(
-      wishlistItem.reduce((acc, cur) => acc + Number(cur.product.price), 0),
-    );
   }, [cartItem, wishlistItem]);
 
   return (
@@ -233,21 +273,24 @@ function Desktop({ connectWallet }: Props) {
           padding: '24px',
           overflowY: 'scroll',
         }}
-        size={500}>
+        size={540}>
         <S.CartTitle>
           <div>장바구니</div>
           <div>({cartItem.length}개)</div>
         </S.CartTitle>
         <S.Tooltip>
-          <S.ItemCheckbox id={`cart-check-all`} type='checkbox' />
-          <label htmlFor={`cart-check-all`}></label>
-          <div>전체선택</div>
-          <div>선택삭제</div>
+          <div onClick={checkAllCart.bind(null)}>전체선택</div>
+          <div onClick={removeCartItem.bind(null)}>선택삭제</div>
         </S.Tooltip>
         <S.ItemList>
           {cartItem.map((item, index) => (
             <S.Item key={index}>
-              <S.ItemCheckbox id={`cart-check-${index}`} type='checkbox' />
+              <S.ItemCheckbox
+                id={`cart-check-${index}`}
+                type='checkbox'
+                onChange={checkSingleCart.bind(null, item.id)}
+                checked={checkCartItems.includes(item.id)}
+              />
               <label htmlFor={`cart-check-${index}`}></label>
               <div>
                 <img
@@ -323,39 +366,69 @@ function Desktop({ connectWallet }: Props) {
           padding: '24px',
           overflowY: 'scroll',
         }}
-        size={500}>
+        size={540}>
         <S.CartTitle>
           <div>위시리스트</div>
-          <div>(2개)</div>
+          <div>({wishlistItem.length}개)</div>
         </S.CartTitle>
         <S.Tooltip>
-          <div>
-            <FaRegCheckSquare size={18} />
-          </div>
-          <div>전체선택</div>
+          <div onClick={checkAllWishlist.bind(null)}>전체선택</div>
           <div>선택삭제</div>
         </S.Tooltip>
         <S.ItemList>
-          <S.Item>
-            <S.ItemCheckbox id={`wishlist-check-${1}`} type='checkbox' />
-            <label htmlFor={`wishlist-check-${1}`}></label>
-            <div>
-              <img src={beauty} alt='beauty' />
-            </div>
-            <div>이름</div>
-            <div>크리에이터</div>
-            <div>1.2ETH</div>
-          </S.Item>
-          <S.Item>
-            <S.ItemCheckbox id={`wishlist-check-${2}`} type='checkbox' />
-            <label htmlFor={`wishlist-check-${2}`}></label>
-            <div>
-              <img src={beauty} alt='beauty' />
-            </div>
-            <div>이름</div>
-            <div>크리에이터</div>
-            <div>1.2ETH</div>
-          </S.Item>
+          {wishlistItem.map((item, index) => (
+            <S.Item key={index}>
+              <S.ItemCheckbox
+                id={`wishlist-check-${index}`}
+                type='checkbox'
+                onChange={checkSingleWishlist.bind(null, item.id)}
+                checked={checkWishlistItems.includes(item.id)}
+              />
+              <label htmlFor={`wishlist-check-${index}`}></label>
+              <div>
+                <img
+                  src={
+                    item.product.category === I.ProductCategory.collection
+                      ? item.product.productImages[1].path
+                      : item.product.productImages[item.product.productImages.length - 1].path
+                  }
+                  style={{
+                    objectFit:
+                      item.product.category === I.ProductCategory.collection ? 'cover' : 'contain',
+                    objectPosition:
+                      item.product.category === I.ProductCategory.collection ? '0 -18px' : 'unset',
+                  }}
+                  alt={`${item.product.name}'s represent image`}
+                  onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                    e.currentTarget.src = errorImg;
+                  }}
+                />
+              </div>
+              <div>
+                <div>상품 이름</div>
+                <div
+                  style={{ cursor: 'pointer' }}
+                  onClick={moveToPath.bind(
+                    null,
+                    C.PATH.ITEM_DETAIL.PATH.replace(':id', item.product.id.toString()),
+                  )}>
+                  {item.product.name}
+                </div>
+              </div>
+              <div>
+                <div>크리에이터</div>
+                <div>{item.product.user.nickname}</div>
+              </div>
+              <div>
+                <div>가격</div>
+                <div>
+                  {Number(item.product.price).toFixed(2) === '0.00'
+                    ? 'FREE'
+                    : Number(item.product.price).toFixed(2) + ' ETH'}
+                </div>
+              </div>
+            </S.Item>
+          ))}
         </S.ItemList>
         <S.CartButton>
           <div>장바구니로 이동하기</div>
