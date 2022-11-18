@@ -45,4 +45,19 @@ export const order = {
       return [null, new E.HttpException(_data, status)];
     }
   },
+  async findOne(id: string): Promise<[I.Order, E.HttpException]> {
+    try {
+      const { method, url } = v1.order.findOne;
+      const { result, data } = await callRequest<I.BasicResponse<I.Order>>({
+        method,
+        url: url.replace(':id', id),
+      });
+
+      return [data, null];
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return [null, new E.HttpException(_data, status)];
+    }
+  },
 };

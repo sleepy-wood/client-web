@@ -125,6 +125,10 @@ export const APIs = {
         method: 'GET',
         url: '/api/v1/orders/monthly',
       },
+      findOne: {
+        method: 'GET',
+        url: '/api/v1/orders/:id',
+      },
     },
   },
 };
