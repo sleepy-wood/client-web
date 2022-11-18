@@ -98,9 +98,19 @@ function Desktop({ history }: Props) {
                           <div>
                             <div>
                               <div>
-                                {Number(order.orderDetails[0].product.price).toFixed(2) === '0.00'
+                                {Number(
+                                  order.orderDetails.reduce(
+                                    (acc, cur) => acc + Number(cur.product.price),
+                                    0,
+                                  ),
+                                ).toFixed(2) === '0.00'
                                   ? 'FREE'
-                                  : Number(order.orderDetails[0].product.price).toFixed(2) + ' ETH'}
+                                  : Number(
+                                      order.orderDetails.reduce(
+                                        (acc, cur) => acc + Number(cur.product.price),
+                                        0,
+                                      ),
+                                    ).toFixed(2) + ' ETH'}
                               </div>
                               <div>
                                 <div>
