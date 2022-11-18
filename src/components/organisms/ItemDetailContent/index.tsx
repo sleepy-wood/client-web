@@ -250,9 +250,14 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
             )}
         </S.ExtraAssets>
         <S.SemiTitle>추천 상품</S.SemiTitle>
-        <S.RecommendAssets>
-          {recommendProducts &&
-            recommendProducts.map((recommendProduct, index) =>
+        {recommendProducts && (
+          <S.RecommendAssets
+            style={{
+              gridTemplateColumns: `repeat(auto-fill, ${
+                recommendProducts[0].category === I.ProductCategory.collection ? '240px' : '200px'
+              })`,
+            }}>
+            {recommendProducts.map((recommendProduct, index) =>
               recommendProduct.category === I.ProductCategory.collection ? (
                 <S.RecommendAsset
                   key={index}
@@ -319,7 +324,8 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                 </S.ExtraAsset>
               ),
             )}
-        </S.RecommendAssets>
+          </S.RecommendAssets>
+        )}
       </S.BottomContainer>
     </S.Container>
   );
