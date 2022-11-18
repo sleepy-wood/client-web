@@ -333,9 +333,11 @@ function Desktop({ connectWallet }: Props) {
               </div>
               <div onClick={toggleCart}>
                 <FaShoppingCart size={26} />
+                {cartItem.length > 0 && <div></div>}
               </div>
               <div onClick={toggleWishlist}>
                 <FaHeart size={26} />
+                {wishlistItem.length > 0 && <div></div>}
               </div>
             </S.IconContainer>
           </S.SubContainer>

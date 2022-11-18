@@ -98,6 +98,21 @@ export const IconContainer = styled.div`
     }
   }
 
+  & > div:nth-of-type(3),
+  div:nth-of-type(4) {
+    & > div:last-of-type {
+      position: absolute;
+      top: 0px;
+      right: -2px;
+
+      width: 9px;
+      height: 9px;
+
+      background-color: crimson;
+      border-radius: 50%;
+    }
+  }
+
   & > div:not(:last-child) {
     margin-right: 32px;
   }
