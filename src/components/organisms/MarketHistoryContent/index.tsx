@@ -3,19 +3,24 @@ import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import * as C from '../../../constants';
+import * as I from '../../../interfaces';
 import * as S from './styled';
 import { MEDIA } from '../../../constants';
-import tempImg from '../../../assets/images/cate_plants.webp';
+import errorImg from '../../../assets/images/cate_plants.webp';
 
 const { minWidth } = MEDIA;
 
-export default function MarketHistoryContent() {
+type Props = {
+  history: I.Order[][];
+};
+
+export default function MarketHistoryContent({ history }: Props) {
   const isDesktop = useMediaQuery({ minWidth });
 
-  return isDesktop ? <Desktop /> : <Mobile />;
+  return isDesktop ? <Desktop history={history} /> : <Mobile />;
 }
 
-function Desktop() {
+function Desktop({ history }: Props) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -37,128 +42,95 @@ function Desktop() {
       <S.Header>
         <h1>주문 내역</h1>
       </S.Header>
-      <S.MonthLine>
-        <h4>2022.11</h4>
-      </S.MonthLine>
-      <S.ItemContainer>
-        <S.Item>
-          <S.ItemImg>
-            <img src={tempImg} alt='temp' />
-          </S.ItemImg>
-          <S.ItemInfoContainer>
-            <S.ItemTitle
-              onClick={moveToPath.bind(null, C.PATH.MARKET_HISTORY.DETAIL.replace(':id', '1'))}>
-              상품이름 외 5건
-            </S.ItemTitle>
-            <S.ItemInfo>
-              <div>
-                <div>
-                  <div>0.3ETH</div>
-                  <div>
-                    <div>2022.11.13</div>
-                  </div>
-                </div>
-                <div>결제완료</div>
-              </div>
-              <S.ItemSeller>
-                <div>
-                  <img src={tempImg} alt='temp' />
-                </div>
-                <div>판매자이름</div>
-              </S.ItemSeller>
-            </S.ItemInfo>
-          </S.ItemInfoContainer>
-        </S.Item>
-        <S.Item>
-          <S.ItemImg>
-            <img src={tempImg} alt='temp' />
-          </S.ItemImg>
-          <S.ItemInfoContainer>
-            <S.ItemTitle
-              onClick={moveToPath.bind(null, C.PATH.MARKET_HISTORY.DETAIL.replace(':id', '1'))}>
-              상품이름
-            </S.ItemTitle>
-            <S.ItemInfo>
-              <div>
-                <div>
-                  <div>0.3ETH</div>
-                  <div>
-                    <div>2022.11.13</div>
-                  </div>
-                </div>
-                <div>결제완료</div>
-              </div>
-              <S.ItemSeller>
-                <div>
-                  <img src={tempImg} alt='temp' />
-                </div>
-                <div>판매자이름</div>
-              </S.ItemSeller>
-            </S.ItemInfo>
-          </S.ItemInfoContainer>
-        </S.Item>
-      </S.ItemContainer>
-      <S.MonthLine>
-        <h4>2022.10</h4>
-      </S.MonthLine>
-      <S.ItemContainer>
-        <S.Item>
-          <S.ItemImg>
-            <img src={tempImg} alt='temp' />
-          </S.ItemImg>
-          <S.ItemInfoContainer>
-            <S.ItemTitle
-              onClick={moveToPath.bind(null, C.PATH.MARKET_HISTORY.DETAIL.replace(':id', '1'))}>
-              상품이름
-            </S.ItemTitle>
-            <S.ItemInfo>
-              <div>
-                <div>
-                  <div>0.3ETH</div>
-                  <div>
-                    <div>2022.11.13</div>
-                  </div>
-                </div>
-                <div>결제완료</div>
-              </div>
-              <S.ItemSeller>
-                <div>
-                  <img src={tempImg} alt='temp' />
-                </div>
-                <div>판매자이름</div>
-              </S.ItemSeller>
-            </S.ItemInfo>
-          </S.ItemInfoContainer>
-        </S.Item>
-        <S.Item>
-          <S.ItemImg>
-            <img src={tempImg} alt='temp' />
-          </S.ItemImg>
-          <S.ItemInfoContainer>
-            <S.ItemTitle
-              onClick={moveToPath.bind(null, C.PATH.MARKET_HISTORY.DETAIL.replace(':id', '1'))}>
-              상품이름
-            </S.ItemTitle>
-            <S.ItemInfo>
-              <div>
-                <div>
-                  <div>0.3ETH</div>
-                  <div>
-                    <div>2022.11.13</div>
-                  </div>
-                </div>
-                <div>결제완료</div>
-              </div>
-              <S.ItemSeller>
-                <div>
-                  <img src={tempImg} alt='temp' />
-                </div>
-                <div>판매자이름</div>
-              </S.ItemSeller>
-            </S.ItemInfo>
-          </S.ItemInfoContainer>
-        </S.Item>
-      </S.ItemContainer>
+      {history &&
+        history.map(
+          (orders, index) =>
+            orders.length > 0 && (
+              <React.Fragment key={index}>
+                <S.MonthLine>
+                  <h4>
+                    {new Date(orders[0].createdAt).getFullYear()}.
+                    {new Date(orders[0].createdAt).getMonth() + 1}
+                  </h4>
+                </S.MonthLine>
+                <S.ItemContainer>
+                  {orders.map((order, _index) => (
+                    <S.Item key={_index}>
+                      <S.ItemImg>
+                        <img
+                          src={
+                            order.orderDetails[0].product.category === I.ProductCategory.collection
+                              ? order.orderDetails[0].product.productImages[1].path
+                              : order.orderDetails[0].product.productImages[
+                                  order.orderDetails[0].product.productImages.length - 1
+                                ].path
+                          }
+                          style={{
+                            objectFit:
+                              order.orderDetails[0].product.category ===
+                              I.ProductCategory.collection
+                                ? 'cover'
+                                : 'contain',
+                            objectPosition:
+                              order.orderDetails[0].product.category ===
+                              I.ProductCategory.collection
+                                ? '0 -68px'
+                                : 'unset',
+                          }}
+                          alt={`${order.orderDetails[0].product.name}'s represent image`}
+                          onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                            e.currentTarget.src = errorImg;
+                          }}
+                        />
+                      </S.ItemImg>
+                      <S.ItemInfoContainer>
+                        <S.ItemTitle
+                          onClick={moveToPath.bind(
+                            null,
+                            C.PATH.MARKET_HISTORY.DETAIL.replace(':id', '1'),
+                          )}>
+                          {order.orderDetails[0].product.name}
+                          {order.orderDetails.length > 1
+                            ? ` 외 ${order.orderDetails.length}건`
+                            : ''}
+                        </S.ItemTitle>
+                        <S.ItemInfo>
+                          <div>
+                            <div>
+                              <div>
+                                {Number(order.orderDetails[0].product.price).toFixed(2) === '0.00'
+                                  ? 'FREE'
+                                  : Number(order.orderDetails[0].product.price).toFixed(2) + ' ETH'}
+                              </div>
+                              <div>
+                                <div>
+                                  {new Date(order.createdAt).getFullYear()}.
+                                  {new Date(order.createdAt).getMonth() + 1}.
+                                  {new Date(order.createdAt).getDate() < 10
+                                    ? '0'
+                                    : '' + new Date(order.createdAt).getDate()}
+                                </div>
+                              </div>
+                            </div>
+                            <div>결제완료</div>
+                          </div>
+                          <S.ItemSeller>
+                            <div>
+                              <img
+                                src={order.orderDetails[0].product.user.profileImg}
+                                alt='seller profile'
+                              />
+                            </div>
+                            <div>{order.orderDetails[0].product.user.nickname}</div>
+                          </S.ItemSeller>
+                        </S.ItemInfo>
+                      </S.ItemInfoContainer>
+                    </S.Item>
+                  ))}
+                </S.ItemContainer>
+              </React.Fragment>
+            ),
+        )}
     </S.Container>
   );
 }
