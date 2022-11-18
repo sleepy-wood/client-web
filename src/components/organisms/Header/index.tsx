@@ -25,8 +25,8 @@ import errorImg from '../../../assets/images/cate_plants.webp';
 import metamask from '../../../assets/images/metamask-fox.svg';
 import { MEDIA } from '../../../constants';
 import { RootState } from '../../../reducers';
-import { pushCartItem, popCartItem } from '../../../reducers/cart.reducer';
-import { popWishlistItem } from '../../../reducers/wishlist.reducer';
+import { setCartItem, pushCartItem, popCartItem } from '../../../reducers/cart.reducer';
+import { setWishlistItem, popWishlistItem } from '../../../reducers/wishlist.reducer';
 
 const { minWidth } = MEDIA;
 type Props = {
@@ -74,19 +74,39 @@ function Desktop({ connectWallet }: Props) {
 
   const [query, onChangeQuery] = H.useInput<string>('');
 
-  const toggleCart = useCallback(() => {
+  const toggleCart = useCallback(async () => {
+    if (isOpenCart) {
+      const [cartItems, error] = await API.cart.getCartItems();
+
+      if (error) {
+        console.log(error.data.error.reason);
+      }
+
+      dispatch(setCartItem({ cartItems }));
+    }
+
     setIsOpenWishtlist(false);
     setShowMyInfo(false);
     setShowWallet(false);
     setIsOpenCart(prevState => !prevState);
-  }, []);
+  }, [dispatch, isOpenCart]);
 
-  const toggleWishlist = useCallback(() => {
+  const toggleWishlist = useCallback(async () => {
+    if (isOpenWishtlist) {
+      const [wishlistItems, error] = await API.wishlist.getWishlistItems();
+
+      if (error) {
+        console.log(error.data.error.reason);
+      }
+
+      dispatch(setWishlistItem({ wishlistItems }));
+    }
+
     setIsOpenCart(false);
     setShowMyInfo(false);
     setShowWallet(false);
     setIsOpenWishtlist(prevState => !prevState);
-  }, []);
+  }, [dispatch, isOpenWishtlist]);
 
   const moveToPath = useCallback(
     (path: string, e: React.MouseEvent) => {
@@ -148,6 +168,7 @@ function Desktop({ connectWallet }: Props) {
       }
 
       dispatch(popCartItem({ productIds: checkCartItems }));
+      setCheckCartItems([]);
     },
     [checkCartItems, dispatch],
   );
@@ -161,6 +182,7 @@ function Desktop({ connectWallet }: Props) {
       }
 
       dispatch(popWishlistItem({ productIds: checkWishlistItems }));
+      setCheckWishlistItems([]);
     },
     [checkWishlistItems, dispatch],
   );
@@ -177,6 +199,7 @@ function Desktop({ connectWallet }: Props) {
       }
 
       await removeCartItem(e);
+      setCheckCartItems([]);
       alert('주문이 완료되었습니다.');
     },
     [cartItem, checkCartItems, removeCartItem],
@@ -197,7 +220,7 @@ function Desktop({ connectWallet }: Props) {
       }
 
       await removeWishlistItem(e);
-
+      setCheckWishlistItems([]);
       alert('장바구니로 이동되었습니다.');
     },
     [checkWishlistItems, dispatch, removeWishlistItem],

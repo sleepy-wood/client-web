@@ -22,13 +22,12 @@ export const wishlist = {
       return [null, new E.HttpException(_data, status)];
     }
   },
-  async getWishlistItems(wishlistItemIds: number[]): Promise<[I.WishlistItem[], E.HttpException]> {
+  async getWishlistItems(): Promise<[I.WishlistItem[], E.HttpException]> {
     try {
       const { method, url } = v1.wishlist.getWishlistItems;
       const { result, data } = await callRequest<I.BasicResponse<I.WishlistItem[]>>({
         method,
         url,
-        data: { wishlistItemIds },
       });
 
       return [data, null];
