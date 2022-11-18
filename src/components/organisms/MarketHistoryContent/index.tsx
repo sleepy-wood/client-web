@@ -87,7 +87,7 @@ function Desktop({ history }: Props) {
                         <S.ItemTitle
                           onClick={moveToPath.bind(
                             null,
-                            C.PATH.MARKET_HISTORY.DETAIL.replace(':id', '1'),
+                            C.PATH.MARKET_HISTORY.DETAIL.replace(':id', order.id.toString()),
                           )}>
                           {order.orderDetails[0].product.name}
                           {order.orderDetails.length > 1
@@ -98,19 +98,9 @@ function Desktop({ history }: Props) {
                           <div>
                             <div>
                               <div>
-                                {Number(
-                                  order.orderDetails.reduce(
-                                    (acc, cur) => acc + Number(cur.product.price),
-                                    0,
-                                  ),
-                                ).toFixed(2) === '0.00'
+                                {Number(order.amount).toFixed(2) === '0.00'
                                   ? 'FREE'
-                                  : Number(
-                                      order.orderDetails.reduce(
-                                        (acc, cur) => acc + Number(cur.product.price),
-                                        0,
-                                      ),
-                                    ).toFixed(2) + ' ETH'}
+                                  : Number(order.amount).toFixed(2) + ' ETH'}
                               </div>
                               <div>
                                 <div>
