@@ -143,11 +143,19 @@ export const ItemSeller = styled.div`
   align-items: center;
   justify-content: center;
 
+  width: 80px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-decoration: none;
+
   & > div:nth-of-type(1) {
     width: 44px;
     height: 44px;
     border-radius: 10px;
     overflow: hidden;
+
+    margin-bottom: 4px;
 
     & > img {
       width: 100%;
@@ -156,7 +164,13 @@ export const ItemSeller = styled.div`
   }
 
   & > div:nth-of-type(2) {
+    width: 80px;
+
     font-size: 12px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
