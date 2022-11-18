@@ -25,7 +25,7 @@ import errorImg from '../../../assets/images/cate_plants.webp';
 import metamask from '../../../assets/images/metamask-fox.svg';
 import { MEDIA } from '../../../constants';
 import { RootState } from '../../../reducers';
-import { popCartItem } from '../../../reducers/cart.reducer';
+import { pushCartItem, popCartItem } from '../../../reducers/cart.reducer';
 import { popWishlistItem } from '../../../reducers/wishlist.reducer';
 
 const { minWidth } = MEDIA;
@@ -180,6 +180,27 @@ function Desktop({ connectWallet }: Props) {
       alert('주문이 완료되었습니다.');
     },
     [cartItem, checkCartItems, removeCartItem],
+  );
+
+  const moveWishlistToCart = useCallback(
+    async (e: React.MouseEvent<HTMLDivElement>) => {
+      const result = await Promise.all(checkWishlistItems.map(id => API.cart.createCartItem(id)));
+
+      console.log({ result });
+
+      for (const [cartItem, error] of result) {
+        if (error) {
+          console.log(error.data.error.reason);
+        }
+
+        dispatch(pushCartItem({ cartItem }));
+      }
+
+      await removeWishlistItem(e);
+
+      alert('장바구니로 이동되었습니다.');
+    },
+    [checkWishlistItems, dispatch, removeWishlistItem],
   );
 
   useEffect(() => {
@@ -470,7 +491,7 @@ function Desktop({ connectWallet }: Props) {
             </S.Item>
           ))}
         </S.ItemList>
-        <S.CartButton>
+        <S.CartButton onClick={moveWishlistToCart.bind(null)}>
           <div>장바구니로 이동하기</div>
         </S.CartButton>
       </Drawer>
