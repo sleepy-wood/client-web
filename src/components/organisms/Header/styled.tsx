@@ -188,7 +188,7 @@ export const Tooltip = styled.div`
 
   margin-bottom: 12px;
 
-  & > div {
+  & > * {
     margin-right: 8px;
 
     cursor: pointer;

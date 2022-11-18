@@ -239,9 +239,8 @@ function Desktop({ connectWallet }: Props) {
           <div>({cartItem.length}개)</div>
         </S.CartTitle>
         <S.Tooltip>
-          <div>
-            <FaRegCheckSquare size={18} />
-          </div>
+          <S.ItemCheckbox id={`cart-check-all`} type='checkbox' />
+          <label htmlFor={`cart-check-all`}></label>
           <div>전체선택</div>
           <div>선택삭제</div>
         </S.Tooltip>
