@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Drawer from 'react-modern-drawer';
 import { AiFillShop } from 'react-icons/ai';
 import {
@@ -15,15 +16,17 @@ import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import * as API from '../../../apis';
 import * as C from '../../../constants';
 import * as H from '../../../hooks';
 import * as I from '../../../interfaces';
 import * as S from './styled';
-import beauty from '../../../assets/images/beauty.png';
 import errorImg from '../../../assets/images/cate_plants.webp';
 import metamask from '../../../assets/images/metamask-fox.svg';
 import { MEDIA } from '../../../constants';
 import { RootState } from '../../../reducers';
+import { popCartItem } from '../../../reducers/cart.reducer';
+import { popWishlistItem } from '../../../reducers/wishlist.reducer';
 
 const { minWidth } = MEDIA;
 type Props = {
@@ -52,6 +55,7 @@ export default function Header() {
 }
 
 function Desktop({ connectWallet }: Props) {
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const showSearch = useMediaQuery({ minWidth: 768 });
@@ -112,7 +116,7 @@ function Desktop({ connectWallet }: Props) {
 
   const checkAllCart = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      setCheckCartItems(cartItem.map(el => el.id));
+      setCheckCartItems(cartItem.map(el => el.product.id));
     },
     [cartItem],
   );
@@ -130,16 +134,35 @@ function Desktop({ connectWallet }: Props) {
 
   const checkAllWishlist = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      setCheckWishlistItems(wishlistItem.map(el => el.id));
+      setCheckWishlistItems(wishlistItem.map(el => el.product.id));
     },
     [wishlistItem],
   );
 
   const removeCartItem = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      console.log(checkCartItems);
+    async (e: React.MouseEvent<HTMLDivElement>) => {
+      const error = await API.cart.removeCartItems(checkCartItems);
+
+      if (error) {
+        console.log(error.data.error.reason);
+      }
+
+      dispatch(popCartItem({ productIds: checkCartItems }));
     },
-    [checkCartItems],
+    [checkCartItems, dispatch],
+  );
+
+  const removeWishlistItem = useCallback(
+    async (e: React.MouseEvent<HTMLDivElement>) => {
+      const error = await API.wishlist.removeWishlistItems(checkWishlistItems);
+
+      if (error) {
+        console.log(error.data.error.reason);
+      }
+
+      dispatch(popWishlistItem({ productIds: checkWishlistItems }));
+    },
+    [checkWishlistItems, dispatch],
   );
 
   useEffect(() => {
@@ -288,8 +311,8 @@ function Desktop({ connectWallet }: Props) {
               <S.ItemCheckbox
                 id={`cart-check-${index}`}
                 type='checkbox'
-                onChange={checkSingleCart.bind(null, item.id)}
-                checked={checkCartItems.includes(item.id)}
+                onChange={checkSingleCart.bind(null, item.product.id)}
+                checked={checkCartItems.includes(item.product.id)}
               />
               <label htmlFor={`cart-check-${index}`}></label>
               <div>
@@ -373,7 +396,7 @@ function Desktop({ connectWallet }: Props) {
         </S.CartTitle>
         <S.Tooltip>
           <div onClick={checkAllWishlist.bind(null)}>전체선택</div>
-          <div>선택삭제</div>
+          <div onClick={removeWishlistItem.bind(null)}>선택삭제</div>
         </S.Tooltip>
         <S.ItemList>
           {wishlistItem.map((item, index) => (
@@ -381,8 +404,8 @@ function Desktop({ connectWallet }: Props) {
               <S.ItemCheckbox
                 id={`wishlist-check-${index}`}
                 type='checkbox'
-                onChange={checkSingleWishlist.bind(null, item.id)}
-                checked={checkWishlistItems.includes(item.id)}
+                onChange={checkSingleWishlist.bind(null, item.product.id)}
+                checked={checkWishlistItems.includes(item.product.id)}
               />
               <label htmlFor={`wishlist-check-${index}`}></label>
               <div>

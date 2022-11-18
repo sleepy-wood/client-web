@@ -38,4 +38,20 @@ export const cart = {
       return [null, new E.HttpException(_data, status)];
     }
   },
+  async removeCartItems(productIds: number[]): Promise<E.HttpException> {
+    try {
+      const { method, url } = v1.cart.removeCartItems;
+      const { result, data } = await callRequest<I.BasicResponse<null>>({
+        method,
+        url,
+        data: { productIds },
+      });
+
+      return null;
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return new E.HttpException(_data, status);
+    }
+  },
 };

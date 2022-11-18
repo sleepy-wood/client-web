@@ -5,11 +5,17 @@ import * as I from '../interfaces';
 
 const ACTIONS = {
   PUSH_CART_ITEM: 'cart/PUSH_CART_ITEM',
+  POP_CART_ITEM: 'cart/POP_CART_ITEM',
 };
 
 export const pushCartItem = createAction(
   ACTIONS.PUSH_CART_ITEM,
   (payload: { cartItem: I.CartItem }) => ({ payload }),
+);
+
+export const popCartItem = createAction(
+  ACTIONS.POP_CART_ITEM,
+  (payload: { productIds: number[] }) => ({ payload }),
 );
 
 export interface CartState {
@@ -21,15 +27,27 @@ const initialState: CartState = {
 };
 
 const cartReducer = createReducer<CartState>(initialState, builder => {
-  builder.addCase(pushCartItem, (state, action) => {
-    const currState = current(state);
+  builder
+    .addCase(pushCartItem, (state, action) => {
+      const currState = current(state);
 
-    return update(currState, {
-      cartItem: {
-        $push: [action.payload.cartItem],
-      },
+      return update(currState, {
+        cartItem: {
+          $push: [action.payload.cartItem],
+        },
+      });
+    })
+    .addCase(popCartItem, (state, action) => {
+      const currState = current(state);
+
+      return update(currState, {
+        cartItem: {
+          $set: currState.cartItem.filter(
+            cartItem => !action.payload.productIds.includes(cartItem.productId),
+          ),
+        },
+      });
     });
-  });
 });
 
 export default cartReducer;
