@@ -16,7 +16,6 @@ export default function MarketHistory() {
         console.log(error.data.error.reason);
       }
 
-      console.log(data);
       const currMonth = new Date().getMonth() + 1;
       setHistory([
         data.filter(item => new Date(item.createdAt).getMonth() + 1 === currMonth),
