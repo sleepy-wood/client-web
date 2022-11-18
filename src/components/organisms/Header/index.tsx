@@ -209,8 +209,6 @@ function Desktop({ connectWallet }: Props) {
     async (e: React.MouseEvent<HTMLDivElement>) => {
       const result = await Promise.all(checkWishlistItems.map(id => API.cart.createCartItem(id)));
 
-      console.log({ result });
-
       for (const [cartItem, error] of result) {
         if (error) {
           console.log(error.data.error.reason);
