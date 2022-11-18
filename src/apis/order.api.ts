@@ -30,4 +30,19 @@ export const order = {
       return [null, new E.HttpException(_data, status)];
     }
   },
+  async findAllGroupByMonth(): Promise<[I.Order[], E.HttpException]> {
+    try {
+      const { method, url } = v1.order.findAllGroupByMonth;
+      const { result, data } = await callRequest<I.BasicResponse<I.Order[]>>({
+        method,
+        url,
+      });
+
+      return [data, null];
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return [null, new E.HttpException(_data, status)];
+    }
+  },
 };

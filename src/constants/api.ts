@@ -121,6 +121,10 @@ export const APIs = {
         method: 'POST',
         url: '/api/v1/orders',
       },
+      findAllGroupByMonth: {
+        method: 'GET',
+        url: '/api/v1/orders/monthly',
+      },
     },
   },
 };
