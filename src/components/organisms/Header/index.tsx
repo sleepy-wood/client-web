@@ -378,11 +378,7 @@ function Desktop({ connectWallet }: Props) {
               <label htmlFor={`cart-check-${index}`}></label>
               <div>
                 <img
-                  src={
-                    item.product.category === I.ProductCategory.collection
-                      ? item.product.productImages[1].path
-                      : item.product.productImages[item.product.productImages.length - 1].path
-                  }
+                  src={item.product.productImages.filter(e => e.isThumbnail)[0].path}
                   style={{
                     objectFit:
                       item.product.category === I.ProductCategory.collection ? 'cover' : 'contain',
@@ -471,11 +467,7 @@ function Desktop({ connectWallet }: Props) {
               <label htmlFor={`wishlist-check-${index}`}></label>
               <div>
                 <img
-                  src={
-                    item.product.category === I.ProductCategory.collection
-                      ? item.product.productImages[1].path
-                      : item.product.productImages[item.product.productImages.length - 1].path
-                  }
+                  src={item.product.productImages.filter(e => e.isThumbnail)[0].path}
                   style={{
                     objectFit:
                       item.product.category === I.ProductCategory.collection ? 'cover' : 'contain',

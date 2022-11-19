@@ -104,7 +104,9 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                   muted={true}
                   autoPlay={true}
                   loop={true}
-                  src={product.productImages[0].path}></video>
+                  src={
+                    product.productImages.filter(e => e.mimeType.includes('video'))[0].path
+                  }></video>
               </S.AssetVideo>
               <S.AssetInfo>
                 <S.AssetName>{product.name}</S.AssetName>
@@ -156,10 +158,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
           ) : (
             <React.Fragment>
               <S.AssetImg>
-                <img
-                  src={product.productImages[product.productImages.length - 1].path}
-                  alt='tree'
-                />
+                <img src={product.productImages.filter(e => e.isThumbnail)[0].path} alt='asset' />
               </S.AssetImg>
               <S.AssetInfo>
                 <S.AssetName>{product.name}</S.AssetName>
@@ -215,6 +214,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
         <S.SemiTitle>이 크리에이터의 에셋 더 알아보기</S.SemiTitle>
         <S.ExtraAssets>
           {extraProducts &&
+            extraProducts.length > 0 &&
             extraProducts.map(
               (extraProduct, index) =>
                 extraProduct.category !== I.ProductCategory.collection && (
@@ -226,7 +226,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     )}>
                     <S.ExtraAssetImg>
                       <img
-                        src={extraProduct.productImages[extraProduct.productImages.length - 1].path}
+                        src={extraProduct.productImages.filter(e => e.isThumbnail)[0].path}
                         alt='tree'
                       />
                     </S.ExtraAssetImg>
@@ -250,7 +250,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
             )}
         </S.ExtraAssets>
         <S.SemiTitle>추천 상품</S.SemiTitle>
-        {recommendProducts && (
+        {recommendProducts && recommendProducts.length > 0 && (
           <S.RecommendAssets
             style={{
               gridTemplateColumns: `repeat(auto-fill, ${
@@ -267,10 +267,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                   )}>
                   <S.RecommendAssetImg>
                     <img
-                      src={
-                        recommendProduct.productImages[recommendProduct.productImages.length - 1]
-                          .path
-                      }
+                      src={recommendProduct.productImages.filter(e => e.isThumbnail)[0].path}
                       alt='tree'
                     />
                   </S.RecommendAssetImg>
@@ -299,10 +296,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                   )}>
                   <S.ExtraAssetImg>
                     <img
-                      src={
-                        recommendProduct.productImages[recommendProduct.productImages.length - 1]
-                          .path
-                      }
+                      src={recommendProduct.productImages.filter(e => e.isThumbnail)[0].path}
                       alt='tree'
                     />
                   </S.ExtraAssetImg>

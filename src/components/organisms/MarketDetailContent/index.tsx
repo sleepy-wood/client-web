@@ -81,11 +81,7 @@ function Desktop({ user, products, productCount }: Props) {
                   )}>
                   <S.ExtraAssetImg>
                     <img
-                      src={
-                        product.category === I.ProductCategory.collection
-                          ? product.productImages[1].path
-                          : product.productImages[product.productImages.length - 1].path
-                      }
+                      src={product.productImages.filter(e => e.isThumbnail)[0].path}
                       style={{
                         objectFit:
                           product.category === I.ProductCategory.collection ? 'cover' : 'contain',

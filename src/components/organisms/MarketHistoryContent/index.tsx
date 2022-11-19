@@ -59,11 +59,9 @@ function Desktop({ history }: Props) {
                       <S.ItemImg>
                         <img
                           src={
-                            order.orderDetails[0].product.category === I.ProductCategory.collection
-                              ? order.orderDetails[0].product.productImages[1].path
-                              : order.orderDetails[0].product.productImages[
-                                  order.orderDetails[0].product.productImages.length - 1
-                                ].path
+                            order.orderDetails[0].product.productImages.filter(
+                              e => e.isThumbnail,
+                            )[0].path
                           }
                           style={{
                             objectFit:
