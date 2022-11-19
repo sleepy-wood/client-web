@@ -4,7 +4,7 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
 
-  padding-top: 28px;
+  padding-top: 12px;
 `;
 
 export const LeftContainer = styled.div`
