@@ -72,7 +72,7 @@ export const FileUploadForm = styled.form``;
 
 export const FileLabel = styled.label`
   display: inline-block;
-  width: 130px;
+  width: 140px;
   height: 40px;
   vertical-align: middle;
 
@@ -87,7 +87,7 @@ export const FileLabel = styled.label`
 
   padding: 6px 10px;
 
-  margin-right: 8px;
+  margin-right: 14px;
 `;
 
 export const FileInput = styled.input`
@@ -100,10 +100,10 @@ export const FileInput = styled.input`
 `;
 
 export const ImageContainer = styled.div`
-  width: 100%;
-
   display: flex;
 `;
+
+export const FilenameContainer = styled.div``;
 
 export const Image = styled.img`
   height: 100px;
