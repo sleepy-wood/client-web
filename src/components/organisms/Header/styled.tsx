@@ -98,6 +98,21 @@ export const IconContainer = styled.div`
     }
   }
 
+  & > div:nth-of-type(3),
+  div:nth-of-type(4) {
+    & > div:last-of-type {
+      position: absolute;
+      top: 0px;
+      right: -2px;
+
+      width: 9px;
+      height: 9px;
+
+      background-color: crimson;
+      border-radius: 50%;
+    }
+  }
+
   & > div:not(:last-child) {
     margin-right: 32px;
   }
@@ -188,8 +203,8 @@ export const Tooltip = styled.div`
 
   margin-bottom: 12px;
 
-  & > div {
-    margin-right: 8px;
+  & > * {
+    margin-right: 16px;
 
     cursor: pointer;
   }
@@ -238,11 +253,12 @@ export const Item = styled.div`
   font-size: 14px;
 
   & > div:not(:nth-of-type(1)) {
+    text-align: center;
+
     & > div:nth-of-type(1) {
       font-size: 12px;
       color: var(--color-text);
       opacity: 0.7;
-      text-align: center;
 
       margin-bottom: 12px;
     }

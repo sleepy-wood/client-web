@@ -257,8 +257,8 @@ export class Product {
   orderDetails: OrderDetail[];
   productImages: ProductImage[];
   // reviews: Review[];
-  // cartItems: CartItem[];
-  // wishlistItems: WishlistItem[];
+  cartItems: CartItem[];
+  wishlistItems: WishlistItem[];
   user: User;
 }
 

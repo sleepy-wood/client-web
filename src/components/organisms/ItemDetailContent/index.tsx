@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaHeart } from 'react-icons/fa';
@@ -79,6 +79,19 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
     [dispatch],
   );
 
+  const createOrder = useCallback(
+    async (amount: number, productId: number, e: React.MouseEvent<HTMLDivElement>) => {
+      const [order, error] = await API.order.create(amount, I.Payment.Cash, [productId]);
+
+      if (error) {
+        console.log(error.data.error.reason);
+      }
+
+      alert('주문이 완료되었습니다.');
+    },
+    [],
+  );
+
   return (
     <S.Container>
       {product && (
@@ -124,7 +137,9 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     </div>
                   </S.AssetPrice>
                   <S.AssetButtonContainer>
-                    <div>지금구매</div>
+                    <div onClick={createOrder.bind(null, Number(product.price), product.id)}>
+                      지금구매
+                    </div>
                     <div onClick={addCartItem.bind(null, product.id)}>
                       <FaShoppingCart size={20} />
                     </div>
@@ -177,7 +192,9 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     </div>
                   </S.AssetPrice>
                   <S.AssetButtonContainer>
-                    <div>지금구매</div>
+                    <div onClick={createOrder.bind(null, Number(product.price), product.id)}>
+                      지금구매
+                    </div>
                     <div onClick={addCartItem.bind(null, product.id)}>
                       <FaShoppingCart size={20} />
                     </div>
@@ -233,9 +250,14 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
             )}
         </S.ExtraAssets>
         <S.SemiTitle>추천 상품</S.SemiTitle>
-        <S.RecommendAssets>
-          {recommendProducts &&
-            recommendProducts.map((recommendProduct, index) =>
+        {recommendProducts && (
+          <S.RecommendAssets
+            style={{
+              gridTemplateColumns: `repeat(auto-fill, ${
+                recommendProducts[0].category === I.ProductCategory.collection ? '240px' : '200px'
+              })`,
+            }}>
+            {recommendProducts.map((recommendProduct, index) =>
               recommendProduct.category === I.ProductCategory.collection ? (
                 <S.RecommendAsset
                   key={index}
@@ -302,7 +324,8 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                 </S.ExtraAsset>
               ),
             )}
-        </S.RecommendAssets>
+          </S.RecommendAssets>
+        )}
       </S.BottomContainer>
     </S.Container>
   );

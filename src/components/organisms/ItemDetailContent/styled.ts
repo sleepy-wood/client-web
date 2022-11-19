@@ -359,7 +359,6 @@ export const RecommendAssets = styled.div`
   padding-bottom: 16px;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, 240px);
   grid-gap: 24px 24px;
   justify-content: start;
 `;

@@ -33,6 +33,10 @@ export const APIs = {
         method: 'GET',
         url: '/api/v1/carts/items',
       },
+      removeCartItems: {
+        method: 'DELETE',
+        url: '/api/v1/carts/items',
+      },
     },
     health: {
       findSleep: {
@@ -103,9 +107,27 @@ export const APIs = {
         method: 'POST',
         url: '/api/v1/wishlists/items',
       },
-      getWishlistItem: {
+      getWishlistItems: {
         method: 'GET',
         url: '/api/v1/wishlists/items',
+      },
+      removeWishlistItems: {
+        method: 'DELETE',
+        url: '/api/v1/wishlists/items',
+      },
+    },
+    order: {
+      create: {
+        method: 'POST',
+        url: '/api/v1/orders',
+      },
+      findAllGroupByMonth: {
+        method: 'GET',
+        url: '/api/v1/orders/monthly',
+      },
+      findOne: {
+        method: 'GET',
+        url: '/api/v1/orders/:id',
       },
     },
   },

@@ -28,6 +28,6 @@ export enum UserType {
 }
 
 export enum Payment {
-  Cash,
-  Card,
+  Cash = 'Cash',
+  Card = 'Card',
 }

@@ -22,13 +22,12 @@ export const cart = {
       return [null, new E.HttpException(_data, status)];
     }
   },
-  async getCartItems(cartItemIds: number[]): Promise<[I.CartItem[], E.HttpException]> {
+  async getCartItems(): Promise<[I.CartItem[], E.HttpException]> {
     try {
       const { method, url } = v1.cart.getCartItems;
       const { result, data } = await callRequest<I.BasicResponse<I.CartItem[]>>({
         method,
         url,
-        data: { cartItemIds },
       });
 
       return [data, null];
@@ -36,6 +35,22 @@ export const cart = {
       const { data: _data, status } = error.response;
 
       return [null, new E.HttpException(_data, status)];
+    }
+  },
+  async removeCartItems(productIds: number[]): Promise<E.HttpException> {
+    try {
+      const { method, url } = v1.cart.removeCartItems;
+      const { result, data } = await callRequest<I.BasicResponse<null>>({
+        method,
+        url,
+        data: { productIds },
+      });
+
+      return null;
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return new E.HttpException(_data, status);
     }
   },
 };

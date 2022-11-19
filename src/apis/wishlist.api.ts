@@ -22,4 +22,35 @@ export const wishlist = {
       return [null, new E.HttpException(_data, status)];
     }
   },
+  async getWishlistItems(): Promise<[I.WishlistItem[], E.HttpException]> {
+    try {
+      const { method, url } = v1.wishlist.getWishlistItems;
+      const { result, data } = await callRequest<I.BasicResponse<I.WishlistItem[]>>({
+        method,
+        url,
+      });
+
+      return [data, null];
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return [null, new E.HttpException(_data, status)];
+    }
+  },
+  async removeWishlistItems(productIds: number[]): Promise<E.HttpException> {
+    try {
+      const { method, url } = v1.wishlist.removeWishlistItems;
+      const { result, data } = await callRequest<I.BasicResponse<null>>({
+        method,
+        url,
+        data: { productIds },
+      });
+
+      return null;
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return new E.HttpException(_data, status);
+    }
+  },
 };
