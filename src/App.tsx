@@ -32,17 +32,35 @@ declare global {
   }
 }
 
+const userTokens = [
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY3OTU2MDMxLCJleHAiOjMzMjI1NTU2MDMxfQ.t9odr3sxIAGNI75l6NFzg4Pm3YKyll0sECYQ_WoV4vg',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjY3OTU2MDUxLCJleHAiOjMzMjI1NTU2MDUxfQ.53nskwqJO7etEsQ0GJKEWDJzCfbkhI0CRtZ8hE4JNwQ',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjY3OTU2MDYzLCJleHAiOjMzMjI1NTU2MDYzfQ.f3EHkluagJCPz5Pi5a7fkBGWnopWTkWZwFOUTo_L_kg',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjY3OTU2MDc3LCJleHAiOjMzMjI1NTU2MDc3fQ.bvIBhieQ4p0cjRz9Yv0Y-fgfOst9bGvSP9ozzkaUAjA',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjY3OTU2MDkwLCJleHAiOjMzMjI1NTU2MDkwfQ.cUpFp3VOQ7uWFDPRa3VHkmkCuQRpYpGOxdEgUT4jk_Q',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjY3OTU2MTAzLCJleHAiOjMzMjI1NTU2MTAzfQ.JFn1BNt_4uSC-Z63W2xVHiukt7ZYkeXJ1FLg0llmfjQ',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjY3OTU2MTM4LCJleHAiOjMzMjI1NTU2MTM4fQ.6sqMKewK_jQOSorNfNZR8qQUHIBb_dat3P4v-6inMgE',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjY3OTU2MTYxLCJleHAiOjMzMjI1NTU2MTYxfQ.GIU54JYVdoTgcMhD9cG98W387MlXe142H3KO7mTBpk8',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNjY3OTU2MTcyLCJleHAiOjMzMjI1NTU2MTcyfQ.EijITOOKYNREmumrS-vwVKxEsLTnvlQWc0q4VsXAcz8',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImlhdCI6MTY2Nzk1NjE4MSwiZXhwIjozMzIyNTU1NjE4MX0.FMOJKJZSsqtxjrVfnFZSseLyBcLA3MlcYl9RU7tUCMA',
+];
+
 export default function App() {
   const dispatch = useDispatch();
   const [web3, setWeb3] = useState<Web3>(null);
   const { configurations, user } = useSelector((state: RootState) => state.user);
   const { currentPathname } = useSelector((state: RootState) => state.path);
 
+  const [tokenTop, setTokenTop] = useState<number>(0);
+
   useEffect(() => {
-    sessionStorage.setItem(
-      'jwt',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY3OTEwMTM4LCJleHAiOjMzMjI1NTEwMTM4fQ.-A4BBDngD4AJWTDmomVBAZXfmcQqovxWP_nVKolTFoI',
-    );
+    window.onkeydown = (e: KeyboardEvent) => {
+      if (e.shiftKey && e.key.toLowerCase() === 'u') {
+        setTokenTop(prev => (prev === 9 ? 0 : prev + 1));
+      }
+    };
+
+    sessionStorage.setItem('jwt', userTokens[tokenTop]);
 
     if (typeof window.ethereum !== 'undefined') {
       try {
@@ -70,7 +88,7 @@ export default function App() {
     }
 
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, tokenTop]);
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
