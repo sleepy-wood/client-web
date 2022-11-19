@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import qs from 'qs';
 
 export const callRequest = async <T = any>({
   method,
