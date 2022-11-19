@@ -8,6 +8,7 @@ import * as API from '../../../apis';
 import * as C from '../../../constants';
 import * as I from '../../../interfaces';
 import * as S from './styled';
+import * as U from '../../../utils';
 import wood from '../../../assets/images/wood.png';
 import { MEDIA } from '../../../constants';
 import { pushCartItem } from '../../../reducers/cart.reducer';
@@ -135,7 +136,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                           ? 'FREE'
                           : Number(product.price).toFixed(2) + ' ETH'}
                       </div>
-                      <div>2923.03 USD</div>
+                      <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                     </div>
                   </S.AssetPrice>
                   <S.AssetButtonContainer>
@@ -187,7 +188,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                           ? 'FREE'
                           : Number(product.price).toFixed(2) + ' ETH'}
                       </div>
-                      <div>2923.03 USD</div>
+                      <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                     </div>
                   </S.AssetPrice>
                   <S.AssetButtonContainer>
@@ -242,7 +243,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                             ? 'FREE'
                             : Number(extraProduct.price).toFixed(2) + ' ETH'}
                         </div>
-                        <div>2923.03 USD</div>
+                        <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                       </div>
                     </S.ExtraAssetPrice>
                   </S.ExtraAsset>
@@ -283,7 +284,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                           ? 'FREE'
                           : Number(recommendProduct.price).toFixed(2) + ' ETH'}
                       </div>
-                      <div>2923.03 USD</div>
+                      <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                     </div>
                   </S.RecommendAssetPrice>
                 </S.RecommendAsset>
@@ -312,7 +313,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                           ? 'FREE'
                           : Number(recommendProduct.price).toFixed(2) + ' ETH'}
                       </div>
-                      <div>2923.03 USD</div>
+                      <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                     </div>
                   </S.ExtraAssetPrice>
                 </S.ExtraAsset>

@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import * as C from '../../../constants';
 import * as I from '../../../interfaces';
 import * as S from './styled';
+import * as U from '../../../utils';
 import wood from '../../../assets/images/wood.png';
 
 import { MEDIA } from '../../../constants';
@@ -103,7 +104,7 @@ function Desktop({ user, products, productCount }: Props) {
                           ? 'FREE'
                           : Number(product.price).toFixed(2) + ' ETH'}
                       </div>
-                      <div>2923.03 USD</div>
+                      <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                     </div>
                   </S.ExtraAssetPrice>
                 </S.ExtraAsset>
