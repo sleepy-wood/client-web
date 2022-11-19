@@ -143,7 +143,7 @@ function Desktop() {
           />
         </S.InputContainer>
         <S.InputContainer>
-          <S.Label>가격</S.Label>
+          <S.Label>가격 단위(ETH)</S.Label>
           <S.Input
             required
             value={price}
