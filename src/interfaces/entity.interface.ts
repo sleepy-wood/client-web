@@ -193,7 +193,9 @@ export class User {
   nickname: string;
   avatar: string;
   badgeCount: number;
+  productHitCount: number;
   productCount: number;
+  productMinPrice: number;
   hp: string;
   password: string;
   currentLandId: number;
