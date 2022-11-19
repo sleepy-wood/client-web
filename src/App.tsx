@@ -56,6 +56,8 @@ export default function App() {
   useEffect(() => {
     window.onkeydown = (e: KeyboardEvent) => {
       if (e.shiftKey && e.key.toLowerCase() === 'u') {
+        console.log('change user!');
+
         setTokenTop(prev => (prev === 9 ? 0 : prev + 1));
       }
     };
