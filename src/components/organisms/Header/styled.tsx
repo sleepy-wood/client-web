@@ -96,6 +96,14 @@ export const IconContainer = styled.div`
     & > svg {
       cursor: pointer;
     }
+
+    & > img {
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+
+      border-radius: 50%;
+    }
   }
 
   & > div:nth-of-type(3),

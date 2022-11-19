@@ -4,7 +4,6 @@ import Drawer from 'react-modern-drawer';
 import { AiFillShop } from 'react-icons/ai';
 import {
   FaSearch,
-  FaRegUserCircle,
   FaUserCircle,
   FaWallet,
   FaShoppingCart,
@@ -273,7 +272,8 @@ function Desktop({ connectWallet }: Props) {
                   setShowWallet(false);
                   setShowMyInfo(prevState => !prevState);
                 }}>
-                <FaRegUserCircle size={26} />
+                {/* <FaRegUserCircle size={26} /> */}
+                <img src={user.profileImg} alt='profile' />
                 {showMyInfo && (
                   <S.InfoContainer>
                     <div
