@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import * as C from '../../../constants';
 import * as I from '../../../interfaces';
 import * as S from './styled';
-import errorImg from '../../../assets/images/cate_plants.webp';
+
 import wood from '../../../assets/images/wood.png';
 import { MEDIA } from '../../../constants';
 
@@ -57,11 +57,8 @@ function Desktop({ products }: Props) {
                   )}>
                   <S.ExtraAssetImg>
                     <img
-                      src={item.productImages[item.productImages.length - 1].path}
+                      src={item.productImages.filter(e => e.isThumbnail)[0].path}
                       alt={`${item.name}'s represent image`}
-                      onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                        e.currentTarget.src = errorImg;
-                      }}
                     />
                   </S.ExtraAssetImg>
                   <S.ExtraAssetName>{item.name}</S.ExtraAssetName>

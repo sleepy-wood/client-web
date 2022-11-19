@@ -271,6 +271,7 @@ export class ProductImage {
   path: string;
   mimeType: string;
   size: number;
+  isThumbnail: boolean;
   productId: number;
   createdAt: Date;
   updatedAt: Date;

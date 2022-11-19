@@ -6,7 +6,7 @@ import * as C from '../../../constants';
 import * as I from '../../../interfaces';
 import * as S from './styled';
 import wood from '../../../assets/images/wood.png';
-import errorImg from '../../../assets/images/cate_plants.webp';
+
 import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
@@ -93,9 +93,6 @@ function Desktop({ user, products, productCount }: Props) {
                           product.category === I.ProductCategory.collection ? '0 -68px' : 'unset',
                       }}
                       alt={`${product.name}'s represent image`}
-                      onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                        e.currentTarget.src = errorImg;
-                      }}
                     />
                   </S.ExtraAssetImg>
                   <S.ExtraAssetName>{product.name}</S.ExtraAssetName>
