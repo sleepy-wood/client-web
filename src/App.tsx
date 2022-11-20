@@ -48,7 +48,7 @@ const userTokens = [
 export default function App() {
   const dispatch = useDispatch();
   const [web3, setWeb3] = useState<Web3>(null);
-  const { configurations, user } = useSelector((state: RootState) => state.user);
+  const { configurations } = useSelector((state: RootState) => state.user);
   const { currentPathname } = useSelector((state: RootState) => state.path);
 
   const [tokenTop, setTokenTop] = useState<number>(0);
