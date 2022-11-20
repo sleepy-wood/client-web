@@ -409,9 +409,9 @@ function Desktop({ connectWallet }: Props) {
               <div>
                 <div>가격</div>
                 <div>
-                  {Number(item.product.price).toFixed(2) === '0.00'
+                  {Number(item.product.price).toFixed(3) === '0.000'
                     ? 'FREE'
-                    : Number(item.product.price).toFixed(2) + ' ETH'}
+                    : Number(item.product.price).toFixed(3) + ' ETH'}
                 </div>
               </div>
             </S.Item>
@@ -422,9 +422,9 @@ function Desktop({ connectWallet }: Props) {
           <S.TotalPrice>
             <div>합계</div>
             <div>
-              {cartItemTotalPrice.toFixed(2) === '0.00'
+              {cartItemTotalPrice.toFixed(3) === '0.000'
                 ? 'FREE'
-                : cartItemTotalPrice.toFixed(2) + ' ETH'}
+                : cartItemTotalPrice.toFixed(3) + ' ETH'}
             </div>
           </S.TotalPrice>
         </S.PaymentContainer>
@@ -498,9 +498,9 @@ function Desktop({ connectWallet }: Props) {
               <div>
                 <div>가격</div>
                 <div>
-                  {Number(item.product.price).toFixed(2) === '0.00'
+                  {Number(item.product.price).toFixed(3) === '0.000'
                     ? 'FREE'
-                    : Number(item.product.price).toFixed(2) + ' ETH'}
+                    : Number(item.product.price).toFixed(3) + ' ETH'}
                 </div>
               </div>
             </S.Item>

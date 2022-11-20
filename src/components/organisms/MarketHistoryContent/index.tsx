@@ -96,9 +96,9 @@ function Desktop({ history }: Props) {
                           <div>
                             <div>
                               <div>
-                                {Number(order.amount).toFixed(2) === '0.00'
+                                {Number(order.amount).toFixed(3) === '0.000'
                                   ? 'FREE'
-                                  : Number(order.amount).toFixed(2) + ' ETH'}
+                                  : Number(order.amount).toFixed(3) + ' ETH'}
                               </div>
                               <div>
                                 <div>

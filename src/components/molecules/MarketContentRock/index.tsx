@@ -91,9 +91,9 @@ function Desktop() {
                     </div>
                     <div>
                       <div>
-                        {Number(item.price).toFixed(2) === '0.00'
+                        {Number(item.price).toFixed(3) === '0.000'
                           ? 'FREE'
-                          : Number(item.price).toFixed(2) + ' ETH'}
+                          : Number(item.price).toFixed(3) + ' ETH'}
                       </div>
                       <div>{U.convertETHtoUSD(Number(item.price)).toFixed(2) + ' USD'}</div>
                     </div>

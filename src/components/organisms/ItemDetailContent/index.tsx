@@ -132,9 +132,9 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     </div>
                     <div>
                       <div>
-                        {Number(product.price).toFixed(2) === '0.00'
+                        {Number(product.price).toFixed(3) === '0.000'
                           ? 'FREE'
-                          : Number(product.price).toFixed(2) + ' ETH'}
+                          : Number(product.price).toFixed(3) + ' ETH'}
                       </div>
                       <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                     </div>
@@ -184,9 +184,9 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     </div>
                     <div>
                       <div>
-                        {Number(product.price).toFixed(2) === '0.00'
+                        {Number(product.price).toFixed(3) === '0.000'
                           ? 'FREE'
-                          : Number(product.price).toFixed(2) + ' ETH'}
+                          : Number(product.price).toFixed(3) + ' ETH'}
                       </div>
                       <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                     </div>
@@ -239,9 +239,9 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                       </div>
                       <div>
                         <div>
-                          {Number(extraProduct.price).toFixed(2) === '0.00'
+                          {Number(extraProduct.price).toFixed(3) === '0.000'
                             ? 'FREE'
-                            : Number(extraProduct.price).toFixed(2) + ' ETH'}
+                            : Number(extraProduct.price).toFixed(3) + ' ETH'}
                         </div>
                         <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                       </div>
@@ -280,9 +280,9 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     </div>
                     <div>
                       <div>
-                        {Number(recommendProduct.price).toFixed(2) === '0.00'
+                        {Number(recommendProduct.price).toFixed(3) === '0.000'
                           ? 'FREE'
-                          : Number(recommendProduct.price).toFixed(2) + ' ETH'}
+                          : Number(recommendProduct.price).toFixed(3) + ' ETH'}
                       </div>
                       <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                     </div>
@@ -309,9 +309,9 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     </div>
                     <div>
                       <div>
-                        {Number(recommendProduct.price).toFixed(2) === '0.00'
+                        {Number(recommendProduct.price).toFixed(3) === '0.000'
                           ? 'FREE'
-                          : Number(recommendProduct.price).toFixed(2) + ' ETH'}
+                          : Number(recommendProduct.price).toFixed(3) + ' ETH'}
                       </div>
                       <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                     </div>

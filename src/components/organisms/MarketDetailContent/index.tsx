@@ -100,9 +100,9 @@ function Desktop({ user, products, productCount }: Props) {
                     </div>
                     <div>
                       <div>
-                        {Number(product.price).toFixed(2) === '0.00'
+                        {Number(product.price).toFixed(3) === '0.000'
                           ? 'FREE'
-                          : Number(product.price).toFixed(2) + ' ETH'}
+                          : Number(product.price).toFixed(3) + ' ETH'}
                       </div>
                       <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                     </div>

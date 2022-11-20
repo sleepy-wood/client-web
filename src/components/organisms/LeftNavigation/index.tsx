@@ -72,7 +72,7 @@ export default function LeftNavigation() {
         <ul>
           <S.Li active={active === 0} onClick={moveToPath.bind(null, C.PATH.MARKET.ALL, 0)}>
             <FaTh />
-            <div>전체</div>
+            <div>마켓</div>
           </S.Li>
           <S.Li active={active === 1} onClick={moveToPath.bind(null, C.PATH.MARKET.COLLECTION, 1)}>
             <FaTree />

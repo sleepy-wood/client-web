@@ -77,9 +77,9 @@ function Desktop({ history }: Props) {
                   <div>
                     <div>
                       <div>
-                        {Number(orderDetail.product.price).toFixed(2) === '0.00'
+                        {Number(orderDetail.product.price).toFixed(3) === '0.000'
                           ? 'FREE'
-                          : Number(orderDetail.product.price).toFixed(2) + ' ETH'}
+                          : Number(orderDetail.product.price).toFixed(3) + ' ETH'}
                       </div>
                       <div>
                         <div>
@@ -110,9 +110,9 @@ function Desktop({ history }: Props) {
           <div>합계</div>
           {history && (
             <div>
-              {Number(history.amount).toFixed(2) === '0.00'
+              {Number(history.amount).toFixed(3) === '0.000'
                 ? 'FREE'
-                : Number(history.amount).toFixed(2) + ' ETH'}
+                : Number(history.amount).toFixed(3) + ' ETH'}
             </div>
           )}
         </S.TotalPrice>

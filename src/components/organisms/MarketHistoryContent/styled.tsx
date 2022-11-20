@@ -167,6 +167,8 @@ export const ItemSeller = styled.div`
 
   width: 80px;
 
+  text-align: center;
+
   white-space: nowrap;
   text-overflow: ellipsis;
   text-decoration: none;
