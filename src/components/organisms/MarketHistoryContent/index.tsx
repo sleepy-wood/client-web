@@ -59,23 +59,23 @@ function Desktop({ history }: Props) {
                       <S.ItemImg>
                         <img
                           src={
-                            order.orderDetails[0].product.productImages.filter(
+                            order.orderDetails[0]?.product.productImages.filter(
                               e => e.isThumbnail,
                             )[0].path
                           }
                           style={{
                             objectFit:
-                              order.orderDetails[0].product.category ===
+                              order.orderDetails[0]?.product.category ===
                               I.ProductCategory.collection
                                 ? 'cover'
                                 : 'contain',
                             objectPosition:
-                              order.orderDetails[0].product.category ===
+                              order.orderDetails[0]?.product.category ===
                               I.ProductCategory.collection
                                 ? '0 -68px'
                                 : 'unset',
                           }}
-                          alt={`${order.orderDetails[0].product.name}'s represent image`}
+                          alt={`${order.orderDetails[0]?.product.name}'s represent image`}
                           onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                             e.currentTarget.src = errorImg;
                           }}
@@ -87,7 +87,7 @@ function Desktop({ history }: Props) {
                             null,
                             C.PATH.MARKET_HISTORY.DETAIL.replace(':id', order.id.toString()),
                           )}>
-                          {order.orderDetails[0].product.name}
+                          {order.orderDetails[0]?.product.name}
                           {order.orderDetails.length > 1
                             ? ` 외 ${order.orderDetails.length}건`
                             : ''}
@@ -115,11 +115,11 @@ function Desktop({ history }: Props) {
                           <S.ItemSeller>
                             <div>
                               <img
-                                src={order.orderDetails[0].product.user.profileImg}
+                                src={order.orderDetails[0]?.product.user.profileImg}
                                 alt='seller profile'
                               />
                             </div>
-                            <div>{order.orderDetails[0].product.user.nickname}</div>
+                            <div>{order.orderDetails[0]?.product.user.nickname}</div>
                           </S.ItemSeller>
                         </S.ItemInfo>
                       </S.ItemInfoContainer>
