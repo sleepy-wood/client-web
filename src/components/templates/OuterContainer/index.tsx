@@ -3,10 +3,15 @@ import React from 'react';
 import * as S from './styled';
 import Header from '../../organisms/Header';
 
-export default function OuterContainer({ children }) {
+type Props = {
+  setAccount: (account: string) => void;
+  children: React.ReactNode;
+};
+
+export default function OuterContainer({ setAccount, children }: Props) {
   return (
     <S.Container>
-      <Header />
+      <Header setAccount={setAccount} />
       {children}
     </S.Container>
   );

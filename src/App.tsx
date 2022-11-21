@@ -48,6 +48,7 @@ const userTokens = [
 export default function App() {
   const dispatch = useDispatch();
   const [web3, setWeb3] = useState<Web3>(null);
+  const [account, setAccount] = useState<string>('');
   const { configurations } = useSelector((state: RootState) => state.user);
   const { currentPathname } = useSelector((state: RootState) => state.path);
 
@@ -73,6 +74,8 @@ export default function App() {
       }
     }
 
+    console.log(account);
+
     async function fetchData() {
       const [user, error] = await API.user.findOne();
 
@@ -90,13 +93,13 @@ export default function App() {
     }
 
     fetchData();
-  }, [dispatch, tokenTop]);
+  }, [account, dispatch, tokenTop]);
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <GlobalStyles colorTheme={configurations.theme} />
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <OuterContainer>
+        <OuterContainer setAccount={setAccount}>
           <InnerContainer>
             <LocationDetector />
             <Routes>

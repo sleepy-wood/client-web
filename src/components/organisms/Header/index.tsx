@@ -29,12 +29,12 @@ import { setWishlistItem, popWishlistItem } from '../../../reducers/wishlist.red
 
 const { minWidth } = MEDIA;
 type Props = {
-  connectWallet: (e: React.MouseEvent) => Promise<void>;
+  setAccount?: (account: string) => void;
+  connectWallet?: (e: React.MouseEvent) => Promise<void>;
 };
 
-export default function Header() {
+export default function Header({ setAccount }: Props) {
   const isDesktop = useMediaQuery({ minWidth });
-  const [account, setAccount] = useState<string>('');
 
   const connectWallet = useCallback(
     async (e: React.MouseEvent) => {
@@ -45,9 +45,8 @@ export default function Header() {
         method: 'eth_requestAccounts',
       });
       setAccount(accounts[0]);
-      console.log(account);
     },
-    [account],
+    [setAccount],
   );
 
   return isDesktop ? <Desktop connectWallet={connectWallet} /> : <Mobile />;
@@ -273,7 +272,7 @@ function Desktop({ connectWallet }: Props) {
                   setShowMyInfo(prevState => !prevState);
                 }}>
                 {/* <FaRegUserCircle size={26} /> */}
-                <img src={user.profileImg} alt='profile' />
+                {user && <img src={user.profileImg} alt='profile' />}
                 {showMyInfo && (
                   <S.InfoContainer>
                     <div
