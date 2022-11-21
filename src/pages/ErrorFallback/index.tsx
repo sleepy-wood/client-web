@@ -24,7 +24,7 @@ export default function ErrorFallback({ error, resetErrorBoundary }: Props) {
         color: 'var(--color-text)',
       }}>
       <div>
-        <h1 className='text-8xl mb-16'>Error Page</h1>
+        <h1 className='text-8xl mb-16'>404 Page</h1>
         <p className='text-lg'>에러가 발생했습니다.</p>
         <p className='text-lg'>잠시 후 다시 시도해주세요.</p>
         <div className='mt-16 cursor-pointer' onClick={goHome}>
