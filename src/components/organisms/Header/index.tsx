@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import Drawer from 'react-modern-drawer';
+import { useDispatch } from 'react-redux';
 import { AiFillShop } from 'react-icons/ai';
 import {
   FaSearch,
@@ -28,34 +28,22 @@ import metamask from '../../../assets/images/metamask-fox.svg';
 import { MEDIA } from '../../../constants';
 import { RootState } from '../../../reducers';
 import { setCartItem, pushCartItem, popCartItem } from '../../../reducers/cart.reducer';
+import { setAccount } from '../../../reducers/web3.reducer';
 import { setWishlistItem, popWishlistItem } from '../../../reducers/wishlist.reducer';
 
 const { minWidth } = MEDIA;
+
 type Props = {
-  setAccount?: (account: string) => void;
   connectWallet?: (e: React.MouseEvent) => Promise<void>;
 };
 
-export default function Header({ setAccount }: Props) {
+export default function Header() {
   const isDesktop = useMediaQuery({ minWidth });
 
-  const connectWallet = useCallback(
-    async (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-      setAccount(accounts[0]);
-    },
-    [setAccount],
-  );
-
-  return isDesktop ? <Desktop connectWallet={connectWallet} /> : <Mobile />;
+  return isDesktop ? <Desktop /> : <Mobile />;
 }
 
-function Desktop({ connectWallet }: Props) {
+function Desktop() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -74,6 +62,19 @@ function Desktop({ connectWallet }: Props) {
   const [checkWishlistItems, setCheckWishlistItems] = useState<number[]>([]);
 
   const [query, onChangeQuery] = H.useInput<string>('');
+
+  const connectWallet = useCallback(
+    async (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      dispatch(setAccount({ account: accounts[0] }));
+    },
+    [dispatch],
+  );
 
   const toggleCart = useCallback(async () => {
     if (isOpenCart) {
