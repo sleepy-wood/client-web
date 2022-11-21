@@ -1,6 +1,5 @@
 import { createTransform, persistReducer, persistStore } from 'redux-persist';
 import { parse, stringify } from 'flatted';
-
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
@@ -8,6 +7,7 @@ import storage from 'redux-persist/lib/storage';
 import cart from './cart.reducer';
 import path from './path.reducer';
 import user from './user.reducer';
+import web3 from './web3.reducer';
 import wishlist from './wishlist.reducer';
 
 const middleware = [];
@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
   cart,
   path,
   user,
+  web3,
   wishlist,
 });
 const persistedReducer = persistReducer(
@@ -32,7 +33,7 @@ const persistedReducer = persistReducer(
 );
 
 if (process.env.NODE_ENV !== 'production') {
-  middleware.push(createLogger());
+  // middleware.push(createLogger());
 }
 
 const store = configureStore({
