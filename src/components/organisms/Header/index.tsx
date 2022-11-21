@@ -10,6 +10,7 @@ import {
   FaHeart,
   FaGem,
   FaHistory,
+  FaRegWindowClose,
 } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -187,6 +188,11 @@ function Desktop({ connectWallet }: Props) {
 
   const createOrder = useCallback(
     async (e: React.MouseEvent<HTMLDivElement>) => {
+      if (checkCartItems.length === 0) {
+        alert('장바구니에 담긴 상품이 없습니다.');
+        return;
+      }
+
       const amount = cartItem
         .filter(el => checkCartItems.includes(el.product.id))
         .reduce((acc, cur) => acc + Number(cur.product.price), 0);
@@ -205,6 +211,11 @@ function Desktop({ connectWallet }: Props) {
 
   const moveWishlistToCart = useCallback(
     async (e: React.MouseEvent<HTMLDivElement>) => {
+      if (checkWishlistItems.length === 0) {
+        alert('위시리스트에 담긴 상품이 없습니다.');
+        return;
+      }
+
       const result = await Promise.all(checkWishlistItems.map(id => API.cart.createCartItem(id)));
 
       for (const [cartItem, error] of result) {
@@ -358,8 +369,13 @@ function Desktop({ connectWallet }: Props) {
         }}
         size={540}>
         <S.CartTitle>
-          <div>장바구니</div>
-          <div>({cartItem.length}개)</div>
+          <div>
+            <div>장바구니</div>
+            <div>({cartItem.length}개)</div>
+          </div>
+          <div>
+            <FaRegWindowClose size={24} onClick={toggleCart} />
+          </div>
         </S.CartTitle>
         <S.Tooltip>
           <div onClick={checkAllCart.bind(null)}>전체선택</div>
@@ -447,8 +463,13 @@ function Desktop({ connectWallet }: Props) {
         }}
         size={540}>
         <S.CartTitle>
-          <div>위시리스트</div>
-          <div>({wishlistItem.length}개)</div>
+          <div>
+            <div>위시리스트</div>
+            <div>({wishlistItem.length}개)</div>
+          </div>
+          <div>
+            <FaRegWindowClose size={24} onClick={toggleWishlist} />
+          </div>
         </S.CartTitle>
         <S.Tooltip>
           <div onClick={checkAllWishlist.bind(null)}>전체선택</div>

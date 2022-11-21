@@ -194,14 +194,24 @@ export const CartTitle = styled.div`
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   & > div:nth-of-type(1) {
-    margin-right: 12px;
+    display: flex;
+    align-items: center;
+
+    & > div:nth-of-type(1) {
+      margin-right: 12px;
+    }
+
+    & > div:nth-of-type(2) {
+      font-size: 16px;
+      opacity: 0.7;
+    }
   }
 
   & > div:nth-of-type(2) {
-    font-size: 16px;
-    opacity: 0.7;
+    cursor: pointer;
   }
 `;
 
