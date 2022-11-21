@@ -21,6 +21,8 @@ import * as C from '../../../constants';
 import * as H from '../../../hooks';
 import * as I from '../../../interfaces';
 import * as S from './styled';
+import logo from '../../../assets/images/logo.png';
+import logoTitle from '../../../assets/images/logo-title.png';
 import errorImg from '../../../assets/images/cate_plants.webp';
 import metamask from '../../../assets/images/metamask-fox.svg';
 import { MEDIA } from '../../../constants';
@@ -241,7 +243,14 @@ function Desktop({ connectWallet }: Props) {
     <React.Fragment>
       <S.Container>
         <div>
-          <S.AppName onClick={moveToPath.bind(null, C.PATH.HOME)}>Sleepywood</S.AppName>
+          <S.AppName onClick={moveToPath.bind(null, C.PATH.HOME)}>
+            <div>
+              <img src={logo} alt='logo' />
+            </div>
+            <div>
+              <img src={logoTitle} alt='logo-title' />
+            </div>
+          </S.AppName>
           {showSearch && (
             <S.SearchContainer>
               <div>

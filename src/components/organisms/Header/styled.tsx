@@ -31,6 +31,24 @@ export const AppName = styled.h1`
   margin-right: 48px;
   white-space: nowrap;
   cursor: pointer;
+
+  width: 160px;
+
+  position: relative;
+
+  & > div:nth-of-type(1) {
+    width: 72px;
+    position: absolute;
+    top: -40px;
+    left: 56px;
+  }
+
+  & > div:nth-of-type(2) {
+    width: 180px;
+    position: absolute;
+    top: -2px;
+    left: 0;
+  }
 `;
 
 export const SearchContainer = styled.div`
