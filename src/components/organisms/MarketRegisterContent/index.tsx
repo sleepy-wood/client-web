@@ -1,8 +1,11 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import FormData from 'form-data';
+import Web3 from 'web3';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 
+import * as ABI from '../../../abis';
+import * as API from '../../../apis';
 import * as C from '../../../constants';
 import * as H from '../../../hooks';
 import * as S from './styled';
@@ -123,45 +126,65 @@ function Desktop() {
 
       setIsLoading(true);
 
-      const { method: m1, url: u1 } = C.APIs.v1.attachFile.create;
-      const { result: r1, data: d1 } = await U.callRequest({
-        method: m1,
-        url: u1,
-        data: formData,
-      }).catch(err => {
-        console.error(err);
-        alert('잠시 후 다시 시도해주세요.');
-        setIsLoading(false);
-        return;
-      });
+      const [res, err] = await API.attachFile.upload(formData);
 
-      if (!r1) {
+      if (err) {
+        console.error(err);
         alert('잠시 후 다시 시도해주세요.');
         setIsLoading(false);
         return;
       }
 
-      const attachFileIds = d1.map((d: { id: number }) => d.id);
+      const attachFileIds = res.map((d: { id: number }) => d.id);
 
-      const { method: m2, url: u2 } = C.APIs.v1.product.create;
-      const { result: r2, data: d2 } = await U.callRequest({
-        method: m2,
-        url: u2,
-        data: {
-          name: title,
-          price: Number(price),
-          category: type,
-          detail,
-          attachFileIds,
-        },
-      }).catch(err => {
+      const [res2, err2] = await API.product.create({
+        name: title,
+        price: Number(price),
+        category: type,
+        detail,
+        attachFileIds,
+      });
+
+      if (err2) {
         console.error(err);
         alert('잠시 후 다시 시도해주세요.');
         setIsLoading(false);
         return;
+      }
+
+      const web3 = new Web3(window.ethereum);
+      const [account] = await window.ethereum.request({
+        method: 'eth_requestAccounts',
       });
 
-      if (!r2) {
+      const contract = new web3.eth.Contract(ABI.erc721Abi as any);
+      const resultContract = await contract
+        .deploy({
+          data: ABI.erc721Bytecode,
+        })
+        .send({
+          from: account,
+          gas: 1500000,
+          gasPrice: '20000000000',
+        });
+
+      const resultContractAddress = resultContract.options.address;
+      const resultContractAbi = resultContract.options.jsonInterface;
+      const tokenId = await resultContract.methods
+        .publishItem(account, res2.productImages.filter(e => e.isThumbnail)[0].path)
+        .call();
+
+      console.log({ tokenId });
+
+      const [res3, err3] = await API.product.createSmartContract({
+        productId: res2.id,
+        address: resultContractAddress,
+        abi: resultContractAbi,
+        tokenId: Number(tokenId),
+      });
+
+      if (err3) {
+        console.error(err);
         alert('잠시 후 다시 시도해주세요.');
         setIsLoading(false);
         return;
@@ -170,7 +193,7 @@ function Desktop() {
       alert('에셋을 판매 등록하였습니다.');
       navigate(C.PATH.HOME);
     },
-    [formData, title, price, type, description, navigate],
+    [description, formData, title, price, type, navigate],
   );
 
   return (
