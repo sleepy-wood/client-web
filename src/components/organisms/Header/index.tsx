@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Drawer from 'react-modern-drawer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AiFillShop } from 'react-icons/ai';
 import {
   FaSearch,
@@ -14,7 +14,6 @@ import {
 } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import * as API from '../../../apis';
 import * as C from '../../../constants';
@@ -28,14 +27,9 @@ import metamask from '../../../assets/images/metamask-fox.svg';
 import { MEDIA } from '../../../constants';
 import { RootState } from '../../../reducers';
 import { setCartItem, pushCartItem, popCartItem } from '../../../reducers/cart.reducer';
-import { setAccount } from '../../../reducers/web3.reducer';
 import { setWishlistItem, popWishlistItem } from '../../../reducers/wishlist.reducer';
 
 const { minWidth } = MEDIA;
-
-type Props = {
-  connectWallet?: (e: React.MouseEvent) => Promise<void>;
-};
 
 export default function Header() {
   const isDesktop = useMediaQuery({ minWidth });
@@ -63,18 +57,14 @@ function Desktop() {
 
   const [query, onChangeQuery] = H.useInput<string>('');
 
-  const connectWallet = useCallback(
-    async (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
+  const connectWallet = useCallback(async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-      dispatch(setAccount({ account: accounts[0] }));
-    },
-    [dispatch],
-  );
+    await window.ethereum.request({
+      method: 'eth_requestAccounts',
+    });
+  }, []);
 
   const toggleCart = useCallback(async () => {
     if (isOpenCart) {
