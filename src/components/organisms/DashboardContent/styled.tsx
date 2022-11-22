@@ -117,6 +117,16 @@ export const LeftContainer = styled.div`
 `;
 
 export const Summary = styled.div`
+  position: relative;
+  & > div:nth-of-type(2) {
+    position: absolute;
+    top: 86px;
+    left: 36px;
+    color: #373d3f;
+    font-size: 11px;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
   background: rgba(255, 255, 255, 0.9);
   box-shadow: -10px 56px 140px rgba(143, 155, 186, 0.2);
   backdrop-filter: blur(10px);
@@ -128,11 +138,12 @@ export const Summary = styled.div`
   margin-bottom: 16px;
 
   & > div:nth-of-type(1) {
-    padding-top: 24px;
-    padding-left: 24px;
+    padding-top: 20px;
+    padding-left: 20px;
 
-    font-size: 24px;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 28px;
+    color: #000000;
   }
 `;
 
@@ -345,7 +356,7 @@ export const BarGraphContainer = styled.div`
         font-size: 32px;
         font-weight: 600;
 
-        color: #00dea3;
+        color: #ff0080;
 
         margin-right: 4px;
       }

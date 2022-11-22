@@ -11,10 +11,11 @@ import {
   LinearScale,
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
-import { FaHeartbeat, FaLungs, FaAngleRight, FaDna, FaHeartBroken } from 'react-icons/fa';
+import { FaHeartbeat, FaLungs, FaAngleRight, FaDna } from 'react-icons/fa';
 import { SiOxygen } from 'react-icons/si';
 import { CgProfile } from 'react-icons/cg';
 import { HiArrowTrendingUp, HiArrowTrendingDown } from 'react-icons/hi2';
+import { IoBodyOutline } from 'react-icons/io5';
 
 ChartJS.register(CategoryScale, BarElement, BarController, LinearScale);
 
@@ -26,7 +27,7 @@ import { RootState } from '../../../reducers';
 const { minWidth } = MEDIA;
 const labels = ['일', '월', '화', '수', '목', '금', '토'];
 const deactivate = '#D9D9D999';
-const activate = '#00DEA3';
+const activate = '#FF0080';
 
 type Props = {
   weekHealth: I.Activity[];
@@ -142,9 +143,9 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
               </div>
               <div className='flex'>
                 <div className='mr-2'>
-                  <FaHeartBroken size={20} />
+                  <IoBodyOutline size={20} />
                 </div>
-                <div>키몸무게 162cm / 52kg</div>
+                <div>키 몸무게 162cm / 52kg</div>
               </div>
             </div>
           </div>
@@ -155,25 +156,18 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
         <S.LeftContainer>
           <S.Summary>
             <div>수면 흐름 분석</div>
+            <div>기상</div>
             <div>
               <ApexChart
                 series={[
                   {
                     data: [
                       {
-                        x: '기상',
-                        y: [],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
                         fillColor: '#FF0080',
-                        x: '램 수면',
+                        x: '렘 수면',
                         y: [
-                          new Date(2022, 11, 10, 1, 30).getTime(),
-                          new Date(2022, 11, 10, 1, 40).getTime(),
+                          new Date(2022, 11, 10, 0, 30).getTime(),
+                          new Date(2022, 11, 10, 0, 40).getTime(),
                         ],
                       },
                     ],
@@ -182,10 +176,10 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                     data: [
                       {
                         fillColor: '#FF0080',
-                        x: '램 수면',
+                        x: '렘 수면',
                         y: [
-                          new Date(2022, 11, 10, 1, 30).getTime(),
-                          new Date(2022, 11, 10, 1, 40).getTime(),
+                          new Date(2022, 11, 10, 2, 30).getTime(),
+                          new Date(2022, 11, 10, 2, 40).getTime(),
                         ],
                       },
                     ],
@@ -208,20 +202,8 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                         fillColor: '#344767',
                         x: '얕은 수면',
                         y: [
-                          new Date(2022, 11, 10, 1, 30).getTime(),
-                          new Date(2022, 11, 10, 1, 40).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#00DEA3',
-                        x: '깊은 수면',
-                        y: [
-                          new Date(2022, 11, 10, 1, 30).getTime(),
-                          new Date(2022, 11, 10, 1, 40).getTime(),
+                          new Date(2022, 11, 10, 4, 30).getTime(),
+                          new Date(2022, 11, 10, 5, 40).getTime(),
                         ],
                       },
                     ],
@@ -250,19 +232,39 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                       },
                     ],
                   },
+                  {
+                    data: [
+                      {
+                        fillColor: '#00DEA3',
+                        x: '깊은 수면',
+                        y: [
+                          new Date(2022, 11, 10, 2, 45).getTime(),
+                          new Date(2022, 11, 10, 3, 55).getTime(),
+                        ],
+                      },
+                    ],
+                  },
                 ]}
                 options={{
                   plotOptions: {
                     bar: {
                       horizontal: true,
-                      barHeight: '85%',
+                      barHeight: '90%',
                       rangeBarGroupRows: true,
                     },
                   },
                   chart: { toolbar: { show: false } },
                   fill: { type: 'solid' },
                   xaxis: { type: 'datetime' },
+                  yaxis: {
+                    labels: {
+                      offsetY: 38,
+                    },
+                  },
                   legend: { show: false },
+                  grid: {
+                    strokeDashArray: 5,
+                  },
                 }}
                 type='rangeBar'
                 height={300}
@@ -314,7 +316,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
           <S.Activity>
             {heart && (
               <React.Fragment>
-                <div>분당 심박수 / 혈중 산소 / 분당 호흡수</div>
+                <div>건강 요약</div>
                 <div>
                   <div>
                     <FaHeartbeat size={24} color='#fff' />
@@ -381,7 +383,14 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                     plugins: { legend: { display: false } },
                     scales: {
                       xAxes: { grid: { display: false } },
-                      yAxes: { ticks: { stepSize: 25 } },
+                      yAxes: {
+                        ticks: { stepSize: 25 },
+                        position: 'right',
+                        grid: {
+                          borderDash: [3],
+                          borderColor: '#E9EAEB',
+                        },
+                      },
                     },
                   }}
                   data={{
@@ -414,7 +423,14 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                     plugins: { legend: { display: false } },
                     scales: {
                       xAxes: { grid: { display: false } },
-                      yAxes: { ticks: { stepSize: 25 } },
+                      yAxes: {
+                        ticks: { stepSize: 25 },
+                        position: 'right',
+                        grid: {
+                          borderDash: [3],
+                          borderColor: '#E9EAEB',
+                        },
+                      },
                     },
                   }}
                   data={{
@@ -447,7 +463,14 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                     plugins: { legend: { display: false } },
                     scales: {
                       xAxes: { grid: { display: false } },
-                      yAxes: { ticks: { stepSize: 25 } },
+                      yAxes: {
+                        ticks: { stepSize: 25 },
+                        position: 'right',
+                        grid: {
+                          borderDash: [3],
+                          borderColor: '#E9EAEB',
+                        },
+                      },
                     },
                   }}
                   data={{
