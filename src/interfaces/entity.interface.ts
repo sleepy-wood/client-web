@@ -279,6 +279,17 @@ export class ProductImage {
   product: Product;
 }
 
+export class ProductSmartContract {
+  id: number;
+  address: string;
+  abi: string;
+  productId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  product: Product;
+}
+
 export class Heart {
   id: number;
   valueInCountPerMinute: number;
