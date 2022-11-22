@@ -345,9 +345,9 @@ export const ExtraAsset = styled.div`
   cursor: pointer;
 
   background: #ffffff;
-  border-width: 0px 1px 2px 0.5px;
+  border-width: 1px 1px 2px 1px;
   border-style: solid;
-  border-color: rgb(173 173 179 / 60%);
+  border-color: rgba(210, 210, 210, 0.6);
   border-radius: 15px;
 `;
 
