@@ -73,6 +73,10 @@ export const APIs = {
         method: 'POST',
         url: `/api/v1/products`,
       },
+      createSmartContract: {
+        method: 'POST',
+        url: `/api/v1/products/smart-contract`,
+      },
       findOne: {
         method: 'GET',
         url: `/api/v1/products/:id`,
