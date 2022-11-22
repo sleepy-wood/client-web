@@ -43,10 +43,12 @@ export const product = {
   },
   async createSmartContract({
     productId,
+    tokenId,
     address,
     abi,
   }: {
     productId: number;
+    tokenId: number;
     address: string;
     abi: AbiItem | AbiItem[];
   }): Promise<[I.ProductSmartContract, E.HttpException]> {
@@ -57,6 +59,7 @@ export const product = {
         url,
         data: {
           productId,
+          tokenId,
           address,
           abi,
         },
