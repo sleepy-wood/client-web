@@ -7,7 +7,6 @@ import storage from 'redux-persist/lib/storage';
 import cart from './cart.reducer';
 import path from './path.reducer';
 import user from './user.reducer';
-import web3 from './web3.reducer';
 import wishlist from './wishlist.reducer';
 
 const middleware = [];
@@ -19,7 +18,6 @@ const rootReducer = combineReducers({
   cart,
   path,
   user,
-  web3,
   wishlist,
 });
 const persistedReducer = persistReducer(

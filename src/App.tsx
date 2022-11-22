@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Web3 from 'web3';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
@@ -25,7 +24,6 @@ import { GlobalStyles } from './components/templates/GlobalStyles';
 import { PATH } from './constants/path';
 import { RootState } from './reducers';
 import { setUser } from './reducers/user.reducer';
-import { setWeb3 } from './reducers/web3.reducer';
 
 declare global {
   interface Window {
@@ -50,7 +48,6 @@ export default function App() {
   const dispatch = useDispatch();
   const { configurations } = useSelector((state: RootState) => state.user);
   const { currentPathname } = useSelector((state: RootState) => state.path);
-  const { web3 } = useSelector((state: RootState) => state.web3);
 
   const [tokenTop, setTokenTop] = useState<number>(0);
 
@@ -65,15 +62,6 @@ export default function App() {
 
     sessionStorage.setItem('jwt', userTokens[tokenTop]);
 
-    if (typeof window.ethereum !== 'undefined' && !web3) {
-      try {
-        const _web3 = new Web3(window.ethereum);
-        dispatch(setWeb3({ web3: _web3 }));
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
     async function fetchData() {
       const [user, error] = await API.user.findOne();
 
@@ -87,7 +75,7 @@ export default function App() {
     }
 
     fetchData();
-  }, [dispatch, tokenTop, web3]);
+  }, [dispatch, tokenTop]);
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
