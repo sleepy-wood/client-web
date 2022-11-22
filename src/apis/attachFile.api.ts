@@ -8,20 +8,20 @@ import { callRequest } from '../utils';
 const { v1 } = C.APIs;
 
 export const attachFile = {
-  async upload(data: FormData): Promise<E.HttpException> {
+  async upload(data: FormData): Promise<[I.AttachFile[], E.HttpException]> {
     try {
       const { method, url } = v1.attachFile.create;
-      const result = await callRequest({
+      const result = await callRequest<I.AttachFile[]>({
         method,
         url,
         data,
       });
 
-      return null;
+      return [result, null];
     } catch (error) {
       const { data: _data, status } = error.response;
 
-      return new E.HttpException(_data, status);
+      return [null, new E.HttpException(_data, status)];
     }
   },
 };
