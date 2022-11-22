@@ -1,3 +1,4 @@
+import { AbiItem } from 'web3-utils';
 import * as C from '../constants';
 import * as E from '../errors';
 import * as I from '../interfaces';
@@ -6,6 +7,68 @@ import { callRequest } from '../utils';
 const { v1 } = C.APIs;
 
 export const product = {
+  async create({
+    name,
+    price,
+    category,
+    detail,
+    attachFileIds,
+  }: {
+    name: string;
+    price: number;
+    category: string;
+    detail: string;
+    attachFileIds: number[];
+  }): Promise<[I.Product, E.HttpException]> {
+    try {
+      const { method, url } = v1.product.create;
+      const { result, data } = await callRequest<I.BasicResponse<I.Product>>({
+        method,
+        url,
+        data: {
+          name,
+          price,
+          category,
+          detail,
+          attachFileIds,
+        },
+      });
+
+      return [data, null];
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return [null, new E.HttpException(_data, status)];
+    }
+  },
+  async createSmartContract({
+    productId,
+    address,
+    abi,
+  }: {
+    productId: number;
+    address: string;
+    abi: AbiItem | AbiItem[];
+  }): Promise<[I.ProductSmartContract, E.HttpException]> {
+    try {
+      const { method, url } = v1.product.createSmartContract;
+      const { result, data } = await callRequest<I.BasicResponse<I.ProductSmartContract>>({
+        method,
+        url,
+        data: {
+          productId,
+          address,
+          abi,
+        },
+      });
+
+      return [data, null];
+    } catch (error) {
+      const { data: _data, status } = error.response;
+
+      return [null, new E.HttpException(_data, status)];
+    }
+  },
   async findOne(id: string): Promise<[I.Product, E.HttpException]> {
     try {
       const { method, url } = v1.product.findOne;
