@@ -111,47 +111,66 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                   }></video>
               </S.AssetVideo>
               <S.AssetInfo>
-                <S.AssetName>{product.name}</S.AssetName>
+                <S.AssetName>
+                  <div>
+                    <div>Trending Creator</div>
+                    <div>Top Creator</div>
+                  </div>
+                  <div>CREATED BY {product.user.nickname}</div>
+                  <div>{product.name}</div>
+                </S.AssetName>
                 <S.AssetSeller>
-                  <div>
-                    <img src={product.user.profileImg} alt='profile' />
-                  </div>
-                  <div>
-                    <div>크리에이터</div>
-                    <div>{product.user.nickname}</div>
-                  </div>
-                  <div>
-                    <div>지갑 주소</div>
-                    <div>0x1A3f94C45e28c1882D8672a98e87065223a2c380</div>
-                  </div>
-                </S.AssetSeller>
-                <div>
-                  <div>CURRENT PRICE</div>
+                  <div>About Creator</div>
                   <div>
                     <div>
+                      <img src={product.user.profileImg} alt='profile' />
+                    </div>
+                    <div>
+                      <div>{product.user.nickname}</div>
                       <div>
-                        {Number(product.price).toFixed(3) === '0.000'
-                          ? 'FREE'
-                          : Number(product.price).toFixed(3) + ' ETH'}
+                        <div>지갑주소</div>
+                        <div>0x1A3f94C45e28c1882D8672a98e87065223a2c380</div>
                       </div>
-                      <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                     </div>
                   </div>
+                </S.AssetSeller>
+                <S.PriceButtonContainer>
+                  <S.PriceContainer>
+                    <div>CURRENT PRICE</div>
+                    <div>
+                      {Number(product.price).toFixed(3) === '0.000'
+                        ? 'FREE'
+                        : Number(product.price).toFixed(3) + ' ETH'}
+                    </div>
+                    <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
+                  </S.PriceContainer>
                   <S.ButtonContainer>
                     <div onClick={createOrder.bind(null, Number(product.price), product.id)}>
-                      지금구매
+                      바로 구매
                     </div>
+                    <svg width='0' height='0'>
+                      <linearGradient id='blue-gradient' x1='100%' y1='100%' x2='0%' y2='0%'>
+                        <stop stopColor='#313860' offset='0%' />
+                        <stop stopColor='#151928' offset='100%' />
+                      </linearGradient>
+                    </svg>
                     <div onClick={addCartItem.bind(null, product.id)}>
-                      <FaShoppingCart size={20} />
+                      <FaShoppingCart size={24} style={{ fill: 'url(#blue-gradient)' }} />
                     </div>
                     <div onClick={addWishlistItem.bind(null, product.id)}>
-                      <FaHeart size={20} />
+                      <FaHeart size={24} style={{ fill: 'url(#blue-gradient)' }} />
                     </div>
                   </S.ButtonContainer>
-                </div>
-                <S.AssetDescription
-                  dangerouslySetInnerHTML={{ __html: product ? product.detail : '' }}
-                />
+                </S.PriceButtonContainer>
+                <S.AssetDescription style={{ minHeight: '226px' }}>
+                  <div>
+                    <div>
+                      <FiBarChart />
+                    </div>
+                    <div>Description</div>
+                  </div>
+                  <div dangerouslySetInnerHTML={{ __html: product ? product.detail : '' }} />
+                </S.AssetDescription>
               </S.AssetInfo>
             </React.Fragment>
           ) : (
