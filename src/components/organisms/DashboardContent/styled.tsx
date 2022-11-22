@@ -117,12 +117,10 @@ export const LeftContainer = styled.div`
 `;
 
 export const Summary = styled.div`
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: -10px 56px 140px rgba(143, 155, 186, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
 
   width: 100%;
   height: 380px;
@@ -130,8 +128,8 @@ export const Summary = styled.div`
   margin-bottom: 16px;
 
   & > div:nth-of-type(1) {
-    margin-top: 24px;
-    margin-left: 24px;
+    padding-top: 24px;
+    padding-left: 24px;
 
     font-size: 24px;
     font-weight: 600;
@@ -149,68 +147,61 @@ export const ThreeContainer = styled.div`
 `;
 
 export const MiniContainer = styled.div`
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: -10px 56px 140px rgba(143, 155, 186, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+
+  padding: 24px;
 
   width: calc(100% / 3 - 16px);
   height: 100%;
 
   & > div:nth-of-type(1) {
-    margin-top: 24px;
-    margin-left: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    font-size: 16px;
     font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+
+    margin-bottom: 8px;
+
+    & > div:last-of-type {
+      cursor: pointer;
+    }
   }
 
   & > div:nth-of-type(2) {
-    width: 100%;
-    height: calc(100% - 60px);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 68px;
     font-weight: 700;
+    font-size: 24px;
+    color: #000000;
   }
 
-  &:nth-of-type(1) {
-    & > div:nth-of-type(2) {
-      color: #00dea3;
-    }
-  }
+  & > div:nth-of-type(3) {
+    margin-top: 24px;
 
-  &:nth-of-type(2) {
-    & > div:nth-of-type(2) {
-      color: #00bbde;
-    }
-  }
+    & > div:last-of-type {
+      margin-top: 4px;
 
-  &:nth-of-type(3) {
-    & > div:nth-of-type(2) {
-      color: #00de7c;
+      font-size: 13px;
+      font-weight: 700;
     }
   }
 `;
 
 export const Activity = styled.div`
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: -10px 56px 140px rgba(143, 155, 186, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
 
   width: 100%;
   height: 252px;
 
   & > div:nth-of-type(1) {
-    margin-top: 24px;
+    padding-top: 24px;
     margin-left: 24px;
 
     font-size: 24px;
@@ -320,12 +311,10 @@ export const RightContainer = styled.div`
 `;
 
 export const BarGraphContainer = styled.div`
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: -10px 56px 140px rgba(143, 155, 186, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
 
   width: 100%;
   height: calc(100% / 3 - 16px);

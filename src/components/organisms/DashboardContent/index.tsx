@@ -14,6 +14,7 @@ import { Chart } from 'react-chartjs-2';
 import { FaHeartbeat, FaLungs, FaAngleRight, FaDna, FaHeartBroken } from 'react-icons/fa';
 import { SiOxygen } from 'react-icons/si';
 import { CgProfile } from 'react-icons/cg';
+import { HiArrowTrendingUp, HiArrowTrendingDown } from 'react-icons/hi2';
 
 ChartJS.register(CategoryScale, BarElement, BarController, LinearScale);
 
@@ -161,55 +162,91 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                     data: [
                       {
                         x: '기상',
-                        y: [new Date(1789, 3, 30).getTime(), new Date(1797, 2, 4).getTime()],
+                        y: [],
                       },
                     ],
                   },
                   {
                     data: [
                       {
+                        fillColor: '#FF0080',
                         x: '램 수면',
-                        y: [new Date(1801, 2, 4).getTime(), new Date(1805, 2, 4).getTime()],
+                        y: [
+                          new Date(2022, 11, 10, 1, 30).getTime(),
+                          new Date(2022, 11, 10, 1, 40).getTime(),
+                        ],
                       },
                     ],
                   },
                   {
                     data: [
                       {
+                        fillColor: '#FF0080',
                         x: '램 수면',
-                        y: [new Date(1805, 2, 4).getTime(), new Date(1812, 3, 20).getTime()],
+                        y: [
+                          new Date(2022, 11, 10, 1, 30).getTime(),
+                          new Date(2022, 11, 10, 1, 40).getTime(),
+                        ],
                       },
                     ],
                   },
                   {
                     data: [
                       {
+                        fillColor: '#344767',
                         x: '얕은 수면',
-                        y: [new Date(1794, 0, 2).getTime(), new Date(1795, 7, 20).getTime()],
+                        y: [
+                          new Date(2022, 11, 10, 1, 30).getTime(),
+                          new Date(2022, 11, 10, 1, 40).getTime(),
+                        ],
                       },
                     ],
                   },
                   {
                     data: [
                       {
+                        fillColor: '#344767',
                         x: '얕은 수면',
-                        y: [new Date(1795, 7, 20).getTime(), new Date(1800, 4, 12).getTime()],
+                        y: [
+                          new Date(2022, 11, 10, 1, 30).getTime(),
+                          new Date(2022, 11, 10, 1, 40).getTime(),
+                        ],
                       },
                     ],
                   },
                   {
                     data: [
                       {
+                        fillColor: '#00DEA3',
                         x: '깊은 수면',
-                        y: [new Date(1800, 4, 13).getTime(), new Date(1800, 5, 5).getTime()],
+                        y: [
+                          new Date(2022, 11, 10, 1, 30).getTime(),
+                          new Date(2022, 11, 10, 1, 40).getTime(),
+                        ],
                       },
                     ],
                   },
                   {
                     data: [
                       {
+                        fillColor: '#00DEA3',
                         x: '깊은 수면',
-                        y: [new Date(1800, 5, 13).getTime(), new Date(1801, 2, 4).getTime()],
+                        y: [
+                          new Date(2022, 11, 10, 1, 30).getTime(),
+                          new Date(2022, 11, 10, 1, 40).getTime(),
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    data: [
+                      {
+                        fillColor: '#00DEA3',
+                        x: '깊은 수면',
+                        y: [
+                          new Date(2022, 11, 10, 1, 45).getTime(),
+                          new Date(2022, 11, 10, 1, 55).getTime(),
+                        ],
                       },
                     ],
                   },
@@ -218,12 +255,11 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   plotOptions: {
                     bar: {
                       horizontal: true,
-                      barHeight: '25%',
+                      barHeight: '85%',
                       rangeBarGroupRows: true,
                     },
                   },
                   chart: { toolbar: { show: false } },
-                  colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#3F51B5'],
                   fill: { type: 'solid' },
                   xaxis: { type: 'datetime' },
                   legend: { show: false },
@@ -236,16 +272,43 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
           </S.Summary>
           <S.ThreeContainer>
             <S.MiniContainer>
-              <div>수면 시간</div>
-              <div>8:15</div>
+              <div>
+                <div>총 수면 시간</div>
+                <div>
+                  <FaAngleRight color='#535353' />
+                </div>
+              </div>
+              <div>8시간 15분</div>
+              <div>
+                <HiArrowTrendingUp size={18} color={'#00dea3'} />
+                <div style={{ color: '#00dea3' }}>어제보다 총 수면 시간이 0분 증가</div>
+              </div>
             </S.MiniContainer>
             <S.MiniContainer>
-              <div>램 수면 시간</div>
-              <div>2:10</div>
+              <div>
+                <div>렘 수면 시간</div>
+                <div>
+                  <FaAngleRight color='#535353' />
+                </div>
+              </div>
+              <div>2시간 10분</div>
+              <div>
+                <HiArrowTrendingDown size={18} color={'#F23985'} />
+                <div style={{ color: '#F23985' }}> 어제보다 렘 수면 시간이 0분 감소</div>
+              </div>
             </S.MiniContainer>
             <S.MiniContainer>
-              <div>숙면 시간</div>
-              <div>1:27</div>
+              <div>
+                <div>깊은 수면 시간</div>
+                <div>
+                  <FaAngleRight color='#535353' />
+                </div>
+              </div>
+              <div>1시간 27분</div>
+              <div>
+                <HiArrowTrendingUp size={18} color={'#00dea3'} />
+                <div style={{ color: '#00dea3' }}>어제보다 깊은 수면 시간이 0분 증가</div>
+              </div>
             </S.MiniContainer>
           </S.ThreeContainer>
           <S.Activity>
