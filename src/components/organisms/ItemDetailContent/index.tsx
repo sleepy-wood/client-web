@@ -116,7 +116,19 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     <div>Trending Creator</div>
                     <div>Top Creator</div>
                   </div>
-                  <div>CREATED BY {product.user.nickname}</div>
+                  <div>
+                    <span>CREATED AT </span>
+                    <span>
+                      {(() => {
+                        const date = new Date(product.createdAt.toString());
+                        const hour = date.getHours();
+                        const min = date.getMinutes();
+                        return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()} ${
+                          hour < 10 ? '0' + hour : hour
+                        }:${min < 10 ? '0' + min : min}`;
+                      })()}
+                    </span>
+                  </div>
                   <div>{product.name}</div>
                 </S.AssetName>
                 <S.AssetSeller>
@@ -184,7 +196,18 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     <div>Trending Creator</div>
                     <div>Top Creator</div>
                   </div>
-                  <div>CREATED BY {product.user.nickname}</div>
+                  <div>
+                    <span>CREATED AT </span>
+                    <span>
+                      {(() => {
+                        const date = new Date(product.createdAt.toString());
+                        const min = date.getMinutes();
+                        return `${date.getFullYear()}.${
+                          date.getMonth() + 1
+                        }.${date.getDate()} ${date.getHours()}:${min < 10 ? '0' + min : min}`;
+                      })()}
+                    </span>
+                  </div>
                   <div>{product.name}</div>
                 </S.AssetName>
                 <S.AssetSeller>
