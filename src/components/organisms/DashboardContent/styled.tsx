@@ -372,9 +372,16 @@ export const BarGraphContainer = styled.div`
     }
 
     & > div:nth-of-type(2) {
+      display: flex;
+      align-items: center;
+
       margin-right: 52px;
       font-size: 12px;
       opacity: 0.7;
+
+      & > div:nth-of-type(1) {
+        margin-right: 4px;
+      }
     }
   }
 

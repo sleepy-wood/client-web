@@ -11,10 +11,15 @@ import {
   LinearScale,
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
-import { FaHeartbeat, FaLungs, FaAngleRight, FaDna } from 'react-icons/fa';
+import { FaHeartbeat, FaLungs, FaDna } from 'react-icons/fa';
 import { SiOxygen } from 'react-icons/si';
 import { CgProfile } from 'react-icons/cg';
-import { HiArrowTrendingUp, HiArrowTrendingDown } from 'react-icons/hi2';
+import {
+  HiArrowTrendingUp,
+  HiArrowTrendingDown,
+  HiCalendarDays,
+  HiOutlineChevronRight,
+} from 'react-icons/hi2';
 import { IoBodyOutline } from 'react-icons/io5';
 
 ChartJS.register(CategoryScale, BarElement, BarController, LinearScale);
@@ -277,39 +282,39 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
               <div>
                 <div>총 수면 시간</div>
                 <div>
-                  <FaAngleRight color='#535353' />
+                  <HiOutlineChevronRight color='#535353' />
                 </div>
               </div>
               <div>8시간 15분</div>
               <div>
                 <HiArrowTrendingUp size={18} color={'#00dea3'} />
-                <div style={{ color: '#00dea3' }}>어제보다 총 수면 시간이 0분 증가</div>
+                <div style={{ color: '#00dea3' }}>총 수면 시간 0분 증가</div>
               </div>
             </S.MiniContainer>
             <S.MiniContainer>
               <div>
                 <div>렘 수면 시간</div>
                 <div>
-                  <FaAngleRight color='#535353' />
+                  <HiOutlineChevronRight color='#535353' />
                 </div>
               </div>
               <div>2시간 10분</div>
               <div>
                 <HiArrowTrendingDown size={18} color={'#F23985'} />
-                <div style={{ color: '#F23985' }}> 어제보다 렘 수면 시간이 0분 감소</div>
+                <div style={{ color: '#F23985' }}>렘 수면 시간 0분 감소</div>
               </div>
             </S.MiniContainer>
             <S.MiniContainer>
               <div>
                 <div>깊은 수면 시간</div>
                 <div>
-                  <FaAngleRight color='#535353' />
+                  <HiOutlineChevronRight color='#535353' />
                 </div>
               </div>
               <div>1시간 27분</div>
               <div>
                 <HiArrowTrendingUp size={18} color={'#00dea3'} />
-                <div style={{ color: '#00dea3' }}>어제보다 깊은 수면 시간이 0분 증가</div>
+                <div style={{ color: '#00dea3' }}>깊은 수면 시간 0분 증가</div>
               </div>
             </S.MiniContainer>
           </S.ThreeContainer>
@@ -329,7 +334,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                     pt
                   </div>
                   <div>
-                    <FaAngleRight color='#535353' />
+                    <HiOutlineChevronRight color='#535353' />
                   </div>
                 </div>
                 <div>
@@ -342,7 +347,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                     +{Number(oxygen[0].valueInRatio) * 100 - Number(oxygen[1].valueInRatio) * 100}pt
                   </div>
                   <div>
-                    <FaAngleRight color='#535353' />
+                    <HiOutlineChevronRight color='#535353' />
                   </div>
                 </div>
                 <div>
@@ -358,7 +363,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                     pt
                   </div>
                   <div>
-                    <FaAngleRight color='#535353' />
+                    <HiOutlineChevronRight color='#535353' />
                   </div>
                 </div>
               </React.Fragment>
@@ -374,7 +379,12 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <div>{energyBurnScore}</div>
                   <div>점</div>
                 </div>
-                <div>2022-10-30 ~ 2022-11-05</div>
+                <div>
+                  <div>
+                    <HiCalendarDays size={14} />
+                  </div>
+                  <div>2022-10-30 ~ 2022-11-05</div>
+                </div>
               </div>
               <div>
                 <Chart
@@ -414,7 +424,12 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <div>{exerciseScore}</div>
                   <div>점</div>
                 </div>
-                <div>2022-10-30 ~ 2022-11-05</div>
+                <div>
+                  <div>
+                    <HiCalendarDays size={14} />
+                  </div>
+                  <div>2022-10-30 ~ 2022-11-05</div>
+                </div>
               </div>
               <div>
                 <Chart
@@ -454,7 +469,12 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <div>{standScore}</div>
                   <div>점</div>
                 </div>
-                <div>2022-10-30 ~ 2022-11-05</div>
+                <div>
+                  <div>
+                    <HiCalendarDays size={14} />
+                  </div>
+                  <div>2022-10-30 ~ 2022-11-05</div>
+                </div>
               </div>
               <div>
                 <Chart
