@@ -7,7 +7,6 @@ import * as C from '../../../constants';
 import * as I from '../../../interfaces';
 import * as S from './styled';
 import * as U from '../../../utils';
-import wood from '../../../assets/images/wood.png';
 
 import { MEDIA } from '../../../constants';
 
@@ -69,7 +68,7 @@ function Desktop() {
               <div>바위</div>
               <div>({itemsWithCount[1]})</div>
             </S.ContentContainerHeader>
-            <S.CardContainer>
+            <S.ExtraAssets>
               {itemsWithCount[0].map((item, index) => (
                 <S.ExtraAsset
                   key={index}
@@ -87,9 +86,6 @@ function Desktop() {
                   <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
                   <S.ExtraAssetPrice>
                     <div>
-                      <img src={wood} alt='wood' />
-                    </div>
-                    <div>
                       <div>
                         {Number(item.price).toFixed(3) === '0.000'
                           ? 'FREE'
@@ -100,7 +96,7 @@ function Desktop() {
                   </S.ExtraAssetPrice>
                 </S.ExtraAsset>
               ))}
-            </S.CardContainer>
+            </S.ExtraAssets>
           </React.Fragment>
         )}
       </S.ContentContainer>

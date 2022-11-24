@@ -42,32 +42,26 @@ export const ContentContainerHeader = styled.div`
   }
 `;
 
-export const CardContainer = styled.div`
-  margin-top: 16px;
-
-  padding-bottom: 16px;
-
+export const ExtraAssets = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, 240px);
-  grid-gap: 24px 24px;
+  grid-template-columns: repeat(auto-fill, 260px);
+  grid-gap: 32px 32px;
   justify-content: start;
 `;
 
 export const ExtraAsset = styled.div`
-  width: 240px;
-  height: 400px;
-
-  border: 2px solid transparent;
-  border-radius: 12px;
+  width: 260px;
+  height: 420px;
 
   cursor: pointer;
+
   overflow: hidden;
 
-  background-image: linear-gradient(#f5f5f5, #f5f5f5), linear-gradient(180deg, #6189ff, #8252fc);
-  background-origin: border-box;
-  background-clip: content-box, border-box;
-
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background: #ffffff;
+  border-width: 1px 1px 2px 1px;
+  border-style: solid;
+  border-color: rgba(210, 210, 210, 0.6);
+  border-radius: 15px;
 `;
 
 export const ExtraAssetImg = styled.div`
@@ -76,7 +70,7 @@ export const ExtraAssetImg = styled.div`
 
   padding-bottom: 4px;
   & > img {
-    height: 300px;
+    height: 312px;
     width: calc(100%);
     object-fit: cover;
     filter: brightness(1.2);
@@ -88,8 +82,9 @@ export const ExtraAssetName = styled.div`
 
   margin-left: 16px;
 
-  font-size: 16px;
   font-weight: 600;
+  font-size: 16px;
+  color: #535353;
 
   white-space: nowrap;
   overflow: hidden;
@@ -99,37 +94,32 @@ export const ExtraAssetName = styled.div`
 export const ExtraAssetCount = styled.div`
   margin-left: 16px;
 
-  font-size: 12px;
   font-weight: 400;
-  color: var(--color-text);
-  opacity: 0.6;
+  font-size: 10px;
+  color: #535353;
 `;
 
 export const ExtraAssetPrice = styled.div`
+  margin-top: 6px;
   margin-left: 16px;
 
   display: flex;
 
   & > div:nth-of-type(1) {
-    margin-top: 3px;
-    margin-right: 8px;
-
-    width: 28px;
-    height: 28px;
-  }
-
-  & > div:nth-of-type(2) {
     & > div:nth-of-type(1) {
-      font-size: 16px;
-      font-weight: 600;
-      color: #35477d;
+      font-weight: 700;
+      font-size: 18px;
+
+      background: linear-gradient(81.62deg, #313860 2.25%, #151928 79.87%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     & > div:nth-of-type(2) {
-      font-size: 14px;
       font-weight: 400;
-      color: var(--color-text);
-      opacity: 0.7;
+      font-size: 11px;
+      color: #535353;
     }
   }
 `;

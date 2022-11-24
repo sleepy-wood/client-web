@@ -6,7 +6,6 @@ import * as C from '../../../constants';
 import * as I from '../../../interfaces';
 import * as S from './styled';
 import * as U from '../../../utils';
-import wood from '../../../assets/images/wood.png';
 
 import { MEDIA } from '../../../constants';
 
@@ -72,44 +71,42 @@ function Desktop({ user, products, productCount }: Props) {
                 </S.CollectionInfo>
               </S.Profile>
             </S.Info>
-            <S.Items>
-              {products.map((product, index) => (
+            <S.ExtraAssets>
+              {products.map((item, index) => (
                 <S.ExtraAsset
                   key={index}
                   onClick={moveToPath.bind(
                     null,
-                    C.PATH.ITEM_DETAIL.PATH.replace(':id', product.id.toString()),
+                    C.PATH.ITEM_DETAIL.PATH.replace(':id', item.id.toString()),
                   )}>
                   <S.ExtraAssetImg>
                     <img
-                      src={product.productImages.filter(e => e.isThumbnail)[0].path}
+                      src={item.productImages.filter(e => e.isThumbnail)[0].path}
                       style={{
                         objectFit:
-                          product.category === I.ProductCategory.collection ? 'cover' : 'contain',
+                          item.category === I.ProductCategory.collection ? 'cover' : 'contain',
                         objectPosition:
-                          product.category === I.ProductCategory.collection ? '0 -68px' : 'unset',
+                          item.category === I.ProductCategory.collection ? '0 -68px' : 'unset',
+                        borderRadius: item.category === I.ProductCategory.collection ? '10px' : '0',
                       }}
-                      alt={`${product.name}'s represent image`}
+                      alt={`${item.name}'s represent image`}
                     />
                   </S.ExtraAssetImg>
-                  <S.ExtraAssetName>{product.name}</S.ExtraAssetName>
+                  <S.ExtraAssetName>{item.name}</S.ExtraAssetName>
                   <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
                   <S.ExtraAssetPrice>
                     <div>
-                      <img src={wood} alt='wood' />
-                    </div>
-                    <div>
                       <div>
-                        {Number(product.price).toFixed(3) === '0.000'
+                        {Number(item.price).toFixed(3) === '0.000'
                           ? 'FREE'
-                          : Number(product.price).toFixed(3) + ' ETH'}
+                          : Number(item.price).toFixed(3) + ' ETH'}
                       </div>
-                      <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
+                      <div>{U.convertETHtoUSD(Number(item.price)).toFixed(2) + ' USD'}</div>
                     </div>
                   </S.ExtraAssetPrice>
                 </S.ExtraAsset>
               ))}
-            </S.Items>
+            </S.ExtraAssets>
           </S.Content>
         </React.Fragment>
       )}

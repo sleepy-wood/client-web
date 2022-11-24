@@ -6,7 +6,7 @@ import * as C from '../../../constants';
 import * as I from '../../../interfaces';
 import * as S from './styled';
 import * as U from '../../../utils';
-import wood from '../../../assets/images/wood.png';
+
 import { MEDIA } from '../../../constants';
 
 type Props = {
@@ -47,38 +47,45 @@ function Desktop({ products }: Props) {
               <div>{item}</div>
               <div>({products[index][1]})</div>
             </S.ContentContainerHeader>
-            <S.CardContainer>
-              {products[index][0].map((item, index) => (
-                <S.ExtraAsset
-                  key={index}
-                  onClick={moveToPath.bind(
-                    null,
-                    C.PATH.ITEM_DETAIL.PATH.replace(':id', item.id.toString()),
-                  )}>
-                  <S.ExtraAssetImg>
-                    <img
-                      src={item.productImages.filter(e => e.isThumbnail)[0].path}
-                      alt={`${item.name}'s represent image`}
-                    />
-                  </S.ExtraAssetImg>
-                  <S.ExtraAssetName>{item.name}</S.ExtraAssetName>
-                  <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
-                  <S.ExtraAssetPrice>
-                    <div>
-                      <img src={wood} alt='wood' />
-                    </div>
-                    <div>
+            <S.BlockContainer>
+              <S.ExtraAssets>
+                {products[index][0].map((item, index) => (
+                  <S.ExtraAsset
+                    key={index}
+                    onClick={moveToPath.bind(
+                      null,
+                      C.PATH.ITEM_DETAIL.PATH.replace(':id', item.id.toString()),
+                    )}>
+                    <S.ExtraAssetImg>
+                      <img
+                        src={item.productImages.filter(e => e.isThumbnail)[0].path}
+                        style={{
+                          objectFit:
+                            item.category === I.ProductCategory.collection ? 'cover' : 'contain',
+                          objectPosition:
+                            item.category === I.ProductCategory.collection ? '0 -68px' : 'unset',
+                          borderRadius:
+                            item.category === I.ProductCategory.collection ? '10px' : '0',
+                        }}
+                        alt={`${item.name}'s represent image`}
+                      />
+                    </S.ExtraAssetImg>
+                    <S.ExtraAssetName>{item.name}</S.ExtraAssetName>
+                    <S.ExtraAssetCount>1 / 1</S.ExtraAssetCount>
+                    <S.ExtraAssetPrice>
                       <div>
-                        {Number(item.price).toFixed(3) === '0.000'
-                          ? 'FREE'
-                          : Number(item.price).toFixed(3) + ' ETH'}
+                        <div>
+                          {Number(item.price).toFixed(3) === '0.000'
+                            ? 'FREE'
+                            : Number(item.price).toFixed(3) + ' ETH'}
+                        </div>
+                        <div>{U.convertETHtoUSD(Number(item.price)).toFixed(2) + ' USD'}</div>
                       </div>
-                      <div>{U.convertETHtoUSD(Number(item.price)).toFixed(2) + ' USD'}</div>
-                    </div>
-                  </S.ExtraAssetPrice>
-                </S.ExtraAsset>
-              ))}
-            </S.CardContainer>
+                    </S.ExtraAssetPrice>
+                  </S.ExtraAsset>
+                ))}
+              </S.ExtraAssets>
+            </S.BlockContainer>
           </S.ContentContainer>
         ))}
     </S.Container>
