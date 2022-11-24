@@ -1,8 +1,11 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import FormData from 'form-data';
+import Web3 from 'web3';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 
+import * as ABI from '../../../abis';
+import * as API from '../../../apis';
 import * as C from '../../../constants';
 import * as H from '../../../hooks';
 import * as S from './styled';
@@ -20,39 +23,91 @@ export default function MarketRegisterContent() {
 
 function Desktop() {
   const navigate = useNavigate();
-  const fileRef = useRef<HTMLInputElement>(null);
-  const [formData] = useState<FormData>(new FormData());
-  const [images, setImages] = useState<any[]>([]);
-  const [showImages, setShowImages] = useState<boolean>(false);
+  const [formData, setFormData] = useState<FormData>(new FormData());
+
+  const [emoticon, setEmoticon] = useState<any>(null);
+  const [showEmoticon, setShowEmoticon] = useState<boolean>(false);
+
+  const [thumbnail, setThumbnail] = useState<any>(null);
+  const [filenames, setFilenames] = useState<string[]>([]);
+  const [showThumbnail, setShowThumbnail] = useState<boolean>(false);
+  const [showFilenames, setShowFilenames] = useState<boolean>(false);
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [title, onChangeTitle] = H.useInput('');
-  const [price, onChangePrice] = H.useInput<number>(1000);
+  const [price, onChangePrice] = H.useInput<number>(12.01);
 
   const [type, setType] = useState<string>('emoticon');
   const [description, setDescription] = useState<CustomElement[]>([
     { type: 'paragraph', children: [{ text: '' }] },
   ]);
 
+  const onChangeEmoticonUpload = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const fileList = e.target.files;
+
+      if (fileList && fileList.length > 0) {
+        setEmoticon(null);
+        const file = fileList[0];
+
+        formData.append('files', file);
+
+        const reader = new FileReader();
+        reader.onload = (e: ProgressEvent<FileReader>) => {
+          setEmoticon(e.target.result);
+        };
+        reader.readAsDataURL(file);
+
+        setShowEmoticon(true);
+      } else {
+        setEmoticon(null);
+        setShowEmoticon(false);
+      }
+    },
+    [formData],
+  );
+
+  const onChangeThumbnailUpload = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const fileList = e.target.files;
+
+      if (fileList && fileList.length > 0) {
+        setThumbnail(null);
+        const file = fileList[0];
+
+        formData.append('files', file);
+
+        const reader = new FileReader();
+        reader.onload = (e: ProgressEvent<FileReader>) => {
+          setThumbnail(e.target.result);
+        };
+        reader.readAsDataURL(file);
+
+        setShowThumbnail(true);
+      } else {
+        setThumbnail(null);
+        setShowThumbnail(false);
+      }
+    },
+    [formData],
+  );
+
   const onChangeFileUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const fileList = e.target.files;
 
       if (fileList && fileList.length > 0) {
-        setImages([]);
+        setFilenames([]);
         for (const file of fileList) {
           formData.append('files', file);
-          const reader = new FileReader();
-          reader.onload = (e: any) => {
-            setImages(prev => [...prev, e.target.result]);
-          };
-          reader.readAsDataURL(file);
+          setFilenames(prev => [...prev, file.name]);
         }
 
-        setShowImages(true);
+        setShowFilenames(true);
       } else {
-        setImages(null);
-        setShowImages(false);
+        setFilenames([]);
+        setShowFilenames(false);
       }
     },
     [formData],
@@ -71,51 +126,65 @@ function Desktop() {
 
       setIsLoading(true);
 
-      if (!images || images.length === 0) {
-        alert('판매할 에셋을 등록해주세요.');
-        setIsLoading(false);
-        return;
-      }
+      const [res, err] = await API.attachFile.upload(formData);
 
-      const { method: m1, url: u1 } = C.APIs.v1.attachFile.create;
-      const { result: r1, data: d1 } = await U.callRequest({
-        method: m1,
-        url: u1,
-        data: formData,
-      }).catch(err => {
+      if (err) {
         console.error(err);
-        alert('잠시 후 다시 시도해주세요.');
-        setIsLoading(false);
-        return;
-      });
-
-      if (!r1) {
         alert('잠시 후 다시 시도해주세요.');
         setIsLoading(false);
         return;
       }
 
-      const attachFileIds = d1.map((d: { id: number }) => d.id);
+      const attachFileIds = res.map((d: { id: number }) => d.id);
 
-      const { method: m2, url: u2 } = C.APIs.v1.product.create;
-      const { result: r2, data: d2 } = await U.callRequest({
-        method: m2,
-        url: u2,
-        data: {
-          name: title,
-          price: Number(price),
-          category: type,
-          detail,
-          attachFileIds,
-        },
-      }).catch(err => {
+      const [res2, err2] = await API.product.create({
+        name: title,
+        price: Number(price),
+        category: type,
+        detail,
+        attachFileIds,
+      });
+
+      if (err2) {
         console.error(err);
         alert('잠시 후 다시 시도해주세요.');
         setIsLoading(false);
         return;
+      }
+
+      const web3 = new Web3(window.ethereum);
+      const [account] = await window.ethereum.request({
+        method: 'eth_requestAccounts',
       });
 
-      if (!r2) {
+      const contract = new web3.eth.Contract(ABI.erc721Abi as any);
+      const resultContract = await contract
+        .deploy({
+          data: ABI.erc721Bytecode,
+        })
+        .send({
+          from: account,
+          gas: 1500000,
+          gasPrice: '20000000000',
+        });
+
+      const resultContractAddress = resultContract.options.address;
+      const resultContractAbi = resultContract.options.jsonInterface;
+      const tokenId = await resultContract.methods
+        .publishItem(account, res2.productImages.filter(e => e.isThumbnail)[0].path)
+        .call();
+
+      console.log({ tokenId });
+
+      const [res3, err3] = await API.product.createSmartContract({
+        productId: res2.id,
+        address: resultContractAddress,
+        abi: resultContractAbi,
+        tokenId: Number(tokenId),
+      });
+
+      if (err3) {
+        console.error(err);
         alert('잠시 후 다시 시도해주세요.');
         setIsLoading(false);
         return;
@@ -124,7 +193,7 @@ function Desktop() {
       alert('에셋을 판매 등록하였습니다.');
       navigate(C.PATH.HOME);
     },
-    [images, formData, title, price, type, description, navigate],
+    [description, formData, title, price, type, navigate],
   );
 
   return (
@@ -143,7 +212,7 @@ function Desktop() {
           />
         </S.InputContainer>
         <S.InputContainer>
-          <S.Label>가격</S.Label>
+          <S.Label>가격 단위(ETH)</S.Label>
           <S.Input
             required
             value={price}
@@ -159,6 +228,9 @@ function Desktop() {
             disabled={isLoading}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               setType(e.target.value);
+              setFormData(new FormData());
+              setEmoticon(null);
+              setShowFilenames(false);
             }}>
             <S.Option value='collection'>컬렉션</S.Option>
             <S.Option value='emoticon'>이모티콘</S.Option>
@@ -173,23 +245,41 @@ function Desktop() {
         <S.RichtextContainer>
           <Richtext value={description} setValue={setDescription} readonly={isLoading} />
         </S.RichtextContainer>
-        <S.FileUploadContainer>
-          <S.FileLabel htmlFor='register-file'>이미지 업로드</S.FileLabel>
-          <S.FileInput
-            id='register-file'
-            type='file'
-            multiple
-            ref={fileRef}
-            onChange={onChangeFileUpload}
-          />
-          {showImages && (
-            <S.ImageContainer>
-              {images?.map((image, index) => (
-                <S.Image key={index} src={image} />
-              ))}
-            </S.ImageContainer>
-          )}
-        </S.FileUploadContainer>
+        {type === 'emoticon' ? (
+          <S.FileUploadContainer>
+            <S.FileLabel htmlFor='register-emoticon'>이모티콘 업로드</S.FileLabel>
+            <S.FileInput id='register-emoticon' type='file' onChange={onChangeEmoticonUpload} />
+            {showEmoticon && (
+              <S.ImageContainer>
+                {emoticon && <S.Image src={emoticon} alt='emoticon' />}
+              </S.ImageContainer>
+            )}
+          </S.FileUploadContainer>
+        ) : (
+          <React.Fragment>
+            <S.FileUploadContainer>
+              <S.FileLabel htmlFor='register-thumbnail'>썸네일 업로드</S.FileLabel>
+              <S.FileInput id='register-thumbnail' type='file' onChange={onChangeThumbnailUpload} />
+              {showThumbnail && (
+                <S.ImageContainer>
+                  {thumbnail && <S.Image src={thumbnail} alt='thumbnail' />}
+                </S.ImageContainer>
+              )}
+            </S.FileUploadContainer>
+            <S.FileUploadContainer>
+              <S.FileLabel htmlFor='register-file'>파일 업로드</S.FileLabel>
+              <S.FileInput id='register-file' type='file' multiple onChange={onChangeFileUpload} />
+              {showFilenames && (
+                <S.FilenameContainer>
+                  {filenames?.map((filename, index) => (
+                    <div key={index}>{filename}</div>
+                  ))}
+                </S.FilenameContainer>
+              )}
+            </S.FileUploadContainer>
+          </React.Fragment>
+        )}
+
         <S.ButtonContainer>
           <S.SubmitButton disabled={isLoading} type='submit'>
             등록

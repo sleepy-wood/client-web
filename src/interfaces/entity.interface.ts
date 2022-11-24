@@ -193,7 +193,9 @@ export class User {
   nickname: string;
   avatar: string;
   badgeCount: number;
+  productHitCount: number;
   productCount: number;
+  productMinPrice: number;
   hp: string;
   password: string;
   currentLandId: number;
@@ -269,6 +271,18 @@ export class ProductImage {
   path: string;
   mimeType: string;
   size: number;
+  isThumbnail: boolean;
+  productId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  product: Product;
+}
+
+export class ProductSmartContract {
+  id: number;
+  address: string;
+  abi: string;
   productId: number;
   createdAt: Date;
   updatedAt: Date;

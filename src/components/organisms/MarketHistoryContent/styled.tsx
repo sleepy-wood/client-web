@@ -5,7 +5,7 @@ import monthContainer from '../../../assets/images/bg_tit_month2.gif';
 export const Container = styled.div`
   width: 100%;
 
-  padding: 32px 240px 0;
+  padding: 32px 240px;
 `;
 
 export const Header = styled.div`
@@ -166,6 +166,8 @@ export const ItemSeller = styled.div`
   justify-content: center;
 
   width: 80px;
+
+  text-align: center;
 
   white-space: nowrap;
   text-overflow: ellipsis;

@@ -1,6 +1,16 @@
 /* File: font.css */
 
 @font-face {
+	font-family: "nanumgothic";
+	src: local("nanumgothic"), url("../fonts/NanumGothic.otf") format("woff");
+}
+
+@font-face {
+	font-family: "gyeonggi";
+	src: local("gyeonggi"), url("../fonts/gyeonggiOTF_Light.otf") format("woff");
+}
+
+@font-face {
 	font-family: "nexon";
 	src: local("nexon"),
 		url("../fonts/NEXON\ Lv1\ Gothic\ OTF.woff") format("woff");

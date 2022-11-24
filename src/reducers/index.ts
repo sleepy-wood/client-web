@@ -1,6 +1,5 @@
 import { createTransform, persistReducer, persistStore } from 'redux-persist';
 import { parse, stringify } from 'flatted';
-
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
@@ -32,7 +31,7 @@ const persistedReducer = persistReducer(
 );
 
 if (process.env.NODE_ENV !== 'production') {
-  middleware.push(createLogger());
+  // middleware.push(createLogger());
 }
 
 const store = configureStore({

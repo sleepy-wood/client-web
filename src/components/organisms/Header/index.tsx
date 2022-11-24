@@ -1,26 +1,27 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import Drawer from 'react-modern-drawer';
+import { useDispatch, useSelector } from 'react-redux';
 import { AiFillShop } from 'react-icons/ai';
 import {
   FaSearch,
-  FaRegUserCircle,
   FaUserCircle,
   FaWallet,
   FaShoppingCart,
   FaHeart,
   FaGem,
   FaHistory,
+  FaRegWindowClose,
 } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import * as API from '../../../apis';
 import * as C from '../../../constants';
 import * as H from '../../../hooks';
 import * as I from '../../../interfaces';
 import * as S from './styled';
+import logo from '../../../assets/images/logo.png';
+import logoTitle from '../../../assets/images/logo-title.png';
 import errorImg from '../../../assets/images/cate_plants.webp';
 import metamask from '../../../assets/images/metamask-fox.svg';
 import { MEDIA } from '../../../constants';
@@ -29,32 +30,14 @@ import { setCartItem, pushCartItem, popCartItem } from '../../../reducers/cart.r
 import { setWishlistItem, popWishlistItem } from '../../../reducers/wishlist.reducer';
 
 const { minWidth } = MEDIA;
-type Props = {
-  connectWallet: (e: React.MouseEvent) => Promise<void>;
-};
 
 export default function Header() {
   const isDesktop = useMediaQuery({ minWidth });
-  const [account, setAccount] = useState<string>('');
 
-  const connectWallet = useCallback(
-    async (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-      setAccount(accounts[0]);
-      console.log(account);
-    },
-    [account],
-  );
-
-  return isDesktop ? <Desktop connectWallet={connectWallet} /> : <Mobile />;
+  return isDesktop ? <Desktop /> : <Mobile />;
 }
 
-function Desktop({ connectWallet }: Props) {
+function Desktop() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -73,6 +56,15 @@ function Desktop({ connectWallet }: Props) {
   const [checkWishlistItems, setCheckWishlistItems] = useState<number[]>([]);
 
   const [query, onChangeQuery] = H.useInput<string>('');
+
+  const connectWallet = useCallback(async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    await window.ethereum.request({
+      method: 'eth_requestAccounts',
+    });
+  }, []);
 
   const toggleCart = useCallback(async () => {
     if (isOpenCart) {
@@ -189,6 +181,11 @@ function Desktop({ connectWallet }: Props) {
 
   const createOrder = useCallback(
     async (e: React.MouseEvent<HTMLDivElement>) => {
+      if (checkCartItems.length === 0) {
+        alert('장바구니에 담긴 상품이 없습니다.');
+        return;
+      }
+
       const amount = cartItem
         .filter(el => checkCartItems.includes(el.product.id))
         .reduce((acc, cur) => acc + Number(cur.product.price), 0);
@@ -207,6 +204,11 @@ function Desktop({ connectWallet }: Props) {
 
   const moveWishlistToCart = useCallback(
     async (e: React.MouseEvent<HTMLDivElement>) => {
+      if (checkWishlistItems.length === 0) {
+        alert('위시리스트에 담긴 상품이 없습니다.');
+        return;
+      }
+
       const result = await Promise.all(checkWishlistItems.map(id => API.cart.createCartItem(id)));
 
       for (const [cartItem, error] of result) {
@@ -232,7 +234,14 @@ function Desktop({ connectWallet }: Props) {
     <React.Fragment>
       <S.Container>
         <div>
-          <S.AppName onClick={moveToPath.bind(null, C.PATH.HOME)}>Sleepywood</S.AppName>
+          <S.AppName onClick={moveToPath.bind(null, C.PATH.HOME)}>
+            <div>
+              <img src={logo} alt='logo' />
+            </div>
+            <div>
+              <img src={logoTitle} alt='logo-title' />
+            </div>
+          </S.AppName>
           {showSearch && (
             <S.SearchContainer>
               <div>
@@ -273,7 +282,8 @@ function Desktop({ connectWallet }: Props) {
                   setShowWallet(false);
                   setShowMyInfo(prevState => !prevState);
                 }}>
-                <FaRegUserCircle size={26} />
+                {/* <FaRegUserCircle size={26} /> */}
+                {user && <img src={user.profileImg} alt='profile' />}
                 {showMyInfo && (
                   <S.InfoContainer>
                     <div
@@ -359,8 +369,13 @@ function Desktop({ connectWallet }: Props) {
         }}
         size={540}>
         <S.CartTitle>
-          <div>장바구니</div>
-          <div>({cartItem.length}개)</div>
+          <div>
+            <div>장바구니</div>
+            <div>({cartItem.length}개)</div>
+          </div>
+          <div>
+            <FaRegWindowClose size={24} onClick={toggleCart} />
+          </div>
         </S.CartTitle>
         <S.Tooltip>
           <div onClick={checkAllCart.bind(null)}>전체선택</div>
@@ -378,11 +393,7 @@ function Desktop({ connectWallet }: Props) {
               <label htmlFor={`cart-check-${index}`}></label>
               <div>
                 <img
-                  src={
-                    item.product.category === I.ProductCategory.collection
-                      ? item.product.productImages[1].path
-                      : item.product.productImages[item.product.productImages.length - 1].path
-                  }
+                  src={item.product.productImages.filter(e => e.isThumbnail)[0].path}
                   style={{
                     objectFit:
                       item.product.category === I.ProductCategory.collection ? 'cover' : 'contain',
@@ -413,9 +424,9 @@ function Desktop({ connectWallet }: Props) {
               <div>
                 <div>가격</div>
                 <div>
-                  {Number(item.product.price).toFixed(2) === '0.00'
+                  {Number(item.product.price).toFixed(3) === '0.000'
                     ? 'FREE'
-                    : Number(item.product.price).toFixed(2) + ' ETH'}
+                    : Number(item.product.price).toFixed(3) + ' ETH'}
                 </div>
               </div>
             </S.Item>
@@ -426,9 +437,9 @@ function Desktop({ connectWallet }: Props) {
           <S.TotalPrice>
             <div>합계</div>
             <div>
-              {cartItemTotalPrice.toFixed(2) === '0.00'
+              {cartItemTotalPrice.toFixed(3) === '0.000'
                 ? 'FREE'
-                : cartItemTotalPrice.toFixed(2) + ' ETH'}
+                : cartItemTotalPrice.toFixed(3) + ' ETH'}
             </div>
           </S.TotalPrice>
         </S.PaymentContainer>
@@ -452,8 +463,13 @@ function Desktop({ connectWallet }: Props) {
         }}
         size={540}>
         <S.CartTitle>
-          <div>위시리스트</div>
-          <div>({wishlistItem.length}개)</div>
+          <div>
+            <div>위시리스트</div>
+            <div>({wishlistItem.length}개)</div>
+          </div>
+          <div>
+            <FaRegWindowClose size={24} onClick={toggleWishlist} />
+          </div>
         </S.CartTitle>
         <S.Tooltip>
           <div onClick={checkAllWishlist.bind(null)}>전체선택</div>
@@ -471,11 +487,7 @@ function Desktop({ connectWallet }: Props) {
               <label htmlFor={`wishlist-check-${index}`}></label>
               <div>
                 <img
-                  src={
-                    item.product.category === I.ProductCategory.collection
-                      ? item.product.productImages[1].path
-                      : item.product.productImages[item.product.productImages.length - 1].path
-                  }
+                  src={item.product.productImages.filter(e => e.isThumbnail)[0].path}
                   style={{
                     objectFit:
                       item.product.category === I.ProductCategory.collection ? 'cover' : 'contain',
@@ -506,9 +518,9 @@ function Desktop({ connectWallet }: Props) {
               <div>
                 <div>가격</div>
                 <div>
-                  {Number(item.product.price).toFixed(2) === '0.00'
+                  {Number(item.product.price).toFixed(3) === '0.000'
                     ? 'FREE'
-                    : Number(item.product.price).toFixed(2) + ' ETH'}
+                    : Number(item.product.price).toFixed(3) + ' ETH'}
                 </div>
               </div>
             </S.Item>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Web3 from 'web3';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
@@ -47,8 +46,7 @@ const userTokens = [
 
 export default function App() {
   const dispatch = useDispatch();
-  const [web3, setWeb3] = useState<Web3>(null);
-  const { configurations, user } = useSelector((state: RootState) => state.user);
+  const { configurations } = useSelector((state: RootState) => state.user);
   const { currentPathname } = useSelector((state: RootState) => state.path);
 
   const [tokenTop, setTokenTop] = useState<number>(0);
@@ -56,20 +54,13 @@ export default function App() {
   useEffect(() => {
     window.onkeydown = (e: KeyboardEvent) => {
       if (e.shiftKey && e.key.toLowerCase() === 'u') {
+        console.log('change user!');
+
         setTokenTop(prev => (prev === 9 ? 0 : prev + 1));
       }
     };
 
     sessionStorage.setItem('jwt', userTokens[tokenTop]);
-
-    if (typeof window.ethereum !== 'undefined') {
-      try {
-        const web3 = new Web3(window.ethereum);
-        setWeb3(web3);
-      } catch (err) {
-        console.error(err);
-      }
-    }
 
     async function fetchData() {
       const [user, error] = await API.user.findOne();
@@ -78,11 +69,7 @@ export default function App() {
         console.log(error.data.error.reason);
       }
 
-      dispatch(
-        setUser({
-          user,
-        }),
-      );
+      dispatch(setUser({ user }));
 
       return;
     }

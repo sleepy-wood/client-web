@@ -31,6 +31,24 @@ export const AppName = styled.h1`
   margin-right: 48px;
   white-space: nowrap;
   cursor: pointer;
+
+  width: 160px;
+
+  position: relative;
+
+  & > div:nth-of-type(1) {
+    width: 72px;
+    position: absolute;
+    top: -40px;
+    left: 56px;
+  }
+
+  & > div:nth-of-type(2) {
+    width: 180px;
+    position: absolute;
+    top: -2px;
+    left: 0;
+  }
 `;
 
 export const SearchContainer = styled.div`
@@ -95,6 +113,14 @@ export const IconContainer = styled.div`
     position: relative;
     & > svg {
       cursor: pointer;
+    }
+
+    & > img {
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+
+      border-radius: 50%;
     }
   }
 
@@ -186,14 +212,24 @@ export const CartTitle = styled.div`
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   & > div:nth-of-type(1) {
-    margin-right: 12px;
+    display: flex;
+    align-items: center;
+
+    & > div:nth-of-type(1) {
+      margin-right: 12px;
+    }
+
+    & > div:nth-of-type(2) {
+      font-size: 16px;
+      opacity: 0.7;
+    }
   }
 
   & > div:nth-of-type(2) {
-    font-size: 16px;
-    opacity: 0.7;
+    cursor: pointer;
   }
 `;
 

@@ -20,6 +20,7 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.65",
     "@types/react": "^18.0.21",
+    "@types/react-big-calendar": "^0.38.2",
     "@types/react-dom": "^18.0.6",
     "@types/react-redux": "^7.1.24",
     "@types/react-slick": "^0.23.10",
@@ -34,6 +35,7 @@
     "craco-alias": "^3.0.1",
     "cross-env": "^7.0.3",
     "crypto-browserify": "^3.12.0",
+    "date-fns": "^2.29.3",
     "escape-html": "^1.0.3",
     "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
@@ -45,6 +47,7 @@
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
+    "react-big-calendar": "^1.5.2",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^3.1.4",
@@ -69,7 +72,10 @@
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4",
     "web3": "^1.8.0",
+    "web3-eth": "^1.8.1",
+    "web3-eth-abi": "^1.8.1",
     "web3-eth-accounts": "^1.8.0",
+    "web3-eth-contract": "^1.8.1",
     "yarn": "^1.22.19"
   },
   "scripts": {
@@ -97,5 +103,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://team-buildup.shop"
+  "proxy": "http://localhost:4000"
 }
