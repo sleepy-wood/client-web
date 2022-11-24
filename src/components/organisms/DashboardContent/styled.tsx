@@ -383,7 +383,8 @@ export const Activity = styled.div`
 
   & > div:nth-of-type(2) {
     & > div:nth-of-type(1) {
-      background-color: #ffcc40;
+      background: linear-gradient(80deg, #313860 2%, #151928 80%);
+      border-radius: 8px;
     }
 
     & > div:nth-of-type(4) {
@@ -396,7 +397,8 @@ export const Activity = styled.div`
 
   & > div:nth-of-type(3) {
     & > div:nth-of-type(1) {
-      background-color: #783efd;
+      background: linear-gradient(80deg, #313860 2%, #151928 80%);
+      border-radius: 8px;
     }
 
     & > div:nth-of-type(4) {
@@ -409,7 +411,8 @@ export const Activity = styled.div`
 
   & > div:nth-of-type(4) {
     & > div:nth-of-type(1) {
-      background-color: #fe8f66;
+      background: linear-gradient(80deg, #313860 2%, #151928 80%);
+      border-radius: 8px;
     }
 
     & > div:nth-of-type(4) {
