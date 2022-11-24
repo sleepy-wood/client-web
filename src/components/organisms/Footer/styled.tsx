@@ -7,28 +7,35 @@ export const Container = styled.div`
   margin: 0 auto;
   padding: 16px 40px;
 
-  display: flex;
-  justify-content: space-between;
-
   font-weight: 400;
   font-size: 16px;
 
-  & > div:nth-of-type(1) {
-    & > div {
-      display: flex;
-      & > div:not(last-of-type) {
-        width: 120px;
+  & > div {
+    width: 33%;
+    padding-top: 32px;
+
+    & > div:nth-of-type(1) {
+      position: relative;
+      padding-bottom: 40px;
+
+      & > div:nth-of-type(1) {
+        width: 72px;
+        position: absolute;
+        top: -40px;
+        left: 56px;
+      }
+
+      & > div:nth-of-type(2) {
+        width: 180px;
+        position: absolute;
+        top: -2px;
+        left: 0;
       }
     }
 
-    & > div:not(last-of-type) {
-      margin-top: 16px;
-    }
-  }
-
-  & > div:nth-of-type(2) {
-    & > div:not(last-of-type) {
-      margin-top: 4px;
+    & > div:nth-of-type(2) {
+      font-weight: 700;
+      font-size: 16px;
     }
   }
 `;
