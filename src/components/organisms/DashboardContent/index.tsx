@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ApexChart from 'react-apexcharts';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
@@ -20,7 +20,126 @@ import {
   HiCalendarDays,
   HiOutlineChevronRight,
 } from 'react-icons/hi2';
-import { IoBodyOutline } from 'react-icons/io5';
+import { IoBodyOutline, IoClose } from 'react-icons/io5';
+import { BsDot } from 'react-icons/bs';
+
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import format from 'date-fns/format';
+import parse from 'date-fns/parse';
+import startOfWeek from 'date-fns/startOfWeek';
+import getDay from 'date-fns/getDay';
+import enUS from 'date-fns/locale/en-US';
+
+const locales = {
+  'en-US': enUS,
+};
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
+
+function SleepCalendar() {
+  return (
+    <div>
+      <Calendar
+        localizer={localizer}
+        toolbar={false}
+        startAccessor='start'
+        endAccessor='end'
+        style={{ height: 740 }}
+        eventPropGetter={(event, start, end, isSelected) => {
+          const splitTitle = event.title.split(' ');
+          const category = splitTitle[0];
+
+          let color = '#475569';
+          let backgroundColor = '#E0E0E0';
+
+          switch (category) {
+            case 'T':
+              color = '#475569';
+              backgroundColor = '#E0E0E0';
+              break;
+
+            case 'R':
+              color = '#FF0080';
+              backgroundColor = 'rgba(255, 0, 128, 0.21)';
+              break;
+
+            case 'S':
+              color = '#2563EB';
+              backgroundColor = '#DBEAFE';
+              break;
+
+            case 'D':
+              color = '#00DEA3';
+              backgroundColor = 'rgba(0, 222, 163, 0.2)';
+              break;
+
+            default:
+              color = '#475569';
+              backgroundColor = '#E0E0E0';
+              break;
+          }
+
+          return {
+            style: {
+              color,
+              backgroundColor,
+              textAlign: 'center',
+              height: '20px',
+              marginBottom: '4px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontWeight: 400,
+              fontSize: '14px',
+            },
+          };
+        }}
+        components={{
+          event: ({ event }) => {
+            const splitTitle = event.title.split(' ');
+            const time = splitTitle[1];
+
+            return (
+              <div>
+                <div>
+                  <span>{time}</span>
+                </div>
+              </div>
+            );
+          },
+        }}
+        events={[
+          {
+            title: 'T 8:15',
+            start: new Date(),
+            end: new Date(),
+          },
+          {
+            title: 'R 2:10',
+            start: new Date(),
+            end: new Date(),
+          },
+          {
+            title: 'S 4:25',
+            start: new Date(),
+            end: new Date(),
+          },
+          {
+            title: 'D 1:40',
+            start: new Date(),
+            end: new Date(),
+          },
+        ]}
+      />
+    </div>
+  );
+}
 
 ChartJS.register(CategoryScale, BarElement, BarController, LinearScale);
 
@@ -67,6 +186,8 @@ export default function DashboardContent({
 function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
   const { user } = useSelector((state: RootState) => state.user);
 
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   const [energyBurnData, setEnergyBurnData] = useState<ChartDataset<'bar', number[]>[]>([]);
   const [exerciseData, setExerciseData] = useState<ChartDataset<'bar', number[]>[]>([]);
   const [standData, setStandData] = useState<ChartDataset<'bar', number[]>[]>([]);
@@ -82,6 +203,10 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
     deactivate,
     deactivate,
   ]);
+
+  const notReady = useCallback((e: React.MouseEvent) => {
+    alert('준비중입니다.');
+  }, []);
 
   useEffect(() => {
     if (weekHealth) {
@@ -123,6 +248,71 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
 
   return (
     <React.Fragment>
+      {showModal && (
+        <S.Modal
+          onClick={() => {
+            setShowModal(false);
+          }}>
+          <S.ModalBackground
+            onClick={e => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}>
+            <S.ModalTextContainer>
+              <div>
+                <div>수면 흐름 캘린더</div>
+                <div>
+                  <div className='flex items-center'>
+                    <div>
+                      <BsDot />
+                    </div>
+                    <div>총 수면 시간</div>
+                  </div>
+                  <div className='flex items-center'>
+                    <div>
+                      <BsDot />
+                    </div>
+                    <div>렘 수면</div>
+                  </div>
+                  <div className='flex items-center'>
+                    <div>
+                      <BsDot />
+                    </div>
+                    <div>얕은 수면</div>
+                  </div>
+                  <div className='flex items-center'>
+                    <div>
+                      <BsDot />
+                    </div>
+                    <div>깊은 수면</div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <S.DayCategory active>Month</S.DayCategory>
+                </div>
+                <div>
+                  <S.DayCategory>Week</S.DayCategory>
+                </div>
+                <div>
+                  <S.DayCategory>Day</S.DayCategory>
+                </div>
+                <div
+                  onClick={() => {
+                    setShowModal(false);
+                  }}>
+                  <IoClose size={32} />
+                </div>
+              </div>
+            </S.ModalTextContainer>
+            <div>
+              <SleepCalendar />
+            </div>
+          </S.ModalBackground>
+        </S.Modal>
+      )}
+
       <S.Banner>
         <img src={user.bannerImg} alt='Banner' />
       </S.Banner>
@@ -160,7 +350,16 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
       <S.Container>
         <S.LeftContainer>
           <S.Summary>
-            <div>수면 흐름 분석</div>
+            <div className='flex items-center justify-between'>
+              <div>수면 흐름 분석</div>
+              <div
+                style={{ marginRight: '16px', cursor: 'pointer' }}
+                onClick={() => {
+                  setShowModal(true);
+                }}>
+                <HiOutlineChevronRight color='#535353' />
+              </div>
+            </div>
             <div>기상</div>
             <div>
               <ApexChart
@@ -281,7 +480,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
             <S.MiniContainer>
               <div>
                 <div>총 수면 시간</div>
-                <div>
+                <div onClick={notReady}>
                   <HiOutlineChevronRight color='#535353' />
                 </div>
               </div>
@@ -294,7 +493,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
             <S.MiniContainer>
               <div>
                 <div>렘 수면 시간</div>
-                <div>
+                <div onClick={notReady}>
                   <HiOutlineChevronRight color='#535353' />
                 </div>
               </div>
@@ -307,7 +506,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
             <S.MiniContainer>
               <div>
                 <div>깊은 수면 시간</div>
-                <div>
+                <div onClick={notReady}>
                   <HiOutlineChevronRight color='#535353' />
                 </div>
               </div>
@@ -333,7 +532,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                       parseInt(heart[1].valueInCountPerMinute.toString())}
                     pt
                   </div>
-                  <div>
+                  <div onClick={notReady}>
                     <HiOutlineChevronRight color='#535353' />
                   </div>
                 </div>
@@ -346,7 +545,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <div>
                     +{Number(oxygen[0].valueInRatio) * 100 - Number(oxygen[1].valueInRatio) * 100}pt
                   </div>
-                  <div>
+                  <div onClick={notReady}>
                     <HiOutlineChevronRight color='#535353' />
                   </div>
                 </div>
@@ -362,7 +561,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                       parseInt(respiratory[1].valueInCountPerMinute.toString())}
                     pt
                   </div>
-                  <div>
+                  <div onClick={notReady}>
                     <HiOutlineChevronRight color='#535353' />
                   </div>
                 </div>

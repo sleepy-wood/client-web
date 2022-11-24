@@ -1,5 +1,113 @@
 import styled from 'styled-components';
 
+export const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 10000;
+
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #00000070;
+`;
+
+export const ModalBackground = styled.div`
+  width: 1200px;
+  height: calc(100vh - 70px);
+  background-color: #fff;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  padding: 32px;
+`;
+
+export const ModalTextContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+
+  & > div:nth-of-type(1) {
+    & > div:nth-of-type(1) {
+      font-weight: 700;
+      font-size: 32px;
+      color: #000000;
+
+      margin-bottom: 8px;
+    }
+
+    & > div:nth-of-type(2) {
+      display: flex;
+      align-items: center;
+
+      & > div {
+        margin-right: 14px;
+        font-weight: 400;
+        font-size: 16px;
+      }
+
+      & > div:nth-of-type(1) {
+        color: #535353;
+      }
+      & > div:nth-of-type(2) {
+        color: #ff0080;
+      }
+      & > div:nth-of-type(3) {
+        color: #2563eb;
+      }
+      & > div:nth-of-type(4) {
+        color: #00dea3;
+      }
+    }
+  }
+
+  & > div:nth-of-type(2) {
+    display: flex;
+    align-items: center;
+
+    & > div {
+      cursor: pointer;
+    }
+
+    & > div:not(:first-of-type) {
+      margin-left: 40px;
+
+      & > div {
+        display: flex;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  }
+`;
+
+export const DayCategory = styled.div<{ active?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 16px;
+
+  padding: 9px 26px;
+
+  width: 136px;
+  height: 54px;
+
+  background: ${({ active }) => (active ? '#a0aec0' : 'transparent')};
+  color: ${({ active }) => (active ? '#ffffff' : '#535353')};
+`;
+
 export const Banner = styled.div`
   position: absolute;
   top: 72px;
