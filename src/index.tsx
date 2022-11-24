@@ -2,6 +2,7 @@ import './assets/styles/index.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'react-modern-drawer/dist/index.css';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
