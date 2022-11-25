@@ -174,8 +174,6 @@ function Desktop() {
         .publishItem(account, res2.productImages.filter(e => e.isThumbnail)[0].path)
         .call();
 
-      console.log({ tokenId });
-
       const [res3, err3] = await API.product.createSmartContract({
         productId: res2.id,
         address: resultContractAddress,
