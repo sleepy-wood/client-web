@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Drawer from 'react-modern-drawer';
+import Web3 from 'web3';
+import Web3Utils from 'web3-utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiFillShop } from 'react-icons/ai';
 import {
@@ -189,6 +191,29 @@ function Desktop() {
       const amount = cartItem
         .filter(el => checkCartItems.includes(el.product.id))
         .reduce((acc, cur) => acc + Number(cur.product.price), 0);
+
+      const web3 = new Web3(window.ethereum);
+      const [from] = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      const to = '0xfF5693A149a49A1d0Ce2bB34b93bB90F880C3b89';
+      const nonce = await web3.eth.getTransactionCount(from, 'latest');
+      const value = Web3Utils.toWei(amount.toString(), 'ether');
+      const gasLimit = await web3.eth.estimateGas({
+        to,
+        from,
+        value,
+      });
+      const txConfig = {
+        nonce,
+        to,
+        from,
+        value,
+        gasLimit,
+        gasPrice: 1500000,
+      };
+      const transactionHash = await web3.eth.sendTransaction(txConfig);
+
       const [order, error] = await API.order.create(amount, I.Payment.Cash, checkCartItems);
 
       if (error) {
