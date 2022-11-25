@@ -64,6 +64,8 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
       }
 
       dispatch(pushWishlistItem({ wishlistItem }));
+
+      alert('위시리스트에 에셋이 추가되었습니다.');
     },
     [dispatch],
   );
@@ -77,6 +79,8 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
       }
 
       dispatch(pushCartItem({ cartItem }));
+
+      alert('장바구니에 에셋이 추가되었습니다.');
     },
     [dispatch],
   );
