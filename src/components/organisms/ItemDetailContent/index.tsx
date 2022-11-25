@@ -160,12 +160,6 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     <div onClick={createOrder.bind(null, Number(product.price), product.id)}>
                       바로 구매
                     </div>
-                    <svg width='0' height='0'>
-                      <linearGradient id='blue-gradient' x1='100%' y1='100%' x2='0%' y2='0%'>
-                        <stop stopColor='#313860' offset='0%' />
-                        <stop stopColor='#151928' offset='100%' />
-                      </linearGradient>
-                    </svg>
                     <div onClick={addCartItem.bind(null, product.id)}>
                       <FaShoppingCart size={24} style={{ fill: 'url(#blue-gradient)' }} />
                     </div>
@@ -239,12 +233,6 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     <div onClick={createOrder.bind(null, Number(product.price), product.id)}>
                       바로 구매
                     </div>
-                    <svg width='0' height='0'>
-                      <linearGradient id='blue-gradient' x1='100%' y1='100%' x2='0%' y2='0%'>
-                        <stop stopColor='#313860' offset='0%' />
-                        <stop stopColor='#151928' offset='100%' />
-                      </linearGradient>
-                    </svg>
                     <div onClick={addCartItem.bind(null, product.id)}>
                       <FaShoppingCart size={24} style={{ fill: 'url(#blue-gradient)' }} />
                     </div>

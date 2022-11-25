@@ -290,7 +290,7 @@ function Desktop() {
                       style={{ cursor: 'pointer' }}
                       onClick={moveToPath.bind(null, C.PATH.MARKET_REGISTER)}>
                       <S.InfoIconContainer>
-                        <AiFillShop size={20} />
+                        <AiFillShop size={20} style={{ fill: 'url(#blue-gradient)' }} />
                       </S.InfoIconContainer>
                       <div>에셋 판매</div>
                     </div>
@@ -301,7 +301,7 @@ function Desktop() {
                         C.PATH.MARKET_DETAIL.PATH.replace(':id', user.id.toString()),
                       )}>
                       <S.InfoIconContainer>
-                        <FaGem size={20} />
+                        <FaGem size={20} style={{ fill: 'url(#blue-gradient)' }} />
                       </S.InfoIconContainer>
                       <div>에셋 조회</div>
                     </div>
@@ -309,7 +309,7 @@ function Desktop() {
                       style={{ cursor: 'pointer' }}
                       onClick={moveToPath.bind(null, C.PATH.MARKET_HISTORY.LIST)}>
                       <S.InfoIconContainer>
-                        <FaHistory size={20} />
+                        <FaHistory size={20} style={{ fill: 'url(#blue-gradient)' }} />
                       </S.InfoIconContainer>
                       <div>주문 내역</div>
                     </div>
@@ -323,12 +323,12 @@ function Desktop() {
                   setShowMyInfo(false);
                   setShowWallet(prevState => !prevState);
                 }}>
-                <FaWallet size={26} />
+                <FaWallet size={26} style={{ fill: 'url(#blue-gradient)' }} />
                 {showWallet && (
                   <S.InfoContainer>
                     <div>
                       <S.InfoIconContainer>
-                        <FaUserCircle size={20} />
+                        <FaUserCircle size={20} style={{ fill: 'url(#blue-gradient)' }} />
                       </S.InfoIconContainer>
                       <div>My wallet</div>
                     </div>
@@ -342,11 +342,11 @@ function Desktop() {
                 )}
               </div>
               <div onClick={toggleCart}>
-                <FaShoppingCart size={26} />
+                <FaShoppingCart size={26} style={{ fill: 'url(#blue-gradient)' }} />
                 {cartItem.length > 0 && <div></div>}
               </div>
               <div onClick={toggleWishlist}>
-                <FaHeart size={26} />
+                <FaHeart size={26} style={{ fill: 'url(#blue-gradient)' }} />
                 {wishlistItem.length > 0 && <div></div>}
               </div>
             </S.IconContainer>
