@@ -1,6 +1,6 @@
 export const COLORS = <const>{
   light: {
-    text: '#ff0000',
+    text: '#04111D',
     palette1: '#F67280',
     palette2: '#C06C84',
     palette3: '#6C5B7B',
