@@ -88,14 +88,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
   );
 
   const createOrder = useCallback(
-    async (
-      amount: number,
-      productId: number,
-      tokenId: number,
-      strAbi: string,
-      contractAddress: string,
-      e: React.MouseEvent<HTMLDivElement>,
-    ) => {
+    async (amount: number, productId: number, e: React.MouseEvent<HTMLDivElement>) => {
       const web3 = new Web3(window.ethereum);
       const [from] = await window.ethereum.request({
         method: 'eth_requestAccounts',
@@ -192,15 +185,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                   </S.PriceContainer>
                   <S.ButtonContainer>
-                    <div
-                      onClick={createOrder.bind(
-                        null,
-                        Number(product.price),
-                        product.id,
-                        product.tokenId,
-                        product.productSmartContract?.abi,
-                        product.productSmartContract?.address,
-                      )}>
+                    <div onClick={createOrder.bind(null, Number(product.price), product.id)}>
                       바로 구매
                     </div>
                     <div onClick={addCartItem.bind(null, product.id)}>
@@ -273,15 +258,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                   </S.PriceContainer>
                   <S.ButtonContainer>
-                    <div
-                      onClick={createOrder.bind(
-                        null,
-                        Number(product.price),
-                        product.id,
-                        product.tokenId,
-                        product.productSmartContract?.abi,
-                        product.productSmartContract?.address,
-                      )}>
+                    <div onClick={createOrder.bind(null, Number(product.price), product.id)}>
                       바로 구매
                     </div>
                     <div onClick={addCartItem.bind(null, product.id)}>
