@@ -252,10 +252,14 @@ export class Product {
   hit: number;
   sell: number;
   category: I.ProductCategory;
+  tokenId: number;
+  treeId: number;
   userId: number;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
+  tree: Tree;
+  productSmartContract: ProductSmartContract;
   orderDetails: OrderDetail[];
   productImages: ProductImage[];
   // reviews: Review[];
