@@ -1,4 +1,6 @@
 import React, { useCallback } from 'react';
+import Web3 from 'web3';
+import Web3Utils from 'web3-utils';
 import { useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -86,7 +88,36 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
   );
 
   const createOrder = useCallback(
-    async (amount: number, productId: number, e: React.MouseEvent<HTMLDivElement>) => {
+    async (
+      amount: number,
+      productId: number,
+      tokenId: number,
+      strAbi: string,
+      contractAddress: string,
+      e: React.MouseEvent<HTMLDivElement>,
+    ) => {
+      const web3 = new Web3(window.ethereum);
+      const [from] = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      const to = '0xfF5693A149a49A1d0Ce2bB34b93bB90F880C3b89';
+      const nonce = await web3.eth.getTransactionCount(from, 'latest');
+      const value = Web3Utils.toWei(amount.toString(), 'ether');
+      const gasLimit = await web3.eth.estimateGas({
+        to,
+        from,
+        value,
+      });
+      const txConfig = {
+        nonce,
+        to,
+        from,
+        value,
+        gasLimit,
+        gasPrice: 1500000,
+      };
+      const transactionHash = await web3.eth.sendTransaction(txConfig);
+
       const [order, error] = await API.order.create(amount, I.Payment.Cash, [productId]);
 
       if (error) {
@@ -161,7 +192,15 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                   </S.PriceContainer>
                   <S.ButtonContainer>
-                    <div onClick={createOrder.bind(null, Number(product.price), product.id)}>
+                    <div
+                      onClick={createOrder.bind(
+                        null,
+                        Number(product.price),
+                        product.id,
+                        product.tokenId,
+                        product.productSmartContract?.abi,
+                        product.productSmartContract?.address,
+                      )}>
                       바로 구매
                     </div>
                     <div onClick={addCartItem.bind(null, product.id)}>
@@ -234,7 +273,15 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     <div>{U.convertETHtoUSD(Number(product.price)).toFixed(2) + ' USD'}</div>
                   </S.PriceContainer>
                   <S.ButtonContainer>
-                    <div onClick={createOrder.bind(null, Number(product.price), product.id)}>
+                    <div
+                      onClick={createOrder.bind(
+                        null,
+                        Number(product.price),
+                        product.id,
+                        product.tokenId,
+                        product.productSmartContract?.abi,
+                        product.productSmartContract?.address,
+                      )}>
                       바로 구매
                     </div>
                     <div onClick={addCartItem.bind(null, product.id)}>
