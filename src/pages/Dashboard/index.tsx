@@ -11,15 +11,17 @@ export default function Dashboard() {
   const [oxygen, setOxygen] = useState<I.Oxygen[]>(null);
   const [respiratory, setRespiratory] = useState<I.Respiratory[]>(null);
   const [sleeps, setSleeps] = useState<I.Sleep[]>(null);
+  const [recentSleeps, setRecentSleeps] = useState<I.Sleep[]>(null);
 
   useEffect(() => {
     async function fetchData() {
-      const [result1, result2, result3, result4, result5] = await Promise.all([
+      const [result1, result2, result3, result4, result5, result6] = await Promise.all([
         API.health.findWeekData(new Date('2022-10-29T12:00:00.100Z')),
         API.health.findHeart(),
         API.health.findOxygen(),
         API.health.findRespiratory(),
-        API.health.findSleep(),
+        API.health.findAllSleep(),
+        API.health.findAllSleepRecent(),
       ]);
 
       const [weekHealth, weekHealthError] = result1;
@@ -27,6 +29,7 @@ export default function Dashboard() {
       const [oxygen, oxygenError] = result3;
       const [respiratory, respiratoryError] = result4;
       const [sleeps, sleepsError] = result5;
+      const [recentSleeps, recentSleepsError] = result6;
 
       if (weekHealthError || heartError || oxygenError || respiratoryError || sleepsError) {
         weekHealthError && console.log(weekHealthError.data.error.reason);
@@ -34,6 +37,7 @@ export default function Dashboard() {
         oxygenError && console.log(oxygenError.data.error.reason);
         respiratoryError && console.log(respiratoryError.data.error.reason);
         sleepsError && console.log(sleepsError.data.error.reason);
+        recentSleepsError && console.log(recentSleepsError.data.error.reason);
       }
 
       setWeekHealth(weekHealth);
@@ -41,6 +45,7 @@ export default function Dashboard() {
       setOxygen(oxygen);
       setRespiratory(respiratory);
       setSleeps(sleeps);
+      setRecentSleeps(recentSleeps);
 
       return;
     }
@@ -56,6 +61,7 @@ export default function Dashboard() {
         oxygen={oxygen}
         respiratory={respiratory}
         sleeps={sleeps}
+        recentSleeps={recentSleeps}
       />
     </S.Container>
   );
