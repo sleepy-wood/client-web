@@ -30,6 +30,11 @@ import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import enUS from 'date-fns/locale/en-US';
 
+// 0 ~ 38
+import { sleepData } from '../../../constants';
+
+import * as U from '../../../utils';
+
 const locales = {
   'en-US': enUS,
 };
@@ -42,7 +47,7 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-function SleepCalendar() {
+function SleepCalendar({ events }: { events: { title: string; start: Date; end: Date }[] }) {
   return (
     <div>
       <Calendar
@@ -52,13 +57,10 @@ function SleepCalendar() {
         endAccessor='end'
         style={{ height: 740 }}
         eventPropGetter={(event, start, end, isSelected) => {
-          const splitTitle = event.title.split(' ');
-          const category = splitTitle[0];
-
           let color = '#475569';
           let backgroundColor = '#E0E0E0';
 
-          switch (category) {
+          switch (event.title.split(' ')[0]) {
             case 'T':
               color = '#475569';
               backgroundColor = '#E0E0E0';
@@ -102,40 +104,16 @@ function SleepCalendar() {
         }}
         components={{
           event: ({ event }) => {
-            const splitTitle = event.title.split(' ');
-            const time = splitTitle[1];
-
             return (
               <div>
                 <div>
-                  <span>{time}</span>
+                  <span>{event.title.split(' ')[1]}</span>
                 </div>
               </div>
             );
           },
         }}
-        events={[
-          {
-            title: 'T 8:15',
-            start: new Date(),
-            end: new Date(),
-          },
-          {
-            title: 'R 2:10',
-            start: new Date(),
-            end: new Date(),
-          },
-          {
-            title: 'S 4:25',
-            start: new Date(),
-            end: new Date(),
-          },
-          {
-            title: 'D 1:40',
-            start: new Date(),
-            end: new Date(),
-          },
-        ]}
+        events={events}
       />
     </div>
   );
@@ -159,6 +137,7 @@ type Props = {
   oxygen: I.Oxygen[];
   respiratory: I.Respiratory[];
   sleeps: I.Sleep[];
+  recentSleeps: I.Sleep[];
 };
 
 export default function DashboardContent({
@@ -167,6 +146,7 @@ export default function DashboardContent({
   oxygen,
   respiratory,
   sleeps,
+  recentSleeps,
 }: Props) {
   const isDesktop = useMediaQuery({ minWidth });
 
@@ -177,16 +157,26 @@ export default function DashboardContent({
       oxygen={oxygen}
       respiratory={respiratory}
       sleeps={sleeps}
+      recentSleeps={recentSleeps}
     />
   ) : (
     <Mobile />
   );
 }
 
-function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
+function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps }: Props) {
   const { user } = useSelector((state: RootState) => state.user);
 
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  const [events, setEvents] = useState<any[]>([]);
+  const [totalSleep, setTotalSleep] = useState<number>(0);
+  const [remSleep, setRemSleep] = useState<number>(0);
+  const [deepSleep, setDeepSleep] = useState<number>(0);
+
+  const [remData, setRemData] = useState<any[]>([]);
+  const [shallowData, setShallowData] = useState<any[]>([]);
+  const [deepData, setDeepData] = useState<any[]>([]);
 
   const [energyBurnData, setEnergyBurnData] = useState<ChartDataset<'bar', number[]>[]>([]);
   const [exerciseData, setExerciseData] = useState<ChartDataset<'bar', number[]>[]>([]);
@@ -206,6 +196,92 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
 
   const notReady = useCallback((e: React.MouseEvent) => {
     alert('준비중입니다.');
+  }, []);
+
+  useEffect(() => {
+    let total = 0;
+    let rem = 0;
+    let shallow = 0;
+    let deep = 0;
+
+    const remData: any[] = [];
+    const shallowData: any[] = [];
+    const deepData: any[] = [];
+
+    let index = 0;
+    for (const sleep of sleepData) {
+      if (index > 38) break;
+
+      const sleepTime = sleep.endDateInSeconds - sleep.startDateInSeconds;
+      switch (sleep.value) {
+        case I.SleepType.AsleepDeep:
+          deep += sleepTime;
+          deepData.push({
+            fillColor: '#00DEA3',
+            x: '깊은 수면',
+            y: [sleep.startDateInSeconds * 1000, sleep.endDateInSeconds * 1000],
+          });
+          break;
+
+        case I.SleepType.AsleepRem:
+          rem += sleepTime;
+          remData.push({
+            fillColor: '#FF0080',
+            x: '렘 수면',
+            y: [sleep.startDateInSeconds * 1000, sleep.endDateInSeconds * 1000],
+          });
+          break;
+
+        case I.SleepType.AsleepCore:
+          shallow += sleepTime;
+          shallowData.push({
+            fillColor: '#344767',
+            x: '얕은 수면',
+            y: [sleep.startDateInSeconds * 1000, sleep.endDateInSeconds * 1000],
+          });
+          break;
+
+        case I.SleepType.InBed:
+          total += sleepTime;
+          break;
+
+        default:
+          break;
+      }
+
+      index++;
+    }
+
+    setTotalSleep(total);
+    setRemSleep(rem);
+    setDeepSleep(deep);
+
+    setRemData(remData);
+    setShallowData(shallowData);
+    setDeepData(deepData);
+
+    setEvents([
+      {
+        title: `T ${U.getTime(total)}`,
+        start: new Date(),
+        end: new Date(),
+      },
+      {
+        title: `R ${U.getTime(rem)}`,
+        start: new Date(),
+        end: new Date(),
+      },
+      {
+        title: `S ${U.getTime(shallow)}`,
+        start: new Date(),
+        end: new Date(),
+      },
+      {
+        title: `D ${U.getTime(deep)}`,
+        start: new Date(),
+        end: new Date(),
+      },
+    ]);
   }, []);
 
   useEffect(() => {
@@ -240,7 +316,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
         }),
       );
     }
-  }, [weekHealth]);
+  }, [recentSleeps, weekHealth]);
 
   if (!user) {
     return <div>Loading</div>;
@@ -307,12 +383,11 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
               </div>
             </S.ModalTextContainer>
             <div>
-              <SleepCalendar />
+              <SleepCalendar events={events} />
             </div>
           </S.ModalBackground>
         </S.Modal>
       )}
-
       <S.Banner>
         <img src={user.bannerImg} alt='Banner' />
       </S.Banner>
@@ -363,92 +438,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
             <div>기상</div>
             <div>
               <ApexChart
-                series={[
-                  {
-                    data: [
-                      {
-                        fillColor: '#FF0080',
-                        x: '렘 수면',
-                        y: [
-                          new Date(2022, 11, 10, 0, 30).getTime(),
-                          new Date(2022, 11, 10, 0, 40).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#FF0080',
-                        x: '렘 수면',
-                        y: [
-                          new Date(2022, 11, 10, 2, 30).getTime(),
-                          new Date(2022, 11, 10, 2, 40).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#344767',
-                        x: '얕은 수면',
-                        y: [
-                          new Date(2022, 11, 10, 1, 30).getTime(),
-                          new Date(2022, 11, 10, 1, 40).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#344767',
-                        x: '얕은 수면',
-                        y: [
-                          new Date(2022, 11, 10, 4, 30).getTime(),
-                          new Date(2022, 11, 10, 5, 40).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#00DEA3',
-                        x: '깊은 수면',
-                        y: [
-                          new Date(2022, 11, 10, 1, 30).getTime(),
-                          new Date(2022, 11, 10, 1, 40).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#00DEA3',
-                        x: '깊은 수면',
-                        y: [
-                          new Date(2022, 11, 10, 1, 45).getTime(),
-                          new Date(2022, 11, 10, 1, 55).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#00DEA3',
-                        x: '깊은 수면',
-                        y: [
-                          new Date(2022, 11, 10, 2, 45).getTime(),
-                          new Date(2022, 11, 10, 3, 55).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                ]}
+                series={[{ data: remData }, { data: shallowData }, { data: deepData }]}
                 options={{
                   plotOptions: {
                     bar: {
@@ -484,10 +474,10 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <HiOutlineChevronRight color='#535353' />
                 </div>
               </div>
-              <div>8시간 15분</div>
+              <div>{U.getTime(totalSleep, false)}</div>
               <div>
                 <HiArrowTrendingUp size={18} color={'#00dea3'} />
-                <div style={{ color: '#00dea3' }}>총 수면 시간 0분 증가</div>
+                <div style={{ color: '#00dea3' }}>총 수면 시간 10분 증가</div>
               </div>
             </S.MiniContainer>
             <S.MiniContainer>
@@ -497,10 +487,10 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <HiOutlineChevronRight color='#535353' />
                 </div>
               </div>
-              <div>2시간 10분</div>
+              <div>{U.getTime(remSleep, false)}</div>
               <div>
                 <HiArrowTrendingDown size={18} color={'#F23985'} />
-                <div style={{ color: '#F23985' }}>렘 수면 시간 0분 감소</div>
+                <div style={{ color: '#F23985' }}>렘 수면 시간 10분 감소</div>
               </div>
             </S.MiniContainer>
             <S.MiniContainer>
@@ -510,10 +500,10 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <HiOutlineChevronRight color='#535353' />
                 </div>
               </div>
-              <div>1시간 27분</div>
+              <div>{U.getTime(deepSleep, false)}</div>
               <div>
                 <HiArrowTrendingUp size={18} color={'#00dea3'} />
-                <div style={{ color: '#00dea3' }}>깊은 수면 시간 0분 증가</div>
+                <div style={{ color: '#00dea3' }}>깊은 수면 시간 8분 증가</div>
               </div>
             </S.MiniContainer>
           </S.ThreeContainer>
