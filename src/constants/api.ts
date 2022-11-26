@@ -39,17 +39,21 @@ export const APIs = {
       },
     },
     health: {
-      findSleep: {
+      findAllSleep: {
         method: 'GET',
         url: '/api/v1/sleeps',
       },
-      findRem: {
+      findAllSleepRecent: {
         method: 'GET',
-        url: '/api/v1/sleeps/rem',
+        url: '/api/v1/sleeps/recent',
       },
-      findDeepSleep: {
+      findAllSleepMonthly: {
         method: 'GET',
-        url: '/api/v1/sleeps/deep',
+        url: '/api/v1/sleeps/monthly',
+      },
+      findAllRecent: {
+        method: 'GET',
+        url: '/api/v1/healths/recent',
       },
       findHeart: {
         method: 'GET',
