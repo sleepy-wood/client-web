@@ -16,7 +16,7 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchData() {
       const [result1, result2, result3, result4, result5, result6] = await Promise.all([
-        API.health.findWeekData(new Date('2022-10-29T12:00:00.100Z')),
+        API.health.findWeekData(new Date('2022-11-20T12:00:00.100Z')),
         API.health.findHeart(),
         API.health.findOxygen(),
         API.health.findRespiratory(),
