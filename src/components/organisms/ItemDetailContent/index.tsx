@@ -339,7 +339,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
             <S.ExtraAssets
               style={{
                 gridTemplateColumns: `repeat(auto-fill, ${
-                  recommendProducts[0].category === I.ProductCategory.collection ? '240px' : '200px'
+                  recommendProducts[0].category === I.ProductCategory.collection ? '200px' : '200px'
                 })`,
               }}>
               {recommendProducts.map((recommendProduct, index) =>
@@ -352,6 +352,11 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     )}>
                     <S.ExtraAssetImg>
                       <img
+                        style={{
+                          borderRadius: '10px',
+                          objectFit: 'cover',
+                          objectPosition: '0 -62px',
+                        }}
                         src={recommendProduct.productImages.filter(e => e.isThumbnail)[0].path}
                         alt='tree'
                       />
