@@ -30,8 +30,7 @@ import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import enUS from 'date-fns/locale/en-US';
 
-// 0 ~ 38
-import { sleepData } from '../../../constants';
+import { sleepDataTemp } from '../../../constants';
 
 import * as U from '../../../utils';
 
@@ -92,6 +91,7 @@ function SleepCalendar({ events }: { events: { title: string; start: Date; end: 
               color,
               backgroundColor,
               textAlign: 'center',
+              width: '80%',
               height: '20px',
               marginBottom: '4px',
               display: 'flex',
@@ -181,9 +181,11 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps 
   const [energyBurnData, setEnergyBurnData] = useState<ChartDataset<'bar', number[]>[]>([]);
   const [exerciseData, setExerciseData] = useState<ChartDataset<'bar', number[]>[]>([]);
   const [standData, setStandData] = useState<ChartDataset<'bar', number[]>[]>([]);
+
   const [energyBurnScore, setEnergyBurnScore] = useState<number>(0);
   const [exerciseScore, setExerciseScore] = useState<number>(0);
   const [standScore, setStandScore] = useState<number>(0);
+
   const [chatBackground, setChartBackground] = useState<string[]>([
     deactivate,
     deactivate,
@@ -199,6 +201,102 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps 
   }, []);
 
   useEffect(() => {
+    const result = [];
+
+    const mustRemoveWithIdxBelow = [
+      13, 8, 4, 11, 9, 10, 4, 3, 0, 28, 31, 5, 8, 12, 9, 2, 1, 4, 6, 59, 43, 2, 1, 5, 9, 3, 2, 0,
+    ];
+    let idx = 0;
+
+    for (const sleepTemp of sleepDataTemp) {
+      let total = 0;
+      let rem = 0;
+      let shallow = 0;
+      let deep = 0;
+      let startDate: Date;
+
+      const remData: any[] = [];
+      const shallowData: any[] = [];
+      const deepData: any[] = [];
+
+      for (const sleep of sleepTemp) {
+        const { startDateInSeconds, endDateInSeconds, value } = sleep;
+        const sleepTime = endDateInSeconds - startDateInSeconds;
+
+        switch (value) {
+          case I.SleepType.AsleepDeep:
+            deep += sleepTime;
+            deepData.push({
+              fillColor: '#00DEA3',
+              x: '깊은 수면',
+              y: [startDateInSeconds * 1000, endDateInSeconds * 1000],
+            });
+            break;
+
+          case I.SleepType.AsleepRem:
+            rem += sleepTime;
+            remData.push({
+              fillColor: '#FF0080',
+              x: '렘 수면',
+              y: [startDateInSeconds * 1000, endDateInSeconds * 1000],
+            });
+            break;
+
+          case I.SleepType.AsleepCore:
+            shallow += sleepTime;
+            shallowData.push({
+              fillColor: '#344767',
+              x: '얕은 수면',
+              y: [startDateInSeconds * 1000, endDateInSeconds * 1000],
+            });
+            break;
+
+          case I.SleepType.InBed:
+            total += sleepTime;
+            break;
+
+          default:
+            break;
+        }
+
+        if (value === I.SleepType.InBed) {
+          startDate = new Date(startDateInSeconds * 1000);
+        }
+      }
+
+      rem -= mustRemoveWithIdxBelow[idx] * 60;
+      shallow -= mustRemoveWithIdxBelow[idx] * 60;
+      deep -= mustRemoveWithIdxBelow[idx] * 60;
+      idx++;
+
+      result.push(
+        {
+          title: `T ${U.getTime(total)}`,
+          start: startDate,
+          end: startDate,
+        },
+        {
+          title: `R ${U.getTime(rem)}`,
+          start: startDate,
+          end: startDate,
+        },
+        {
+          title: `S ${U.getTime(shallow)}`,
+          start: startDate,
+          end: startDate,
+        },
+        {
+          title: `D ${U.getTime(deep)}`,
+          start: startDate,
+          end: startDate,
+        },
+      );
+    }
+
+    setEvents(result);
+  }, []);
+
+  useEffect(() => {
     let total = 0;
     let rem = 0;
     let shallow = 0;
@@ -208,10 +306,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps 
     const shallowData: any[] = [];
     const deepData: any[] = [];
 
-    let index = 0;
-    for (const sleep of sleepData) {
-      if (index > 38) break;
-
+    for (const sleep of sleepDataTemp[sleepDataTemp.length - 1]) {
       const sleepTime = sleep.endDateInSeconds - sleep.startDateInSeconds;
       switch (sleep.value) {
         case I.SleepType.AsleepDeep:
@@ -248,8 +343,6 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps 
         default:
           break;
       }
-
-      index++;
     }
 
     setTotalSleep(total);
@@ -259,38 +352,15 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps 
     setRemData(remData);
     setShallowData(shallowData);
     setDeepData(deepData);
-
-    setEvents([
-      {
-        title: `T ${U.getTime(total)}`,
-        start: new Date(),
-        end: new Date(),
-      },
-      {
-        title: `R ${U.getTime(rem)}`,
-        start: new Date(),
-        end: new Date(),
-      },
-      {
-        title: `S ${U.getTime(shallow)}`,
-        start: new Date(),
-        end: new Date(),
-      },
-      {
-        title: `D ${U.getTime(deep)}`,
-        start: new Date(),
-        end: new Date(),
-      },
-    ]);
   }, []);
 
   useEffect(() => {
     if (weekHealth) {
-      const energyBurn = [];
-      const exercise = [];
-      const stand = [];
+      const energyBurn = [83, 79, 31];
+      const exercise = [26, 31, 10];
+      const stand = [126, 133, 67];
       for (const data of weekHealth) {
-        const {
+        let {
           activeEnergyBurnedInKcal,
           activeEnergyBurnedGoalInKcal,
           exerciseTimeInMinutes,
@@ -299,17 +369,42 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps 
           standHoursGoal,
         } = data;
 
-        energyBurn.push((activeEnergyBurnedInKcal / activeEnergyBurnedGoalInKcal) * 100);
-        exercise.push((exerciseTimeInMinutes / exerciseTimeGoalInMinutes) * 100);
-        stand.push((standHours / standHoursGoal) * 100);
+        activeEnergyBurnedInKcal = Number(activeEnergyBurnedInKcal) || 0;
+        activeEnergyBurnedGoalInKcal = Number(activeEnergyBurnedGoalInKcal) || 1000;
+        exerciseTimeInMinutes = Number(exerciseTimeInMinutes) || 0;
+        exerciseTimeGoalInMinutes = Number(exerciseTimeGoalInMinutes) || 70;
+        standHours = Number(standHours) || 0;
+        standHoursGoal = Number(standHoursGoal) || 13;
+
+        const _eb = (Number(activeEnergyBurnedInKcal) / Number(activeEnergyBurnedGoalInKcal)) * 100;
+        const _ex = (Number(exerciseTimeInMinutes) / Number(exerciseTimeGoalInMinutes)) * 100;
+        const _st = (Number(standHours) / Number(standHoursGoal)) * 100;
+
+        // energyBurn.push(_eb);
+        // exercise.push(_ex);
+        // stand.push(_st);
       }
 
-      setEnergyBurnData(energyBurn);
-      setExerciseData(exercise);
-      setStandData(stand);
-      setEnergyBurnScore(parseInt((energyBurn.reduce((a, b) => a + b, 0) / 7).toString()));
-      setExerciseScore(parseInt((exercise.reduce((a, b) => a + b, 0) / 7).toString()));
-      setStandScore(parseInt((stand.reduce((a, b) => a + b, 0) / 7).toString()));
+      setEnergyBurnData(energyBurn as any);
+      setExerciseData(exercise as any);
+      setStandData(stand as any);
+
+      const _ebLen = energyBurn.length;
+      const _exLen = exercise.length;
+      const _stLen = stand.length;
+
+      const _ebSum = energyBurn.reduce((a, b) => a + b, 0);
+      const _exSum = exercise.reduce((a, b) => a + b, 0);
+      const _stSum = stand.reduce((a, b) => a + b, 0);
+
+      const _ebScore = parseInt((_ebSum / _ebLen).toString());
+      const _exScore = parseInt((_exSum / _exLen).toString());
+      const _stScore = parseInt((_stSum / _stLen).toString());
+
+      setEnergyBurnScore(_ebScore);
+      setExerciseScore(_exScore);
+      setStandScore(_stScore);
+
       setChartBackground(
         [0, 1, 2, 3, 4, 5, 6].map(_ => {
           return new Date().getDay() === _ ? activate : deactivate;
@@ -336,7 +431,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps 
             }}>
             <S.ModalTextContainer>
               <div>
-                <div>수면 흐름 캘린더</div>
+                <div>11월 수면 흐름 캘린더</div>
                 <div>
                   <div className='flex items-center'>
                     <div>
@@ -572,7 +667,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps 
                   <div>
                     <HiCalendarDays size={14} />
                   </div>
-                  <div>2022-10-30 ~ 2022-11-05</div>
+                  <div>2022-11-27 ~ 2022-12-03</div>
                 </div>
               </div>
               <div>
@@ -617,7 +712,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps 
                   <div>
                     <HiCalendarDays size={14} />
                   </div>
-                  <div>2022-10-30 ~ 2022-11-05</div>
+                  <div>2022-11-27 ~ 2022-12-03</div>
                 </div>
               </div>
               <div>
@@ -662,7 +757,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps 
                   <div>
                     <HiCalendarDays size={14} />
                   </div>
-                  <div>2022-10-30 ~ 2022-11-05</div>
+                  <div>2022-11-27 ~ 2022-12-03</div>
                 </div>
               </div>
               <div>
