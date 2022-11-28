@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  padding: 40px 16px 0;
+  padding: 140px 16px 0;
 `;
 
 export const TitleContainer = styled.div`
