@@ -6,25 +6,23 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import * as C from '../../../constants';
 import * as I from '../../../interfaces';
 import * as S from './styled';
-import day01 from '../../../assets/images/DAY01.png';
-import sunset01 from '../../../assets/images/Sunset01.png';
-import night01 from '../../../assets/images/Night01.png';
-import beauty from '../../../assets/images/beauty.png';
-import beauty2 from '../../../assets/images/beauty2.png';
 import { MEDIA } from '../../../constants';
 
 const { minWidth } = MEDIA;
 
-export default function ShowMeYourNFT() {
+type Props = {
+  collections: I.Product[];
+};
+
+export default function ShowMeYourNFT({ collections }: Props) {
   const isDesktop = useMediaQuery({ minWidth });
 
-  return isDesktop ? <Desktop /> : <Mobile />;
+  return isDesktop ? <Desktop collections={collections} /> : <Mobile />;
 }
 
-function Desktop() {
+function Desktop({ collections }: Props) {
   const location = useLocation();
   const navigate = useNavigate();
-  const [collections, setCollections] = useState<I.Product[]>(null);
   const settings: Settings = {
     dots: false,
     infinite: true,
@@ -61,21 +59,23 @@ function Desktop() {
       </S.Header>
       <div>
         <Slider {...settings}>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '13'))}>
-            <img src={day01} alt='beauty tree' />
-          </S.Img>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '17'))}>
-            <img src={beauty} alt='beauty tree' />
-          </S.Img>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '17'))}>
-            <img src={sunset01} alt='beauty tree' />
-          </S.Img>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '14'))}>
-            <img src={night01} alt='beauty tree' />
-          </S.Img>
-          <S.Img onClick={moveToPath.bind(null, C.PATH.ITEM_DETAIL.PATH.replace(':id', '17'))}>
-            <img src={beauty2} alt='beauty tree' />
-          </S.Img>
+          {collections.map((collection, index) => (
+            <S.Video
+              key={index}
+              onClick={moveToPath.bind(
+                null,
+                C.PATH.ITEM_DETAIL.PATH.replace(':id', collection.id.toString()),
+              )}>
+              <video
+                controls={false}
+                muted={true}
+                autoPlay={true}
+                loop={true}
+                src={
+                  collection.productImages.filter(e => e.mimeType.includes('video'))[0].path
+                }></video>
+            </S.Video>
+          ))}
         </Slider>
       </div>
     </S.Container>
