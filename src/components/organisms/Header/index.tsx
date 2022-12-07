@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Drawer from 'react-modern-drawer';
+import Web3 from 'web3';
+import Web3Utils from 'web3-utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiFillShop } from 'react-icons/ai';
 import {
@@ -189,6 +191,29 @@ function Desktop() {
       const amount = cartItem
         .filter(el => checkCartItems.includes(el.product.id))
         .reduce((acc, cur) => acc + Number(cur.product.price), 0);
+
+      const web3 = new Web3(window.ethereum);
+      const [from] = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      const to = '0xCF0d82Dc749214FC91eE4f2fA177641Ff1EF3891';
+      const nonce = await web3.eth.getTransactionCount(from, 'latest');
+      const value = Web3Utils.toWei(amount.toString(), 'ether');
+      const gasLimit = await web3.eth.estimateGas({
+        to,
+        from,
+        value,
+      });
+      const txConfig = {
+        nonce,
+        to,
+        from,
+        value,
+        gasLimit,
+        gasPrice: 1500000,
+      };
+      const transactionHash = await web3.eth.sendTransaction(txConfig);
+
       const [order, error] = await API.order.create(amount, I.Payment.Cash, checkCartItems);
 
       if (error) {
@@ -290,7 +315,7 @@ function Desktop() {
                       style={{ cursor: 'pointer' }}
                       onClick={moveToPath.bind(null, C.PATH.MARKET_REGISTER)}>
                       <S.InfoIconContainer>
-                        <AiFillShop size={20} />
+                        <AiFillShop size={20} style={{ fill: 'url(#blue-gradient)' }} />
                       </S.InfoIconContainer>
                       <div>에셋 판매</div>
                     </div>
@@ -301,7 +326,7 @@ function Desktop() {
                         C.PATH.MARKET_DETAIL.PATH.replace(':id', user.id.toString()),
                       )}>
                       <S.InfoIconContainer>
-                        <FaGem size={20} />
+                        <FaGem size={20} style={{ fill: 'url(#blue-gradient)' }} />
                       </S.InfoIconContainer>
                       <div>에셋 조회</div>
                     </div>
@@ -309,7 +334,7 @@ function Desktop() {
                       style={{ cursor: 'pointer' }}
                       onClick={moveToPath.bind(null, C.PATH.MARKET_HISTORY.LIST)}>
                       <S.InfoIconContainer>
-                        <FaHistory size={20} />
+                        <FaHistory size={20} style={{ fill: 'url(#blue-gradient)' }} />
                       </S.InfoIconContainer>
                       <div>주문 내역</div>
                     </div>
@@ -323,12 +348,12 @@ function Desktop() {
                   setShowMyInfo(false);
                   setShowWallet(prevState => !prevState);
                 }}>
-                <FaWallet size={26} />
+                <FaWallet size={26} style={{ fill: 'url(#blue-gradient)' }} />
                 {showWallet && (
                   <S.InfoContainer>
                     <div>
                       <S.InfoIconContainer>
-                        <FaUserCircle size={20} />
+                        <FaUserCircle size={20} style={{ fill: 'url(#blue-gradient)' }} />
                       </S.InfoIconContainer>
                       <div>My wallet</div>
                     </div>
@@ -342,11 +367,11 @@ function Desktop() {
                 )}
               </div>
               <div onClick={toggleCart}>
-                <FaShoppingCart size={26} />
+                <FaShoppingCart size={26} style={{ fill: 'url(#blue-gradient)' }} />
                 {cartItem.length > 0 && <div></div>}
               </div>
               <div onClick={toggleWishlist}>
-                <FaHeart size={26} />
+                <FaHeart size={26} style={{ fill: 'url(#blue-gradient)' }} />
                 {wishlistItem.length > 0 && <div></div>}
               </div>
             </S.IconContainer>
@@ -362,7 +387,7 @@ function Desktop() {
           height: 'calc(100vh - 72px)',
           top: '72px',
           background: 'rgba(255, 255, 255, 0.9)',
-          backdropFilter: 'blur(12px)',
+          backdropFilter: 'blur(1px)',
           borderRadius: '12px 0 0 12px',
           padding: '24px',
           overflowY: 'scroll',

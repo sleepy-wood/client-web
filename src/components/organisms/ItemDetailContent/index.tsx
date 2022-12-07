@@ -1,4 +1,6 @@
 import React, { useCallback } from 'react';
+import Web3 from 'web3';
+import Web3Utils from 'web3-utils';
 import { useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -64,6 +66,8 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
       }
 
       dispatch(pushWishlistItem({ wishlistItem }));
+
+      alert('위시리스트에 에셋이 추가되었습니다.');
     },
     [dispatch],
   );
@@ -77,12 +81,36 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
       }
 
       dispatch(pushCartItem({ cartItem }));
+
+      alert('장바구니에 에셋이 추가되었습니다.');
     },
     [dispatch],
   );
 
   const createOrder = useCallback(
     async (amount: number, productId: number, e: React.MouseEvent<HTMLDivElement>) => {
+      const web3 = new Web3(window.ethereum);
+      const [from] = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      const to = '0xCF0d82Dc749214FC91eE4f2fA177641Ff1EF3891';
+      const nonce = await web3.eth.getTransactionCount(from, 'latest');
+      const value = Web3Utils.toWei(amount.toString(), 'ether');
+      const gasLimit = await web3.eth.estimateGas({
+        to,
+        from,
+        value,
+      });
+      const txConfig = {
+        nonce,
+        to,
+        from,
+        value,
+        gasLimit,
+        gasPrice: 1500000,
+      };
+      const transactionHash = await web3.eth.sendTransaction(txConfig);
+
       const [order, error] = await API.order.create(amount, I.Payment.Cash, [productId]);
 
       if (error) {
@@ -160,12 +188,6 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     <div onClick={createOrder.bind(null, Number(product.price), product.id)}>
                       바로 구매
                     </div>
-                    <svg width='0' height='0'>
-                      <linearGradient id='blue-gradient' x1='100%' y1='100%' x2='0%' y2='0%'>
-                        <stop stopColor='#313860' offset='0%' />
-                        <stop stopColor='#151928' offset='100%' />
-                      </linearGradient>
-                    </svg>
                     <div onClick={addCartItem.bind(null, product.id)}>
                       <FaShoppingCart size={24} style={{ fill: 'url(#blue-gradient)' }} />
                     </div>
@@ -239,12 +261,6 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     <div onClick={createOrder.bind(null, Number(product.price), product.id)}>
                       바로 구매
                     </div>
-                    <svg width='0' height='0'>
-                      <linearGradient id='blue-gradient' x1='100%' y1='100%' x2='0%' y2='0%'>
-                        <stop stopColor='#313860' offset='0%' />
-                        <stop stopColor='#151928' offset='100%' />
-                      </linearGradient>
-                    </svg>
                     <div onClick={addCartItem.bind(null, product.id)}>
                       <FaShoppingCart size={24} style={{ fill: 'url(#blue-gradient)' }} />
                     </div>
@@ -323,7 +339,7 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
             <S.ExtraAssets
               style={{
                 gridTemplateColumns: `repeat(auto-fill, ${
-                  recommendProducts[0].category === I.ProductCategory.collection ? '240px' : '200px'
+                  recommendProducts[0].category === I.ProductCategory.collection ? '200px' : '200px'
                 })`,
               }}>
               {recommendProducts.map((recommendProduct, index) =>
@@ -336,6 +352,11 @@ function Desktop({ product, extraProducts, recommendProducts }: Props) {
                     )}>
                     <S.ExtraAssetImg>
                       <img
+                        style={{
+                          borderRadius: '10px',
+                          objectFit: 'cover',
+                          objectPosition: '0 -62px',
+                        }}
                         src={recommendProduct.productImages.filter(e => e.isThumbnail)[0].path}
                         alt='tree'
                       />

@@ -127,7 +127,16 @@ export class Tree {
   id: number;
   treeName: string;
   seedNumber: number;
-  seedType: string;
+  treePipeName: string;
+  barkMaterial: string;
+  sproutGroupId: number;
+  sproutColor1: number;
+  sproutColor2: number;
+  sproutColor3: number;
+  sproutColor4: number;
+  sproutColor5: number;
+  rarity: number;
+  vitality: number;
   landId: number;
   userId: number;
   createdAt: Date;
@@ -135,7 +144,24 @@ export class Tree {
   deletedAt: Date;
   land: Land;
   user: User;
+  product: Product;
   treeGrowths: TreeGrowth[];
+  treeAttachments: TreeAttachment[];
+}
+
+export class TreeAttachment {
+  id: number;
+  filename: string;
+  originalName: string;
+  path: string;
+  mimeType: string;
+  size: number;
+  isThumbnail: boolean;
+  treeId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  tree: Tree;
 }
 
 export class TreeGrowth {
@@ -252,10 +278,14 @@ export class Product {
   hit: number;
   sell: number;
   category: I.ProductCategory;
+  tokenId: number;
+  treeId: number;
   userId: number;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
+  tree: Tree;
+  productSmartContract: ProductSmartContract;
   orderDetails: OrderDetail[];
   productImages: ProductImage[];
   // reviews: Review[];

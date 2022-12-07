@@ -96,8 +96,11 @@ export const MenuContainer = styled.div`
 
   & > div {
     cursor: pointer;
+
     font-size: 18px;
     font-weight: bold;
+
+    color: #313860;
   }
 
   & > div:not(:last-child) {

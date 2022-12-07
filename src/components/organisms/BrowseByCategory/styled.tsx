@@ -70,12 +70,23 @@ export const Category = styled.div`
     border-radius: 0 0 10px 10px;
 
     font-weight: bold;
-    font-size: 32px;
+    font-size: 26px;
 
     color: #04111d;
 
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    & > div:nth-of-type(1) {
+      margin-right: 8px;
+    }
+
+    & > div:nth-of-type(2) {
+      background: linear-gradient(81.62deg, #313860 2.25%, #151928 79.87%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
   }
 `;

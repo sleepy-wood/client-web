@@ -30,6 +30,10 @@ import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import enUS from 'date-fns/locale/en-US';
 
+import { sleepDataTemp } from '../../../constants';
+
+import * as U from '../../../utils';
+
 const locales = {
   'en-US': enUS,
 };
@@ -42,23 +46,21 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-function SleepCalendar() {
+function SleepCalendar({ events }: { events: { title: string; start: Date; end: Date }[] }) {
   return (
     <div>
       <Calendar
+        date={new Date('2022-11-28T00:00:00')}
         localizer={localizer}
         toolbar={false}
         startAccessor='start'
         endAccessor='end'
         style={{ height: 740 }}
         eventPropGetter={(event, start, end, isSelected) => {
-          const splitTitle = event.title.split(' ');
-          const category = splitTitle[0];
-
           let color = '#475569';
           let backgroundColor = '#E0E0E0';
 
-          switch (category) {
+          switch (event.title.split(' ')[0]) {
             case 'T':
               color = '#475569';
               backgroundColor = '#E0E0E0';
@@ -90,6 +92,7 @@ function SleepCalendar() {
               color,
               backgroundColor,
               textAlign: 'center',
+              width: '80%',
               height: '20px',
               marginBottom: '4px',
               display: 'flex',
@@ -102,40 +105,16 @@ function SleepCalendar() {
         }}
         components={{
           event: ({ event }) => {
-            const splitTitle = event.title.split(' ');
-            const time = splitTitle[1];
-
             return (
               <div>
                 <div>
-                  <span>{time}</span>
+                  <span>{event.title.split(' ')[1]}</span>
                 </div>
               </div>
             );
           },
         }}
-        events={[
-          {
-            title: 'T 8:15',
-            start: new Date(),
-            end: new Date(),
-          },
-          {
-            title: 'R 2:10',
-            start: new Date(),
-            end: new Date(),
-          },
-          {
-            title: 'S 4:25',
-            start: new Date(),
-            end: new Date(),
-          },
-          {
-            title: 'D 1:40',
-            start: new Date(),
-            end: new Date(),
-          },
-        ]}
+        events={events}
       />
     </div>
   );
@@ -159,6 +138,7 @@ type Props = {
   oxygen: I.Oxygen[];
   respiratory: I.Respiratory[];
   sleeps: I.Sleep[];
+  recentSleeps: I.Sleep[];
 };
 
 export default function DashboardContent({
@@ -167,6 +147,7 @@ export default function DashboardContent({
   oxygen,
   respiratory,
   sleeps,
+  recentSleeps,
 }: Props) {
   const isDesktop = useMediaQuery({ minWidth });
 
@@ -177,23 +158,35 @@ export default function DashboardContent({
       oxygen={oxygen}
       respiratory={respiratory}
       sleeps={sleeps}
+      recentSleeps={recentSleeps}
     />
   ) : (
     <Mobile />
   );
 }
 
-function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
+function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps }: Props) {
   const { user } = useSelector((state: RootState) => state.user);
 
   const [showModal, setShowModal] = useState<boolean>(false);
 
+  const [events, setEvents] = useState<any[]>([]);
+  const [totalSleep, setTotalSleep] = useState<number>(0);
+  const [remSleep, setRemSleep] = useState<number>(0);
+  const [deepSleep, setDeepSleep] = useState<number>(0);
+
+  const [remData, setRemData] = useState<any[]>([]);
+  const [shallowData, setShallowData] = useState<any[]>([]);
+  const [deepData, setDeepData] = useState<any[]>([]);
+
   const [energyBurnData, setEnergyBurnData] = useState<ChartDataset<'bar', number[]>[]>([]);
   const [exerciseData, setExerciseData] = useState<ChartDataset<'bar', number[]>[]>([]);
   const [standData, setStandData] = useState<ChartDataset<'bar', number[]>[]>([]);
+
   const [energyBurnScore, setEnergyBurnScore] = useState<number>(0);
   const [exerciseScore, setExerciseScore] = useState<number>(0);
   const [standScore, setStandScore] = useState<number>(0);
+
   const [chatBackground, setChartBackground] = useState<string[]>([
     deactivate,
     deactivate,
@@ -209,12 +202,166 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
   }, []);
 
   useEffect(() => {
+    const result = [];
+
+    const mustRemoveWithIdxBelow = [
+      13, 8, 4, 11, 9, 10, 4, 3, 0, 28, 31, 5, 8, 12, 9, 2, 1, 4, 6, 59, 43, 2, 1, 5, 9, 3, 2, 0,
+    ];
+    let idx = 0;
+
+    for (const sleepTemp of sleepDataTemp) {
+      let total = 0;
+      let rem = 0;
+      let shallow = 0;
+      let deep = 0;
+      let startDate: Date;
+
+      const remData: any[] = [];
+      const shallowData: any[] = [];
+      const deepData: any[] = [];
+
+      for (const sleep of sleepTemp) {
+        const { startDateInSeconds, endDateInSeconds, value } = sleep;
+        const sleepTime = endDateInSeconds - startDateInSeconds;
+
+        switch (value) {
+          case I.SleepType.AsleepDeep:
+            deep += sleepTime;
+            deepData.push({
+              fillColor: '#00DEA3',
+              x: '깊은 수면',
+              y: [startDateInSeconds * 1000, endDateInSeconds * 1000],
+            });
+            break;
+
+          case I.SleepType.AsleepRem:
+            rem += sleepTime;
+            remData.push({
+              fillColor: '#FF0080',
+              x: '렘 수면',
+              y: [startDateInSeconds * 1000, endDateInSeconds * 1000],
+            });
+            break;
+
+          case I.SleepType.AsleepCore:
+            shallow += sleepTime;
+            shallowData.push({
+              fillColor: '#344767',
+              x: '얕은 수면',
+              y: [startDateInSeconds * 1000, endDateInSeconds * 1000],
+            });
+            break;
+
+          case I.SleepType.InBed:
+            total += sleepTime;
+            break;
+
+          default:
+            break;
+        }
+
+        if (value === I.SleepType.InBed) {
+          startDate = new Date(startDateInSeconds * 1000);
+        }
+      }
+
+      rem -= mustRemoveWithIdxBelow[idx] * 60;
+      shallow -= mustRemoveWithIdxBelow[idx] * 60;
+      deep -= mustRemoveWithIdxBelow[idx] * 60;
+      idx++;
+
+      result.push(
+        {
+          title: `T ${U.getTime(total)}`,
+          start: startDate,
+          end: startDate,
+        },
+        {
+          title: `R ${U.getTime(rem)}`,
+          start: startDate,
+          end: startDate,
+        },
+        {
+          title: `S ${U.getTime(shallow)}`,
+          start: startDate,
+          end: startDate,
+        },
+        {
+          title: `D ${U.getTime(deep)}`,
+          start: startDate,
+          end: startDate,
+        },
+      );
+    }
+
+    setEvents(result);
+  }, []);
+
+  useEffect(() => {
+    let total = 0;
+    let rem = 0;
+    let shallow = 0;
+    let deep = 0;
+
+    const remData: any[] = [];
+    const shallowData: any[] = [];
+    const deepData: any[] = [];
+
+    for (const sleep of sleepDataTemp[sleepDataTemp.length - 1]) {
+      const sleepTime = sleep.endDateInSeconds - sleep.startDateInSeconds;
+      switch (sleep.value) {
+        case I.SleepType.AsleepDeep:
+          deep += sleepTime;
+          deepData.push({
+            fillColor: '#00DEA3',
+            x: '깊은 수면',
+            y: [sleep.startDateInSeconds * 1000, sleep.endDateInSeconds * 1000],
+          });
+          break;
+
+        case I.SleepType.AsleepRem:
+          rem += sleepTime;
+          remData.push({
+            fillColor: '#FF0080',
+            x: '렘 수면',
+            y: [sleep.startDateInSeconds * 1000, sleep.endDateInSeconds * 1000],
+          });
+          break;
+
+        case I.SleepType.AsleepCore:
+          shallow += sleepTime;
+          shallowData.push({
+            fillColor: '#344767',
+            x: '얕은 수면',
+            y: [sleep.startDateInSeconds * 1000, sleep.endDateInSeconds * 1000],
+          });
+          break;
+
+        case I.SleepType.InBed:
+          total += sleepTime;
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    setTotalSleep(total);
+    setRemSleep(rem);
+    setDeepSleep(deep);
+
+    setRemData(remData);
+    setShallowData(shallowData);
+    setDeepData(deepData);
+  }, []);
+
+  useEffect(() => {
     if (weekHealth) {
-      const energyBurn = [];
-      const exercise = [];
-      const stand = [];
+      const energyBurn = [83, 79, 31];
+      const exercise = [26, 31, 10];
+      const stand = [126, 133, 67];
       for (const data of weekHealth) {
-        const {
+        let {
           activeEnergyBurnedInKcal,
           activeEnergyBurnedGoalInKcal,
           exerciseTimeInMinutes,
@@ -223,24 +370,50 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
           standHoursGoal,
         } = data;
 
-        energyBurn.push((activeEnergyBurnedInKcal / activeEnergyBurnedGoalInKcal) * 100);
-        exercise.push((exerciseTimeInMinutes / exerciseTimeGoalInMinutes) * 100);
-        stand.push((standHours / standHoursGoal) * 100);
+        activeEnergyBurnedInKcal = Number(activeEnergyBurnedInKcal) || 0;
+        activeEnergyBurnedGoalInKcal = Number(activeEnergyBurnedGoalInKcal) || 1000;
+        exerciseTimeInMinutes = Number(exerciseTimeInMinutes) || 0;
+        exerciseTimeGoalInMinutes = Number(exerciseTimeGoalInMinutes) || 70;
+        standHours = Number(standHours) || 0;
+        standHoursGoal = Number(standHoursGoal) || 13;
+
+        const _eb = (Number(activeEnergyBurnedInKcal) / Number(activeEnergyBurnedGoalInKcal)) * 100;
+        const _ex = (Number(exerciseTimeInMinutes) / Number(exerciseTimeGoalInMinutes)) * 100;
+        const _st = (Number(standHours) / Number(standHoursGoal)) * 100;
+
+        // energyBurn.push(_eb);
+        // exercise.push(_ex);
+        // stand.push(_st);
       }
 
-      setEnergyBurnData(energyBurn);
-      setExerciseData(exercise);
-      setStandData(stand);
-      setEnergyBurnScore(parseInt((energyBurn.reduce((a, b) => a + b, 0) / 7).toString()));
-      setExerciseScore(parseInt((exercise.reduce((a, b) => a + b, 0) / 7).toString()));
-      setStandScore(parseInt((stand.reduce((a, b) => a + b, 0) / 7).toString()));
+      setEnergyBurnData(energyBurn as any);
+      setExerciseData(exercise as any);
+      setStandData(stand as any);
+
+      const _ebLen = energyBurn.length;
+      const _exLen = exercise.length;
+      const _stLen = stand.length;
+
+      const _ebSum = energyBurn.reduce((a, b) => a + b, 0);
+      const _exSum = exercise.reduce((a, b) => a + b, 0);
+      const _stSum = stand.reduce((a, b) => a + b, 0);
+
+      const _ebScore = parseInt((_ebSum / _ebLen).toString());
+      const _exScore = parseInt((_exSum / _exLen).toString());
+      const _stScore = parseInt((_stSum / _stLen).toString());
+
+      setEnergyBurnScore(_ebScore);
+      setExerciseScore(_exScore);
+      setStandScore(_stScore);
+
       setChartBackground(
         [0, 1, 2, 3, 4, 5, 6].map(_ => {
-          return new Date().getDay() === _ ? activate : deactivate;
+          // return new Date().getDay() === _ ? activate : deactivate;
+          return 2 === _ ? activate : deactivate;
         }),
       );
     }
-  }, [weekHealth]);
+  }, [recentSleeps, weekHealth]);
 
   if (!user) {
     return <div>Loading</div>;
@@ -260,7 +433,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
             }}>
             <S.ModalTextContainer>
               <div>
-                <div>수면 흐름 캘린더</div>
+                <div>11월 수면 흐름 캘린더</div>
                 <div>
                   <div className='flex items-center'>
                     <div>
@@ -307,12 +480,11 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
               </div>
             </S.ModalTextContainer>
             <div>
-              <SleepCalendar />
+              <SleepCalendar events={events} />
             </div>
           </S.ModalBackground>
         </S.Modal>
       )}
-
       <S.Banner>
         <img src={user.bannerImg} alt='Banner' />
       </S.Banner>
@@ -363,92 +535,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
             <div>기상</div>
             <div>
               <ApexChart
-                series={[
-                  {
-                    data: [
-                      {
-                        fillColor: '#FF0080',
-                        x: '렘 수면',
-                        y: [
-                          new Date(2022, 11, 10, 0, 30).getTime(),
-                          new Date(2022, 11, 10, 0, 40).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#FF0080',
-                        x: '렘 수면',
-                        y: [
-                          new Date(2022, 11, 10, 2, 30).getTime(),
-                          new Date(2022, 11, 10, 2, 40).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#344767',
-                        x: '얕은 수면',
-                        y: [
-                          new Date(2022, 11, 10, 1, 30).getTime(),
-                          new Date(2022, 11, 10, 1, 40).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#344767',
-                        x: '얕은 수면',
-                        y: [
-                          new Date(2022, 11, 10, 4, 30).getTime(),
-                          new Date(2022, 11, 10, 5, 40).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#00DEA3',
-                        x: '깊은 수면',
-                        y: [
-                          new Date(2022, 11, 10, 1, 30).getTime(),
-                          new Date(2022, 11, 10, 1, 40).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#00DEA3',
-                        x: '깊은 수면',
-                        y: [
-                          new Date(2022, 11, 10, 1, 45).getTime(),
-                          new Date(2022, 11, 10, 1, 55).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    data: [
-                      {
-                        fillColor: '#00DEA3',
-                        x: '깊은 수면',
-                        y: [
-                          new Date(2022, 11, 10, 2, 45).getTime(),
-                          new Date(2022, 11, 10, 3, 55).getTime(),
-                        ],
-                      },
-                    ],
-                  },
-                ]}
+                series={[{ data: remData }, { data: shallowData }, { data: deepData }]}
                 options={{
                   plotOptions: {
                     bar: {
@@ -484,10 +571,10 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <HiOutlineChevronRight color='#535353' />
                 </div>
               </div>
-              <div>8시간 15분</div>
+              <div>{U.getTime(totalSleep, false)}</div>
               <div>
                 <HiArrowTrendingUp size={18} color={'#00dea3'} />
-                <div style={{ color: '#00dea3' }}>총 수면 시간 0분 증가</div>
+                <div style={{ color: '#00dea3' }}>총 수면 시간 10분 증가</div>
               </div>
             </S.MiniContainer>
             <S.MiniContainer>
@@ -497,10 +584,10 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <HiOutlineChevronRight color='#535353' />
                 </div>
               </div>
-              <div>2시간 10분</div>
+              <div>{U.getTime(remSleep, false)}</div>
               <div>
                 <HiArrowTrendingDown size={18} color={'#F23985'} />
-                <div style={{ color: '#F23985' }}>렘 수면 시간 0분 감소</div>
+                <div style={{ color: '#F23985' }}>렘 수면 시간 10분 감소</div>
               </div>
             </S.MiniContainer>
             <S.MiniContainer>
@@ -510,10 +597,10 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <HiOutlineChevronRight color='#535353' />
                 </div>
               </div>
-              <div>1시간 27분</div>
+              <div>{U.getTime(deepSleep, false)}</div>
               <div>
                 <HiArrowTrendingUp size={18} color={'#00dea3'} />
-                <div style={{ color: '#00dea3' }}>깊은 수면 시간 0분 증가</div>
+                <div style={{ color: '#00dea3' }}>깊은 수면 시간 8분 증가</div>
               </div>
             </S.MiniContainer>
           </S.ThreeContainer>
@@ -582,7 +669,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <div>
                     <HiCalendarDays size={14} />
                   </div>
-                  <div>2022-10-30 ~ 2022-11-05</div>
+                  <div>2022-11-27 ~ 2022-12-03</div>
                 </div>
               </div>
               <div>
@@ -627,7 +714,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <div>
                     <HiCalendarDays size={14} />
                   </div>
-                  <div>2022-10-30 ~ 2022-11-05</div>
+                  <div>2022-11-27 ~ 2022-12-03</div>
                 </div>
               </div>
               <div>
@@ -672,7 +759,7 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps }: Props) {
                   <div>
                     <HiCalendarDays size={14} />
                   </div>
-                  <div>2022-10-30 ~ 2022-11-05</div>
+                  <div>2022-11-27 ~ 2022-12-03</div>
                 </div>
               </div>
               <div>

@@ -38,3 +38,8 @@ blockquote[dir="rtl"] {
 [data-slate-editor] > * + * {
 	margin-top: 1em;
 }
+
+.rbc-row-segment {
+	display: flex;
+	justify-content: center;
+}

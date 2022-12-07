@@ -1,5 +1,93 @@
 import styled from 'styled-components';
 
+export const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 10000;
+
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #00000070;
+`;
+
+export const ModalBackground = styled.div`
+  width: 1200px;
+  height: 488px;
+  background-color: #fff;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  padding: 32px;
+`;
+
+export const CollectionContainer = styled.div``;
+
+export const CollectionTitle = styled.div`
+  font-weight: 700;
+  font-size: 24px;
+
+  margin-bottom: 16px;
+`;
+
+export const ExtraAssets = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 260px);
+  grid-gap: 32px 32px;
+  justify-content: start;
+`;
+
+export const ExtraAsset = styled.div`
+  width: 260px;
+  height: 360px;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  background: #ffffff;
+  border-width: 1px 1px 2px 1px;
+  border-style: solid;
+  border-color: rgba(210, 210, 210, 0.6);
+  border-radius: 15px;
+`;
+
+export const ExtraAssetImg = styled.div`
+  display: flex;
+  justify-content: center;
+
+  padding-bottom: 4px;
+  & > img {
+    height: 312px;
+    width: calc(100%);
+    object-fit: cover;
+    filter: brightness(1.1);
+  }
+`;
+
+export const ExtraAssetName = styled.div`
+  width: 90%;
+
+  margin-top: 6px;
+  margin-left: 16px;
+
+  font-weight: 600;
+  font-size: 16px;
+  color: #535353;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 export const Container = styled.div`
   width: 100%;
   padding-top: 48px;
@@ -69,6 +157,26 @@ export const FileUploadContainer = styled.div`
 `;
 
 export const FileUploadForm = styled.form``;
+
+export const CollectionLabel = styled.div`
+  display: inline-block;
+  width: 140px;
+  height: 40px;
+  vertical-align: middle;
+
+  text-align: center;
+
+  color: var(--color-text);
+  background-color: #fdfdfd;
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  padding: 6px 10px;
+
+  margin-right: 14px;
+`;
 
 export const FileLabel = styled.label`
   display: inline-block;

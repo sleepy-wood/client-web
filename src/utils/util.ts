@@ -52,3 +52,18 @@ export const checkLogin = (isLogin: boolean): boolean => {
   result = true;
   return result;
 };
+
+export const getTime = (timeSeconds: number, flag = true): string => {
+  const hour = Math.floor(timeSeconds / 3600);
+  let minute: number | string = Math.floor((timeSeconds - hour * 3600) / 60);
+  minute = minute < 10 ? `0${minute}` : minute;
+
+  let result = '';
+  if (flag) {
+    result = `${hour}:${minute}`;
+  } else {
+    result = `${hour}시간 ${minute}분`;
+  }
+
+  return result;
+};

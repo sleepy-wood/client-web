@@ -30,3 +30,16 @@ export const Img = styled.div`
     object-fit: cover;
   }
 `;
+
+export const Video = styled.div`
+  & > video {
+    cursor: pointer;
+    width: 320px;
+    height: 500px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    object-fit: cover;
+  }
+`;

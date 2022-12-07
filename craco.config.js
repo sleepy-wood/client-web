@@ -8,4 +8,14 @@ const {
   POSTCSS_MODES,
 } = require("@craco/craco");
 
-module.exports = {};
+module.exports = {
+  webpack: {
+    configure: {
+      resolve: {
+        fallback: {
+          stream: require.resolve("stream-browserify"),
+        },
+      },
+    },
+  },
+};

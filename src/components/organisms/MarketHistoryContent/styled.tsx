@@ -76,12 +76,11 @@ export const ItemImg = styled.div`
   & > img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
   }
 `;
 
 export const ItemInfoContainer = styled.div`
-  width: 100%;
+  width: calc(100% - 98px);
 `;
 
 export const ItemTitle = styled.div`

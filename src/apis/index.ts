@@ -5,5 +5,6 @@ export * from './health.api';
 export * from './order.api';
 export * from './product.api';
 export * from './review.api';
+export * from './tree.api';
 export * from './user.api';
 export * from './wishlist.api';
