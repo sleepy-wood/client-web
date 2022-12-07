@@ -19,7 +19,7 @@ export const Modal = styled.div`
 
 export const ModalBackground = styled.div`
   width: 1200px;
-  height: calc(100vh - 70px);
+  height: 900px;
   background-color: #fff;
 
   overflow: hidden;

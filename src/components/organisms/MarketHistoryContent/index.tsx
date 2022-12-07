@@ -72,7 +72,7 @@ function Desktop({ history }: Props) {
                             objectPosition:
                               order.orderDetails[0]?.product.category ===
                               I.ProductCategory.collection
-                                ? '0 -68px'
+                                ? '0 -20px'
                                 : 'unset',
                           }}
                           alt={`${order.orderDetails[0]?.product.name}'s represent image`}

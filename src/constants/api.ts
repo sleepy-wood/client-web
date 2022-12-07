@@ -138,5 +138,11 @@ export const APIs = {
         url: '/api/v1/orders/:id',
       },
     },
+    tree: {
+      findAllNotNFTCollection: {
+        method: 'GET',
+        url: '/api/v1/trees/not-nft',
+      },
+    },
   },
 };

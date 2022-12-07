@@ -50,6 +50,7 @@ function SleepCalendar({ events }: { events: { title: string; start: Date; end: 
   return (
     <div>
       <Calendar
+        date={new Date('2022-11-28T00:00:00')}
         localizer={localizer}
         toolbar={false}
         startAccessor='start'
@@ -407,7 +408,8 @@ function Desktop({ weekHealth, heart, oxygen, respiratory, sleeps, recentSleeps 
 
       setChartBackground(
         [0, 1, 2, 3, 4, 5, 6].map(_ => {
-          return new Date().getDay() === _ ? activate : deactivate;
+          // return new Date().getDay() === _ ? activate : deactivate;
+          return 2 === _ ? activate : deactivate;
         }),
       );
     }
