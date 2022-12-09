@@ -38,7 +38,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![project](https://github.com/sleepy-wood/client-web/blob/dev/project.gif)
+<div align="center">
+  <img src="https://github.com/sleepy-wood/client-web/blob/dev/project.gif" alt="project" width=480 />
+</div>
 
 ### Built With
 
