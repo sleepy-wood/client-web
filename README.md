@@ -38,8 +38,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-- 슬리피우드 Web App
-- Written by PIYoung
+![project](https://github.com/sleepy-wood/client-web/blob/dev/project.gif)
 
 ### Built With
 
