@@ -1,4 +1,4 @@
-<img src="https://github.com/sleepy-wood/client-web/blob/dev/client-web.png" alt="banner" />
+![banner](https://github.com/sleepy-wood/client-web/blob/dev/client-web.png)
 
 # client-web
 
