@@ -59,9 +59,9 @@
    - 아토믹 디자인 패턴을 도입하여 서비스의 고유한 타이포그래피, 컬러 팔레트 등 디자인의 기초 요소들을 만들고 이것을 기반으로 한 공통 컴포넌트를 정의하여 페이지 마다 컴포넌트의 동일한 스타일을 적용할 수 있도록 했다.
 
 3) React Modules
-  - Redux의 Global Provider에서 여러 컴포넌트에서 자주 재사용되는 사용자, 장바구니, 위시리스트, 현재 위치 등의 Global State를 관리했다.
-  - styled-components, tailwind, emotion 등의 최신 React Style 모듈을 사용하여 컴포넌트의 스타일을 중복없이 고유하게 관리하여 CSS의 충돌을 제거하고 컴포넌트의 재사용성을 높였다.
-  - 이외에도 검증된 React Module을 활용하여 잠재적으로 발생 가능한 오류를 제거하고 사용자에게 직관적인 UI/UX를 제공했다.
+   - Redux의 Global Provider에서 여러 컴포넌트에서 자주 재사용되는 사용자, 장바구니, 위시리스트, 현재 위치 등의 Global State를 관리했다.
+   - styled-components, tailwind, emotion 등의 최신 React Style 모듈을 사용하여 컴포넌트의 스타일을 중복없이 고유하게 관리하여 CSS의 충돌을 제거하고 컴포넌트의 재사용성을 높였다.
+   - 이외에도 검증된 React Module을 활용하여 잠재적으로 발생 가능한 오류를 제거하고 사용자에게 직관적인 UI/UX를 제공했다.
 
 ### Built With
 
