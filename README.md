@@ -50,6 +50,10 @@
 
 ### Detail
 
+<div align="center">
+  <img src="https://github.com/sleepy-wood/client-web/blob/dev/client-web.drawio.png" alt="project" width=480 />
+</div>
+
 1) 글래스모피즘(Glassmorphism) 스타일
    - 글래스모피즘 스타일의 디자인은 최근 1~2년 사이 가장 주목받고 있는 디자인 스타일 중 하나로써 시각적 계층과 화면의 깊이를 표현하는데 훌륭하다는 평가를 받았다.
    - 반투명 재질 스타일은 유리 재질의 도형이 마치 글자 위에 떠있는 듯한 시각적 효과를 주어 계층의 수직성을 확립하고 개체의 흐림 효과는 마치 공간에 떠있는 듯한 3차원적 효과를 표현할 수 있다.
